@@ -1,2 +1,0 @@
-# brezzaa
-Brezza Shopify Theme
