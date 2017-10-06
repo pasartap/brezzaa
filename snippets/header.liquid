@@ -57,7 +57,7 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 logo-block"> 
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block"> 
           <!-- Header Logo --> 
           <!-- logo --> 
           {% if settings.use_logo %} <a id="logo" href="/"> {{ 'logo_189x48.png' | asset_url | img_tag: shop.name }} </a> {% else %} <a class="logo-title" href="/">{{ settings.logo_text }}</a> {% else %}
@@ -80,11 +80,8 @@
             {% endif %}
             {% endif %} </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mgk-top-cart"> {% if settings.display_wishlist_link1 %}
-          {% if settings.display_wishlist_link1 != blank %}
-          <div class="wishlist"> {% if customer %} <a href="/pages/wishlist"><i class="fa fa-heart"></i></a> {% else %} <a href="/account/login"><i class="fa fa-heart"></i></a> {% endif %} </div>
-          {% endif %}
-          {% endif %}
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mgk-top-cart"> 
+
           
           
           
@@ -108,7 +105,7 @@
               <div class="wrapper-top-cart">
                 <div class="tile_cart trs_bg"> 
                   <!-- shopping cart --> 
-                  <a href="/cart" id="cartToggle"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span class="count">{{ cart.item_count }}</span> </span> <strong>{{ settings.cart_text}}</strong>/ <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
+                  <a href="/cart" id="cartToggle"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span class="count">{{ cart.item_count }}</span> </span> / <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
                   <div id="dropdown-cart" style="display:none">
                     <div class="no-items">
                       <p>It appears that your cart is currently empty!</p>
@@ -141,39 +138,42 @@
               </div>
             </div>
           </div>
+          {% if settings.display_wishlist_link1 %}
+          {% if settings.display_wishlist_link1 != blank %}
+          <div class="wishlist"> {% if customer %} <a href="/pages/wishlist"><i class="fa fa-user"></i></a> {% else %} <a href="/account/login"><i class="fa fa-user"></i></a> {% endif %} </div>
+          {% endif %}
+          {% endif %}
         </div>
+
       </div>
     </div>
   </div>
 
-  <!-- Navigation --> 
-  {% if settings.main_nav != '' %}
-  {% include 'mobile-nav' %}
-  
-    
-      {% if settings.show_sticky_menu %}
-         <div id="navigation"> 
-           <script>
-	/*  sticky header  */
-	jQuery(window).scroll(function() {
-		jQuery(this).scrollTop() > 175 ? jQuery("#navigation").addClass("sticky-header") : jQuery("#navigation").removeClass("sticky-header")
-		
-	});
-</script>
-            {% else %}
+	<!-- Navigation --> 
+	{% if settings.main_nav != '' %}
+  		{% include 'mobile-nav' %}
+	  	{% if settings.show_sticky_menu %}
+        	<div id="navigation"> 
+         		<script>
+				/*  sticky header  */
+				jQuery(window).scroll(function() {
+					if (jQuery(this).scrollTop() > 175) {
+						jQuery("#navigation").addClass("sticky-header");
+						jQuery("#top-bar").show()
+					} else {
+						jQuery("#navigation").removeClass("sticky-header");
+						jQuery("#top-bar").hide();
+					}
+				});
+				</script>
+        {% else %}
             <div id="navigation">  
-              
-              
-                {% endif %}
-               
-               
-  <div id="navigation">       
-               
-    <nav> {% include 'main-nav' %} </nav>
-  </div>
-  {% endif %} 
+        {% endif %}
+        	<div id="navigation"><nav> {% include 'main-nav' %} </nav>  </div>
+	{% endif %} 
 
-
+	<!-- Sticky Top Bar -->
+	<div id="top-bar" class="sticky-topbar" style="display:none"><h1>Toppers</h1><div>
   
 </header>
   
