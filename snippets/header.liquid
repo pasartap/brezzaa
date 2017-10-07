@@ -55,7 +55,7 @@
       </div>
       <!--inner--> 
     </div>
-    <div class="container">
+    <div id="top-bar" class="container">
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block"> 
           <!-- Header Logo --> 
@@ -159,10 +159,10 @@
 				jQuery(window).scroll(function() {
 					if (jQuery(this).scrollTop() > 175) {
 						jQuery("#navigation").addClass("sticky-header");
-						jQuery("#top-bar").show()
+						jQuery("#sticky-topbar").show()
 					} else {
 						jQuery("#navigation").removeClass("sticky-header");
-						jQuery("#top-bar").hide();
+						jQuery("#sticky-topbar").hide();
 					}
 				});
 				</script>
@@ -173,7 +173,7 @@
 	{% endif %} 
 
 	<!-- Sticky Top Bar -->
-	<div id="top-bar" class="sticky-topbar" style="display:none"><h1>Toppers</h1><div>
+	<div id="sticky-topbar" class="sticky-topbar" style="display:none"><h1>Toppers</h1><div>
   
 </header>
   
