@@ -1,0 +1,69 @@
+<div id="sticky-topbar" class="sticky-topbar" style="display:none">
+    <div id="top-bar" class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block">
+                <!-- Header Logo -->
+                <a id="logo" style="margin-top:20px" href="/"> {{ 'logo_white_174x48.png' | asset_url | img_tag: shop.name }} </a>
+                <!-- End Header Logo -->
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 search-block">
+                <div class="search-section"> {% if settings.display_search %} {% if settings.display_search != blank %}
+                    <div class="tile_search trs_bg">
+                        <!-- search form -->
+                        <form id="search_top" class="search-form" action="/search" method="get">
+                            <input id="search-field" type="text" name="q" placeholder="{{ settings.search_placeholder }}" />
+                            <button type="submit" title="Search" class="search-btn-bg" id="submit-button" onclick="javascript:document.getElementById('search_top').submit();"><span class="glyphicon glyphicon-search"></span></button>
+                        </form>
+                    </div>
+                    {% endif %} {% endif %} </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mgk-top-cart">
+                {% comment %}
+                <div class="top-cart-contain pull-right">
+                    <!-- Top Cart -->
+                    <div class="top-header">
+                        <div class="wrapper-top-cart">
+                            <div class="tile_cart trs_bg">
+                                <!-- shopping cart -->
+                                <a href="/cart" id="cartToggle"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span class="count">{{ cart.item_count }}</span> </span> / <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
+                                <div id="dropdown-cart" style="display:none">
+                                    <div class="no-items">
+                                        <p>It appears that your cart is currently empty!</p>
+                                        <!-- <p class="text-continue"><a href="javascript:void(0)">Continue Shopping</a></p> -->
+                                    </div>
+                                    <div class="has-items">
+                                        <ol class="mini-products-list">
+                                            {% for item in cart.items %}
+                                            <li class="item" id="cart-item-{{item.id}}"> <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
+                                                <div class="product-details"> <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
+                                                    <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
+                                                    <div class="option"> {% if item.product.variants.size != 0 %} {% unless item.variant.title contains 'Default' %} <small>{{ item.variant.title }}</small> {% endunless %} {% endif %} </div>
+                                                    <div class="cart-collateral"><span class="money">{{item.price | money}}</span> x {{item.quantity}}</div>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ol>
+                                        <div class="summary">
+                                            <p class="total"> <span class="label" style="color:#000">Total:</span> <span class="money amount">{{cart.total_price | money}}</span> </p>
+                                        </div>
+                                        <div class="actions">
+                                            <button class="btn" onclick="window.location='/checkout'">Checkout</button>
+                                            <p class="text-cart"><a href="/cart">View Cart</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endcomment %}
+                <!-- Account -->
+                <div class="wishlist sticky-user"> {% if customer %} <a href="/account/login" style="background-color:white"><i class="fa fa-user"></i></a> {% else %} <a href="/account/login"  style="background-color:white"><i class="fa fa-user"></i></a> {% endif %} </div>
+                {% comment %}
+                <!-- Location -->
+                <div class="wishlist"> {% if customer %} <a href="/account/login"><i class="fa fa-user"></i></a> {% else %} <a href="/account/login"><i class="fa fa-map-marker"></i></a> {% endif %} </div>
+                {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>

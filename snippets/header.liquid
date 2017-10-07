@@ -82,9 +82,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mgk-top-cart"> 
 
-          
-          
-          
+   
           {% if settings.show_sticky_menu %}
           <div class="top-cart-contain pull-right"> 
              <script>
@@ -99,6 +97,9 @@
                
                             
                 {% endif %}
+			
+
+        <!--<div class="top-cart-contain pull-right"> -->
             <!-- Top Cart -->
             
             <div class="top-header">
@@ -138,13 +139,12 @@
               </div>
             </div>
           </div>
-          {% if settings.display_wishlist_link1 %}
-          {% if settings.display_wishlist_link1 != blank %}
-          <div class="wishlist"> {% if customer %} <a href="/pages/wishlist"><i class="fa fa-user"></i></a> {% else %} <a href="/account/login"><i class="fa fa-user"></i></a> {% endif %} </div>
-          {% endif %}
-          {% endif %}
-        </div>
-
+          <!-- Account -->
+          <div class="wishlist"> {% if customer %} <a href="/account/login"><i class="fa fa-user"></i></a> {% else %} <a href="/account/login"><i class="fa fa-user"></i></a> {% endif %} </div>
+          	{% comment %}
+	        <!-- Location -->
+	        <div class="wishlist"> {% if customer %} <a href="/account/login"><i class="fa fa-user"></i></a> {% else %} <a href="/account/login"><i class="fa fa-map-marker"></i></a> {% endif %} </div>
+	        {% endcomment %}
       </div>
     </div>
   </div>
@@ -173,7 +173,7 @@
 	{% endif %} 
 
 	<!-- Sticky Top Bar -->
-	<div id="sticky-topbar" class="sticky-topbar" style="display:none"><h1>Toppers</h1><div>
+	{% include 'sticky-topbar' %}
   
 </header>
   

@@ -7,7 +7,7 @@
 {% if settings.display_megamenu %}
 {% assign items_list = settings.megamenu_items | split:"," | strip | downcase %}
 {% endif %}
-<div class="container">
+<div class="container top-nav">
 <ul class="site-nav">
   {% for link in linklists.main-menu.links %}
     {% if linklists[link.handle] != empty %}

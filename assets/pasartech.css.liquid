@@ -14,13 +14,21 @@
 }
 
 @media only screen and (max-width:767px) {
-    #top-bar {
-        display: none;
+    #top-bar,
+    #sticky-topbar {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 479px) {
+    #magik-slideshow {
+        margin-top: 50px;
     }
 }
 
 #logo {
-    margin: 18px 0;
+    margin-bottom: 0px;
+    margin-top: 22px;
 }
 
 #search-field,
@@ -48,13 +56,13 @@
 }
 
 .sticky-header {
-    margin-top: 50px !important;
+    margin-top: 68px !important;
     top: 0px !important;
 }
 
 .sticky-topbar {
     position: fixed;
-    height: 50px;
+    height: 70px;
     z-index: 1000;
     display: block;
     top: 0px;
@@ -64,7 +72,33 @@
     border-bottom: 3px solid #60be74;
 }
 
+.sticky-user {
+    margin-right: 170px;
+}
 
+.site-nav {
+    text-align: center;
+}
+
+.top-nav::before {
+    width: 0;
+    height: 0;
+    border-right: 25px solid #60be74;
+    border-top: 27px solid transparent;
+    border-bottom: 27px solid transparent;
+    content: "";
+    position: absolute;
+    margin-left: -24px;
+}
+
+.site-nav>li:first-child>a>span {
+    color: yellow;
+}
+
+.top-cart-contain.sticky-topcart {
+    right: 26px;
+    top: 15px;
+}
 
 
 
@@ -86,7 +120,11 @@
     }
 }
 
-
+#mob-menu {
+    margin: 0px;
+    position: fixed;
+    top: 0;
+}
 
 
 
