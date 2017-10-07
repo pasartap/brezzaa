@@ -85,7 +85,7 @@ header#header {
 .product-view { padding: 15px 0;}
 .pro-head .collection-desc {padding-top: 5px;}
 .pro-head .collection-desc h1 {font-size: 34px;}
-.widget.widget__collections { margin-bottom: 20px;}
+.widget.widget__collections { margin-bottom: 20px}
 .widget {margin: 0 0 20px;}
   
 .hot-deal { margin-top: 18px;}
@@ -1501,9 +1501,10 @@ body {
     margin-top: 4px;}
   .logo-block{width: 30%;}
 .search-block {
-    margin-top: 20px;
+    margin-top: 0px;
     padding-right: 6px;
     width: 70%;
+    position: fixed;
 }
     .article_header h2.article_title, .article_header h2.blog-article_title {
     font: bold 18px/22px "Raleway",sans-serif;

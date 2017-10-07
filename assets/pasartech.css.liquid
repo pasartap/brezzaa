@@ -3,7 +3,7 @@
  */
 
 
-/*	Header 	*/
+/*  Header  */
 
 #header {
     background-image: none !important;
@@ -43,6 +43,7 @@
 
 .sticky-header {
     margin-top: 50px !important;
+    top: 0px !important;
 }
 
 .sticky-topbar {
@@ -55,4 +56,36 @@
     width: 100%;
     transition: all 0.5s;
     border-bottom: 3px solid #60be74;
+}
+
+
+
+/*  Homepage  */
+
+.featured-pro .block-title {
+    border-bottom: none;
+}
+
+.featured-pro .owl-theme .owl-controls {
+    right: -6.5%;
+    top: 25%;
+}
+
+@media only screen and (min-width: 978px) and (max-width:1259px) {
+    .featured-pro .owl-theme .owl-controls {
+        right: -8.5%;
+        top: 32%;
+    }
+}
+
+
+
+/* Footer */
+
+#bottom .social-links h3 {
+    margin-top: 15px;
+}
+
+#footer .social-links ul {
+    margin-top: 7px;
 }
