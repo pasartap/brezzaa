@@ -106,7 +106,7 @@
               <div class="wrapper-top-cart">
                 <div class="tile_cart trs_bg"> 
                   <!-- shopping cart --> 
-                  <a href="/cart" id="cartToggle"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span class="count">{{ cart.item_count }}</span> </span> / <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
+                  <a href="/cart" id="cartToggle"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span id="cart-count" class="count">{{ cart.item_count }}</span> </span> / <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
                   <div id="dropdown-cart" style="display:none">
                     <div class="no-items">
                       <p>It appears that your cart is currently empty!</p>
