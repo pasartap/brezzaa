@@ -179,7 +179,9 @@
                 </div>
                
                 <button class="btn btn-primary add-to-cart-btn" title="Add to Cart" type="submit" name="add" id="add-to-cart" value="Add to Cart"><span>Add to Cart</span></button>
+                {% comment %}
                {% include 'wishlist-product' %}
+               {% endcomment %}
               </div> 
             </div><!-- /.options -->
           </form>
@@ -250,6 +252,7 @@
         </div></div>
       
     </div>
+    {% comment %}
     <div class="pro-tabs">
   <ul class="tabs product-tabs">
     <li> {% if settings.display_pro_desc %}
@@ -313,12 +316,13 @@
        {% endif %}
   </div>    </div>  
 </div>
+{% endcomment %}
   </div>
 
 </div>
-
+{% comment %}
 {% include 'snippet-related-products' %}
-
+{% endcomment %}
 {{ 'jquery.elevatezoom.js' | asset_url | script_tag }}
 <script>
     

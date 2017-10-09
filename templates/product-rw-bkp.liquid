@@ -96,7 +96,9 @@
           </form>
                   {% if settings.display_wishlist %}
         {% if settings.display_wishlist != blank %}
-        {% include 'wishlist-product' %}
+        {% comment %}
+         {% include 'wishlist-product' %}
+         {% endcomment %}
        {% endif %}
         {% endif %}
 
@@ -144,6 +146,7 @@
       {% endif %}
 
     </div>
+    {% comment %}
     <div class="pro-tabs">
   <ul class="tabs">
     <li> {% if settings.display_pro_desc %}
@@ -206,10 +209,12 @@
   </div>    
 </div>
   </div>
-
+{% endcomment %}
 </div>
 
+{% comment %}
 {% include 'snippet-related-products' %}
+{% endcomment %}
 
 {{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
 

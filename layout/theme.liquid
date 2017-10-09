@@ -187,13 +187,16 @@ filter: none;
       {% endif %} 
       {% endif %}
       
-      
+      {% comment %} 
       {% if width_sidebars == true %}
       {% assign content_width = settings.content_width %}
       {% else %}
       {% assign content_width = 12 %}
       {% endif %} 
-      
+      {% endcomment %}
+       
+      {% assign content_width = 12 %}
+
       <!-- center column -->
       <div id="main_content" class="col-main col-sm-{{ content_width }}"> 
         <!-- collection-header --> 
