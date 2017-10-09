@@ -821,7 +821,17 @@
         "__LIQUID__.btn_primary_bg_hover": "",
         "display_banner1": true,
         "sizechart-desc ": "",
-        "content_for_index": []
+        "content_for_index": [],
+        "homepage_featured_collection_1": "deals",
+        "homepage_featured_collection_2": "meat",
+        "homepage_featured_collection_3": "poultry",
+        "homepage_featured_collection_4": "fish-seafood",
+        "homepage_featured_collection_5": "vegetables-ulam",
+        "homepage_featured_collection_6": "fruits",
+        "homepage_featured_collection_7": "cooking-ingredients",
+        "homepage_featured_collection_8": "spices",
+        "homepage_featured_collection_9": "noodles-beancurd-cooking-supplements",
+        "homepage_featured_collection_10": "fruit-vegetables-juices"
     },
     "presets":
     {}

@@ -212,7 +212,7 @@ input.disabled.sca-qv-cartbtn:hover {
 .sca-qv-image{position:relative;} 
 .sca-qv-image .sca-qv-button {
 	background-color: #555 ;
-	/* width:122px; */
+	 width:122px; 
 	/* height:42px; */
 	padding: 8px 18px !important;
 	display:inline-block !important;
