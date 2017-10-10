@@ -18,13 +18,13 @@
     <div class="des-img">{% if collection.image %} <img src="{{ collection.image.src | img_url: 'original' }}">{% endif %}</div>
     
     
-    
+ {% comment %}   
  {% if collection.description.size > 0 %}
     <div class="rte desc-section">
       {{ collection.description }}
     </div>
      {% endif %}
-    
+{% endcomment %}  
     
     
      

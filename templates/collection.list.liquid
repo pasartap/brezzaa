@@ -9,11 +9,15 @@
 
 
   <div class="grid-item{% if has_sidebar %} large--four-fifths grid-border--left{% endif %}">
+ {% comment %}
  {% if collection.description.size > 0 %}
+    
     <div class="rte desc-section">
       {{ collection.description }}
     </div>
      {% endif %}
+    
+     {% endcomment %}
     <header class="section-header">
       <h1 class="section-header-left">{{ collection.title }}</h1>
       <div class="section-header-right">       

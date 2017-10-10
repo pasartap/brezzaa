@@ -34,6 +34,8 @@
 {{ 'quick_view.css' | asset_url | stylesheet_tag }} 
 {{ 'flexslider.css' | asset_url | stylesheet_tag }} 
 {{ 'revslider.css' | asset_url | stylesheet_tag }}
+{{ 'jquery.mhead.css' | asset_url | stylesheet_tag }}  
+{{ 'jquery.mmenu.all.css' | asset_url | stylesheet_tag }}  
 {{ 'pasartech.css' | asset_url | stylesheet_tag }}  
 
 {{ '//fonts.googleapis.com/css?family=Open+Sans:200,300,400,500,600,700,800' | stylesheet_tag }}
@@ -91,6 +93,8 @@ filter: none;
 {{ 'flexslider.js' | asset_url | script_tag }}
 {{ 'totop.js' | asset_url | script_tag }}
 {{ 'ssb.min.js' | asset_url | script_tag }}
+{{ 'jquery.mhead.js' | asset_url | script_tag }}
+{{ 'jquery.mmenu.all.js' | asset_url | script_tag }}
 {{ 'pasartech.js' | asset_url | script_tag }}
 
 {% include 'sca-quick-view-init' %}
@@ -114,7 +118,7 @@ filter: none;
   
   
   {% if page == pages.frontpage %}
-  <div id="main_content" class="col-main col-sm-12 col-sm-push-3-{{ content_width }}"> {% if template == 'collection' %}
+  <div id="main_content" class="col-main col-sm-12 col-sm-push-3-12"> {% if template == 'collection' %}
     {% include 'collection.list' %}
     
     {% else %}

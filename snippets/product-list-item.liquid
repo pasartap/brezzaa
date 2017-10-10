@@ -40,7 +40,13 @@
          
         </div>
         
-<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+<span style="color:grey">
+    {% if product.first_available_variant.option1 != 'Default Title' %}
+      {{ product.first_available_variant.option1 }}
+    {% else %}
+      {{ product.first_available_variant.weight | weight_with_unit }}
+    {% endif %}            
+  </span>
         
          {% include 'color-switch' %}
    

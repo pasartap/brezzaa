@@ -9,17 +9,49 @@
     background-image: none !important;
 }
 
+
+
 /*
 .header-top {
     display: none;
 }
 */
 
+.site-nav::before,
+.top-nav::before,
+.site-nav::after {
+    display: none !important;
+}
+
 @media only screen and (max-width:767px) {
+    .header-top,
     #top-bar,
     #sticky-topbar {
         display: none !important;
     }
+}
+
+
+/* mmenu */
+
+@media(min-width: 601px) {
+    .mh-head {
+        display: none;
+    }
+}
+
+.mh-head {
+    background-color: #60be74;
+}
+
+#sticky-mmenu {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.mh-head .mh-btns-right {
+    right: 0px;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 479px) {
@@ -55,6 +87,10 @@
     border-left: 1px #f1f1f1 solid !important;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
+}
+
+.search-section {
+    margin-left: 15px;
 }
 
 .sticky-header {
@@ -97,6 +133,10 @@
     color: yellow;
 }
 
+.site-nav-dropdown .col-1 {
+    width: 100%;
+}
+
 .top-cart-contain.sticky-topcart {
     right: 26px;
     top: 15px;
@@ -108,19 +148,29 @@
     top: 0;
 }
 
+
+
 /*  Homepage  */
 
+
 /* Owl Carousel */
+
 .sca-qv-button {
     width: 120px !important;
 }
 
+
+
 /* Widget bestsellers */
+
 .bestsell-pro .block-content {
     padding: 0px;
 }
 
+
+
 /* Meal-Kits */
+
 .featured-pro .block-title {
     border-bottom: none;
 }
@@ -135,7 +185,13 @@
         right: -8.5%;
         top: 32%;
     }
+
+    .tile_search input {
+        width: 355px;
+    }
 }
+
+
 
 
 /* Footer */
@@ -147,3 +203,20 @@
 #footer .social-links ul {
     margin-top: 7px;
 }
+
+
+
+/* Collections page */
+
+.section-header {
+    margin-top: 15px;
+}
+
+
+
+/*
+@media only screen and (max-width:767px) {
+    .breadcrumbs {
+        margin-top: 15px;
+    }
+}*/

@@ -1,0 +1,81 @@
+<div id="sticky-mmenu" class="mm-fixed-top Fixed">
+    <div class="mh-head">
+        <span class="mh-btns-left">
+		<a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
+	</span>
+        <a href="/"> {{ 'logo_white_145x40.png' | asset_url | img_tag: shop.name }} </a>
+        <span class="mh-btns-right">
+		<a href="#shoppingbag"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i></a>
+	</span>
+    </div>
+    <div class="mh-head">
+        <form class="mh-form">
+            <input placeholder="Search" />
+            <a href="#/" class="fa fa-search"></a>
+        </form>
+    </div>
+</div>
+<nav id="sticky-menu">
+    <ul>
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/work">Our work</a></li>
+        <li><span>About us</span>
+            <ul>
+                <li><a href="#/about/history">History</a></li>
+                <li><span>The team</span>
+                    <ul>
+                        <li><a href="#/about/team/management">Management</a></li>
+                        <li><a href="#/about/team/sales">Sales</a></li>
+                        <li><a href="#/about/team/development">Development</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><span>Services</span>
+            <ul>
+                <li><a href="#/services/design">Design</a></li>
+                <li><a href="#/services/development">Development</a></li>
+                <li><a href="#/services/marketing">Marketing</a></li>
+            </ul>
+        </li>
+        <li><a href="#/contact">Contact</a></li>
+    </ul>
+</nav>
+<nav id="shoppingbag">
+    <div>
+        <br />
+        <p>You have no items in your shopping bag.</p>
+    </div>
+</nav>
+<script type="text/javascript">
+$(function() {
+
+    $("#sticky-menu").mmenu({
+        navbar: {
+            title: "sticky-menu"
+        },
+        offCanvas: {
+            position: "left"
+        }
+    });
+
+    $(".mh-head.mm-sticky").mhead({
+        scroll: {
+            hide: 200
+        }
+    });
+    $(".mh-head:not(.mm-sticky)").mhead({
+        scroll: false
+    });
+
+
+    $("#shoppingbag").mmenu({
+        navbar: {
+            title: "shoppingbag"
+        },
+        offCanvas: {
+            position: "right"
+        }
+    });
+});
+</script>
