@@ -1,61 +1,109 @@
 <div id="sticky-mmenu" class="mm-fixed-top Fixed">
     <div class="mh-head">
         <span class="mh-btns-left">
-		<a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
-	</span>
+            <a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
+        </span>
         <a href="/"> {{ 'logo_white_145x40.png' | asset_url | img_tag: shop.name }} </a>
         <span class="mh-btns-right">
-		<a href="#sticky-cart"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i></a>
-	</span>
+            <a href="#sticky-cart"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i></a>
+        </span>
     </div>
     <div class="mh-head">
-        <form class="mh-form">
-            <input placeholder="Search" />
-            <a href="#/" class="fa fa-search"></a>
+        <form class="mh-form search-form form-inline" action="/search" method="get">
+            <input placeholder="Search" type="text" name="q" />
+            <a href="#" class="fa fa-search" onclick="$(this).closest('form').submit()"></a>
         </form>
     </div>
 </div>
 <nav id="sticky-menu">
     <ul>
-        <li><a href="#/">Home</a></li>
-        <li><a href="#/work">Our work</a></li>
-        <li><span>About us</span>
+        <li><span>Account</span>
             <ul>
-                <li><a href="#/about/history">History</a></li>
-                <li><span>The team</span>
-                    <ul>
-                        <li><a href="#/about/team/management">Management</a></li>
-                        <li><a href="#/about/team/sales">Sales</a></li>
-                        <li><a href="#/about/team/development">Development</a></li>
-                    </ul>
-                </li>
+                {% if customer %}
+                    <div>
+                        <br />
+                        <h3 style="padding-left:20px">{{ customer.name }}</h3>
+                        <p style="padding-left:20px">{{ customer.email }}</p>
+                    </div>
+                    <li><a href="/account"><span>Account</span></a></li>
+                    <li>{{ '<span>Log out</span>' | customer_logout_link }}</li>
+                {% else %}
+                    <li>{{ "<span>Login</span>" | customer_login_link }}</li>
+                    <li>{{ "<span>Register</span>" | customer_register_link }}</li>
+                {% endif %}
             </ul>
         </li>
-        <li><span>Services</span>
+        <li><span>Products</span>
             <ul>
-                <li><a href="#/services/design">Design</a></li>
-                <li><a href="#/services/development">Development</a></li>
-                <li><a href="#/services/marketing">Marketing</a></li>
+                {% for link in linklists.products.links %}
+                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a>
+                        <ul>
+                            {% for childlink in linklists[link.handle].links %}
+                                <li><a href="{{ childlink.url }}"><span>{{ childlink.title }}</span></a>
+                                    {% comment %}
+                                    <ul>
+                                        {% for childlink2 in linklists.[childlink.handle].links %}
+                                            <li>
+                                                <a href="{{ childlink2.url }}" ><span>{{ childlink2.title }}</span></a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endcomment %}
+                                </li> 
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
             </ul>
         </li>
-        <li><a href="#/contact">Contact</a></li>
-    </ul>
+        <li><span>Information</span>
+            <ul>
+                {% for link in linklists.information.links %}
+                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a></li> 
+                {% endfor %}
+            </ul>
+        </li>
+        <li><span>Customer Service</span>
+            <ul>
+                {% for link in linklists.customer-service.links %}
+                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a></li> 
+                {% endfor %}
+            </ul>
+        </li>
+     </ul>
 </nav>
 <nav id="sticky-cart">
     <div>
         <br />
-        <p>You have no items in your shopping bag.</p>
+        <p>You have no items in your shopping cart.</p>
     </div>
 </nav>
 <script type="text/javascript">
-$(function() {
+$(document).ready(function(){
 
     $("#sticky-menu").mmenu({
+        "extensions": [
+            "multiline",
+            "pagedim-black"
+        ],
         navbar: {
             title: "PasarTap"
         },
         offCanvas: {
             position: "left"
+        }
+    });
+
+    $("#sticky-cart").mmenu({
+        "extensions": [
+            "multiline",
+            "pagedim-black"
+        ],
+        navbar: {
+            title: "Cart"
+        },
+        offCanvas: {
+            position: "right"
         }
     });
 
@@ -68,14 +116,7 @@ $(function() {
         scroll: false
     });
 
-
-    $("#sticky-cart").mmenu({
-        navbar: {
-            title: "Cart"
-        },
-        offCanvas: {
-            position: "right"
-        }
-    });
+    // remove left border issue
+    $(".mm-next").addClass("mm-fullsubopen");
 });
 </script>
