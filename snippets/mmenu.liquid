@@ -73,9 +73,37 @@
      </ul>
 </nav>
 <nav id="sticky-cart">
-    <div>
-        <br />
-        <p>You have no items in your shopping cart.</p>
+    <div class="wrapper-top-cart">
+        <div style="display:block">
+            <!-- shopping cart -->
+            {% if cart.item_count == 0 %}
+                <div class="no-items">
+                    <p>It appears that your cart is currently empty!</p>
+                    <!-- <p class="text-continue"><a href="javascript:void(0)">Continue Shopping</a></p> -->
+                </div>
+            {% else %}
+                <div class="has-items">
+                    <ol>
+                        {% for item in cart.items %}
+                        <li class="item" id="cart-item-{{item.id}}"> <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
+                            <div class="product-details"> <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
+                                <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
+                                <div class="option"> {% if item.product.variants.size != 0 %} {% unless item.variant.title contains 'Default' %} <small>{{ item.variant.title }}</small> {% endunless %} {% endif %} </div>
+                                <div class="cart-collateral"><span class="money">{{item.price | money}}</span> x {{item.quantity}}</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                    <div class="summary">
+                        <p class="total"> <span class="label" style="color:#000">Total:</span> <span class="money amount">{{cart.total_price | money}}</span> </p>
+                    </div>
+                    <div class="actions">
+                        <button class="btn" onclick="window.location='/checkout'">Checkout</button>
+                        <p class="text-cart"><a href="/cart">View Cart</a></p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </nav>
 <script type="text/javascript">
