@@ -10,8 +10,8 @@
             <div class="tile_currency"> {% if settings.show_multiple_currencies %}
               {% include 'snippet-currencies-switcher' %}
               {% endif %} </div>
-            <div class="phone hidden-xs"> {% if settings.display_header_phone %}
-              {% if settings.display_header_phone != blank %} <strong>Call:</strong> <span class="phone-box"><strong>{{ settings.phone_number_text}}</strong> <span>{{ settings.phone_number}} </span></span> {% endif %}
+            <div class="phone hidden-xs"> {% if settings.header_msg %}
+              {% if settings.header_msg != blank %} <span>{{ settings.header_msg}} </span> {% endif %}
               {% endif %}</div>
           </div>
           <div class="col-xs-9 col-sm-6">
@@ -102,7 +102,7 @@
         <!--<div class="top-cart-contain pull-right"> -->
             <!-- Top Cart -->
             
-            <div class="top-header">
+            <div class="top-header top-cart-contain pull-right">
               <div class="wrapper-top-cart">
                 <div class="tile_cart trs_bg"> 
                   <!-- shopping cart --> 

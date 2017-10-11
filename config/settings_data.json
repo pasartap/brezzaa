@@ -831,7 +831,8 @@
         "homepage_featured_collection_7": "cooking-ingredients",
         "homepage_featured_collection_8": "spices",
         "homepage_featured_collection_9": "noodles-beancurd-cooking-supplements",
-        "homepage_featured_collection_10": "fruit-vegetables-juices"
+        "homepage_featured_collection_10": "fruit-vegetables-juices",
+        "header_msg": "Opening hours: Tuesday - Sunday, 9am - 7pm | Order before <strong>3pm<\/strong> for same day delivery"
     },
     "presets":
     {}
