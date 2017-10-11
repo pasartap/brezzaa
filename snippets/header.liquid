@@ -218,7 +218,7 @@ var shopCurrency = '{{ shop.currency }}';
 				var s = e("#cartToggle");
 				if (!i.is(n.target) && i.has(n.target).length === 0 && !s.is(n.target) && s.has(n.target).length === 0) {
 					t.closeDropdownCart();
-					t.closeEmailModalWindow();
+					//t.closeEmailModalWindow();
 				}
 			})
 		}
@@ -445,7 +445,8 @@ var shopCurrency = '{{ shop.currency }}';
       {% else %}
       
         window.formatMoney='{{ shop.money_format }}';
-    //(".carttop .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
+    
+      e(".carttop .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
           
       e("#dropdown-cart .summary .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
     
@@ -473,10 +474,11 @@ var shopCurrency = '{{ shop.currency }}';
 						})
                         
 					});
+					/*
 					if (t.checkNeedToConvertCurrency()) { 
                      
 						Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
-					}
+					}*/
 				}
        
 				t.checkItemsInDropdownCart();
