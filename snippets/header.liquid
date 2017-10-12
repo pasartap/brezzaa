@@ -4,7 +4,7 @@
     <div class="header-top">
       <div class="container">
         <div class="row">
-          <div class="col-xs-3 col-sm-6 currency"> 
+          <div class="col-xs-8 col-sm-8 currency"> 
             
             <!-- currency -->
             <div class="tile_currency"> {% if settings.show_multiple_currencies %}
@@ -14,7 +14,7 @@
               {% if settings.header_msg != blank %} <span>{{ settings.header_msg}} </span> {% endif %}
               {% endif %}</div>
           </div>
-          <div class="col-xs-9 col-sm-6">
+          <div class="col-xs-4 col-sm-4">
             <div class="toplinks">
               <div class="links"> {% if settings.display_account_link %}
                 {% if settings.display_account_link != blank %}
@@ -70,7 +70,7 @@
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 search-block">
           <div class="search-section"> {% if settings.display_search %}
             {% if settings.display_search != blank %}
-            <div class="tile_search trs_bg"> 
+            <div id="search-container" class="tile_search trs_bg"> 
               <!-- search form -->
               <form id="search_top" class="search-form" action="/search" method="get">
                 <input id="search-field" type="text" name="q" placeholder="{{ settings.search_placeholder }}" />
@@ -182,12 +182,6 @@
 <script>
   
 jQuery(document).ready(function() {
-
-//shopify search bar
-/*var urlOpts = {view: "example", type: "product"};
-var containerId = "search-container";
-var input = document.getElementById("search-field");
-input.shopifySearchBar(urlOpts, containerId);*/
 
 var shopCurrency = '{{ shop.currency }}'; 
      
