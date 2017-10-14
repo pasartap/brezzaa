@@ -112,11 +112,29 @@ $(document).ready(function(){
     $("#sticky-menu").mmenu({
         "extensions": [
             "multiline",
-            "pagedim-black"
+            "pagedim-black",
+            "border-none"
         ],
         navbar: {
-            title: "PasarTap"
+            title: ""
         },
+        "navbars": [
+            {
+               "position": "top",
+               "content": [
+                  "<a href='/'> <img src='{{ 'logo_189x48_transparent.png' | asset_img_url: '158x40' }}' /> </a>"
+               ]
+            },
+            {
+               "position": "bottom",
+               "content": [
+                  "{% if settings.show_twitter %} <a class='fa fa-twitter' href='{{ settings.header_social_1_twi }}'</a>{% endif %}",
+                  "{% if settings.show_facebook %} <a class='fa fa-facebook' href='{{ settings.header_social_3_fcb }}'</a>{% endif %}",
+                  "{% if settings.show_linkedin %} <a class='fa fa-linkedin' href='{{ settings.header_social_4_linkedin }}'</a>{% endif %}",
+                  "{% if settings.show_instagram1 %} <a class='fa fa-instagram' href='{{ settings.header_social_4_instagram }}'</a>{% endif %}"
+               ]
+            }
+        ],
         offCanvas: {
             position: "left"
         }
@@ -125,11 +143,15 @@ $(document).ready(function(){
     $("#sticky-cart").mmenu({
         "extensions": [
             "multiline",
-            "pagedim-black"
+            "pagedim-black",
+            "fullscreen"
         ],
         navbar: {
             title: "Cart"
         },
+        navbars: [{
+            content: [ "breadcrumbs", "close" ]
+        }],
         offCanvas: {
             position: "right"
         }
