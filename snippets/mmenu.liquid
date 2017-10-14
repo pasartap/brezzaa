@@ -150,7 +150,10 @@ $(document).ready(function(){
             title: "Cart"
         },
         navbars: [{
-            content: [ "breadcrumbs", "close" ]
+           "position": "top",
+           "content": [
+              "<a href='/'> <img src='{{ 'logo_189x48_transparent.png' | asset_img_url: '158x40' }}' /> </a>"
+           ]
         }],
         offCanvas: {
             position: "right"
