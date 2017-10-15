@@ -95,12 +95,23 @@
                         {% endfor %}
                     </ol>
                     <div class="summary-mobile">
-                        <p class="total"> <span class="label" style="color:#000">Total:</span> <span class="money amount">{{cart.total_price | money}}</span> </p>
+                    <p class="total"> <span style="color:#000; margin-left:10px">Total:</span> <span class="money amount" style="margin-right:10px">{{cart.total_price | money}}</span> </p>
                     </div>
+                    {% comment %}
+                    {% include 'local-delivery-cart' %}
+
+                    For the special instructions to be submitted with order,
+                    they need to use a name attribute set to 'note'. That's case-sensitive.
+                    {% endcomment %}
+                    <div class="cart_instructions">
+                      <p>Add instructions</p>
+                      <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
+                    </div>
+
                     <div class="actions">
-                        <button class="btn" onclick="window.location='/checkout'">Checkout</button>
-                        <p class="text-cart"><a href="/cart">View Cart</a></p>
-                    </div>
+                    <button class="btn-checkout-mobile" style="width:100%" onclick="window.location='/checkout'">Checkout</button>
+                    {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
+                    </div>          
                 </div>
             {% endif %}
         </div>

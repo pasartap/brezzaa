@@ -127,12 +127,23 @@
                         {% endfor %}
                       </ol>
                       <div class="summary">
-                        <p class="total"> <span class="label" style="color:#000">Total:</span> <span class="money amount">{{cart.total_price | money}}</span> </p>
+                        <p class="total"> <span style="color:#000; margin-left:10px">Total:</span> <span class="money amount" style="margin-right:10px">{{cart.total_price | money}}</span> </p>
                       </div>
-                      <div class="actions">
-                        <button class="btn" onclick="window.location='/checkout'">Checkout</button>
-                        <p class="text-cart"><a href="/cart">View Cart</a></p>
-                      </div>
+                      {% comment %}
+                      {% include 'local-delivery-cart' %}
+				      
+				      For the special instructions to be submitted with order,
+				      they need to use a name attribute set to 'note'. That's case-sensitive.
+				      {% endcomment %}
+				      <div class="cart_instructions" style="padding:0 10px">
+					      <p>Add instructions</p>
+					      <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
+				      </div>
+				      
+                      <div class="actions" style="padding:0 10px">
+                        <button class="btn" style="width:100%;margin-bottom:10px;" onclick="window.location='/checkout'">Checkout</button>
+                        {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
+                      </div>              		  
                     </div>
                   </div>
                 </div>
@@ -182,6 +193,9 @@
 <script>
   
 jQuery(document).ready(function() {
+
+autosize(document.querySelectorAll('textarea'));
+document.getElementById("cart-note").rows = "1";
 
 var shopCurrency = '{{ shop.currency }}'; 
      
