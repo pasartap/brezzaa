@@ -74,7 +74,7 @@
 </nav>
 <nav id="sticky-cart">
     <div class="wrapper-top-cart">
-        <div style="display:block">
+        <div id="mobile-cart" style="display:block">
             <!-- shopping cart -->
             {% if cart.item_count == 0 %}
                 <div class="no-items">
@@ -83,7 +83,7 @@
                 </div>
             {% else %}
                 <div class="has-items">
-                    <ol>
+                    <ol class="mini-products-list">
                         {% for item in cart.items %}
                         <li class="item" id="cart-item-{{item.id}}"> <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
                             <div class="product-details"> <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
@@ -94,7 +94,7 @@
                         </li>
                         {% endfor %}
                     </ol>
-                    <div class="summary">
+                    <div class="summary-mobile">
                         <p class="total"> <span class="label" style="color:#000">Total:</span> <span class="money amount">{{cart.total_price | money}}</span> </p>
                     </div>
                     <div class="actions">
@@ -111,6 +111,7 @@ $(document).ready(function(){
 
     $("#sticky-menu").mmenu({
         "extensions": [
+            "theme-white",
             "multiline",
             "pagedim-black",
             "border-none"
@@ -142,6 +143,7 @@ $(document).ready(function(){
 
     $("#sticky-cart").mmenu({
         "extensions": [
+            "theme-white",
             "multiline",
             "pagedim-black",
             "fullscreen"
@@ -153,7 +155,8 @@ $(document).ready(function(){
            "position": "top",
            "content": [
               "<a href='/'> <img src='{{ 'logo_189x48_transparent.png' | asset_img_url: '158x40' }}' /> </a>"
-           ]
+           ],
+           content: [ "breadcrumbs", "close"]
         }],
         offCanvas: {
             position: "right"
@@ -171,5 +174,8 @@ $(document).ready(function(){
 
     // remove left border issue
     $(".mm-next").addClass("mm-fullsubopen");
+
+    // remove quick view class
+    $('li').removeClass('sca-qv-image');
 });
 </script>

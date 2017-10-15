@@ -250,6 +250,14 @@ var shopCurrency = '{{ shop.currency }}';
 					e("#dropdown-cart .has-items").hide();
 					e("#dropdown-cart .no-items").show()
 				}
+
+				if (e("#mobile-cart .mini-products-list").children().length > 0) {
+					e("#mobile-cart .no-items").hide();
+					e("#mobile-cart .has-items").show()
+				} else {
+					e("#mobile-cart .has-items").hide();
+					e("#mobile-cart .no-items").show()
+				}
 			},
 			initModal: function() {
 				e(".continue-shopping").click(function() {
@@ -303,6 +311,15 @@ var shopCurrency = '{{ shop.currency }}';
                     
 					})
                    
+				});
+				e("#mobile-cart a.btn-remove").live("click", function(n) {
+					n.preventDefault();
+					var r = e(this).parents(".item").attr("id");
+					r = r.match(/\d+/g);
+					Shopify.removeItem(r, function(e) {
+						t.doUpdateMobileCart(e);
+					});
+					alert(r);  
 				})
 			},
 			closeDropdownCart: function() {
@@ -412,68 +429,118 @@ var shopCurrency = '{{ shop.currency }}';
 			},
 			updateDropdownCart: function() {
 				Shopify.getCart(function(r) {
-					t.doUpdateDropdownCart(r)
+					t.doUpdateDropdownCart(r);
+					t.doUpdateMobileCart(r);
 				})
 			},
-          
-		
-	doUpdateDropdownCart: function(n) {
-        
-			var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
-			e(".count").text(n.item_count);
-      
-       	{% if settings.show_multiple_currencies %}	
-      
-     e('#currencies > option').each(function() {
-       var curtype = Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, e(this).val()), Currency.money_format[e(this).val()]);
-  
-         e(".carttop .money").attr('data-currency-'+e(this).val(),curtype);
-       e("#dropdown-cart .summary .money").attr('data-currency-'+e(this).val(),curtype);
-});
-     
-                        
-       e(".carttop .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
- 
-      e("#dropdown-cart .summary .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
-		
-      {% else %}
-      
-        window.formatMoney='{{ shop.money_format }}';
-    
-      e(".carttop .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
-          
-      e("#dropdown-cart .summary .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
-    
-     {% endif %}
-  
-      e("#dropdown-cart .mini-products-list").html("");
-				if (n.item_count > 0) {
-					for (var i = 0; i < n.items.length; i++) {
-						var s = r;
-						s = s.replace(/\{ID\}/g, n.items[i].id);
-						s = s.replace(/\{URL\}/g, n.items[i].url);
-						s = s.replace(/\{TITLE\}/g, n.items[i].title);
-						s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
-						s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
-						s = s.replace(/\{PRICE\}/g, Shopify.formatMoney(n.items[i].price, window.formatMoney));
-						e("#dropdown-cart .mini-products-list").append(s)
-					}
-					e("#dropdown-cart .btn-remove").click(function(n) {
-						n.preventDefault();
-						var r = e(this).parents(".item").attr("id");
-						r = r.match(/\d+/g);
-						Shopify.removeItem(r, function(e) {
-							t.doUpdateDropdownCart(e);
-                         
-						})
-                        
+          	doUpdateDropdownCart: function(n) {
+				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
+				e(".count").text(n.item_count);
+	      
+		       	{% if settings.show_multiple_currencies %}	
+		     		e('#currencies > option').each(function() {
+			       		var curtype = Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, e(this).val()), Currency.money_format[e(this).val()]);
+				  		e(".carttop .money").attr('data-currency-'+e(this).val(),curtype);
+			       		e("#dropdown-cart .summary .money").attr('data-currency-'+e(this).val(),curtype);
 					});
-					/*
-					if (t.checkNeedToConvertCurrency()) { 
-                     
-						Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
-					}*/
-				}
+          
+		       		e(".carttop .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
+		 
+		      		e("#dropdown-cart .summary .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
+      			{% else %}
+      
+       				window.formatMoney='{{ shop.money_format }}';
+    
+      				e(".carttop .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
+          
+      				e("#dropdown-cart .summary .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
+    
+     			{% endif %}
+  
+      			e("#dropdown-cart .mini-products-list").html("");
+					if (n.item_count > 0) {
+						for (var i = 0; i < n.items.length; i++) {
+							var s = r;
+							s = s.replace(/\{ID\}/g, n.items[i].id);
+							s = s.replace(/\{URL\}/g, n.items[i].url);
+							s = s.replace(/\{TITLE\}/g, n.items[i].title);
+							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
+							s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
+							s = s.replace(/\{PRICE\}/g, Shopify.formatMoney(n.items[i].price, window.formatMoney));
+							e("#dropdown-cart .mini-products-list").append(s)
+						}
+						e("#dropdown-cart .btn-remove").click(function(n) {
+							n.preventDefault();
+							var r = e(this).parents(".item").attr("id");
+							r = r.match(/\d+/g);
+							Shopify.removeItem(r, function(e) {
+								t.doUpdateDropdownCart(e);
+	                         
+							})
+	                        
+						});
+						/*
+						if (t.checkNeedToConvertCurrency()) { 
+	                     
+							Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
+						}*/
+					}
+       
+				t.checkItemsInDropdownCart();
+             
+			},
+			doUpdateMobileCart: function(n) {
+				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
+				e(".count").text(n.item_count);
+	      
+		       	{% if settings.show_multiple_currencies %}	
+		     		e('#currencies > option').each(function() {
+			       		var curtype = Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, e(this).val()), Currency.money_format[e(this).val()]);
+				  		e(".carttop .money").attr('data-currency-'+e(this).val(),curtype);
+			       		e("#mobile-cart .summary .money").attr('data-currency-'+e(this).val(),curtype);
+					});
+          
+		       		e(".carttop .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
+		 
+		      		e("#mobile-cart .summary .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
+      			{% else %}
+      
+       				window.formatMoney='{{ shop.money_format }}';
+    
+      				e(".carttop .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
+          
+      				e("#mobile-cart .summary .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
+    
+     			{% endif %}
+  
+      			e("#mobile-cart .mini-products-list").html("");
+					if (n.item_count > 0) {
+						for (var i = 0; i < n.items.length; i++) {
+							var s = r;
+							s = s.replace(/\{ID\}/g, n.items[i].id);
+							s = s.replace(/\{URL\}/g, n.items[i].url);
+							s = s.replace(/\{TITLE\}/g, n.items[i].title);
+							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
+							s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
+							s = s.replace(/\{PRICE\}/g, Shopify.formatMoney(n.items[i].price, window.formatMoney));
+							e("#mobile-cart .mini-products-list").append(s)
+						}
+						e("#mobile-cart .btn-remove").click(function(n) {
+							n.preventDefault();
+							var r = e(this).parents(".item").attr("id");
+							r = r.match(/\d+/g);
+							Shopify.removeItem(r, function(e) {
+								t.doUpdateMobileCart(e);
+	                         
+							})
+	                        
+						});
+						/*
+						if (t.checkNeedToConvertCurrency()) { 
+	                     
+							Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
+						}*/
+					}
        
 				t.checkItemsInDropdownCart();
              
