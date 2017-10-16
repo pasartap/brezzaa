@@ -156,9 +156,9 @@
                 <div class="add-quantity"> 
                 
                  <label for="quantity">Quantity: </label>
-              <div class="dec button">-</div>
-              <input type="text" id="quantity" name="quantity" value="1">
-                <div class="inc button">+</div>
+              <div class="dec button"><i class="fa fa-minus" aria-hidden="true"></i></div>
+              <input type="text" id="quantity" name="quantity" value="1" style="border:none; width:40px" readonly>
+                <div class="inc button"><i class="fa fa-plus" aria-hidden="true"></i></div>
               <script>
                 jQuery(".button").on("click", function() {
                   var oldValue = jQuery("#quantity").val(),
@@ -177,9 +177,9 @@
                 });
               </script>
                 </div>
-               
+               {% comment %}
                 <button class="btn btn-primary add-to-cart-btn" title="Add to Cart" type="submit" name="add" id="add-to-cart" value="Add to Cart"><span>Add to Cart</span></button>
-                {% comment %}
+                
                {% include 'wishlist-product' %}
                {% endcomment %}
               </div> 

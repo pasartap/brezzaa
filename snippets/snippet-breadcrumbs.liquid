@@ -15,7 +15,7 @@
            <li>{{ collection.title | link_to_vendor }} <span class="divider">/</span></li>
         {% endif %}
       {% else %}
-        {{ product.type | link_to_type }}        
+        <li>{{ product.type | link_to_type }}<span class="divider">/</span></li>  
       {% endif %}
     <li> <span class="page-title">{{ page_title }}</span></li>
     {% elsif template == "article" %}
