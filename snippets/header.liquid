@@ -116,7 +116,7 @@
                       <ol class="mini-products-list">
                         {% for item in cart.items %}
                         <li class="item" id="cart-item-{{item.id}}"> <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
-                          <div class="product-details"> <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
+                          <div id="product-details-{{item.product_id}}" class="product-details"> <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
                             <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
                             <div class="option"> {% if item.product.variants.size != 0 %}
                               {% unless item.variant.title contains 'Default' %} <small>{{ item.variant.title }}</small> {% endunless %}
@@ -320,11 +320,18 @@ var shopCurrency = '{{ shop.currency }}';
 					n.preventDefault();
 					var r = e(this).parents(".item").attr("id");
 					r = r.match(/\d+/g);
-					Shopify.removeItem(r, function(e) {
-						t.doUpdateDropdownCart(e);
-                    
-					})
-                   
+					// Shopify.removeItem(r, function(e) {
+					// 	t.doUpdateDropdownCart(e);
+					// })
+					
+                   var prod_id = e(this).parent().attr("id");
+				   prod_id = prod_id.match(/\d+/g);
+
+				   var x = document.getElementsByClassName("product-actions-" + prod_id);
+				   if (x.length > 0) {
+				   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
+				  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
+				   }	   
 				});
 				e("#mobile-cart a.btn-remove").live("click", function(n) {
 					n.preventDefault();
@@ -335,6 +342,11 @@ var shopCurrency = '{{ shop.currency }}';
 					});
 					alert(r);  
 				})
+			},
+			displaySingleAddToCartButton: function() {
+				if (e("#dropdown-cart").is(":visible")) {
+					e("#dropdown-cart").slideUp("fast")
+				}
 			},
 			closeDropdownCart: function() {
 				if (e("#dropdown-cart").is(":visible")) {
@@ -403,6 +415,42 @@ var shopCurrency = '{{ shop.currency }}';
 					})
 				}
 
+				/* Plus button event handler */
+				if (e(".btn-add-to-cart").length > 0) {
+					e(".btn-add-to-cart").click(function(n) {
+						n.preventDefault();
+						if (e(this).attr("disabled") != "disabled") {
+							var r = e(this).parents(".product-item");
+							var i = e(r).attr("data-id");
+                          
+							i = i.match(/\d+/g);
+							if (window.ajax_cart) {
+                             
+								e(".product-actions-" + i).submit();
+							} else {
+								var s = e(".product-actions-" + i + " select[name=id]").val();
+                             
+								if (!s) {
+                                 
+									s = e(".product-actions-" + i + " input[name=id]").val()
+								}
+								var o = e(".product-actions-" + i + " input[name=quantity]").val();
+								if (!o) {
+									o = 1
+								}
+                               
+                                var quantity = parseFloat(o) + parseFloat(1);
+								var u = e(r).find(".product-title").text();
+								var a = e(r).find(".product-grid-image img").attr("src");
+								t.doAjaxUpdateCart(s, quantity, u, a)
+
+								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
+							}						
+						}
+						return false;
+					})
+				}
+
 				/* Remove button event handler */
 				if (e(".btn-remove-from-cart").length > 0) {
 					e(".btn-remove-from-cart").click(function(n) {
@@ -426,13 +474,13 @@ var shopCurrency = '{{ shop.currency }}';
 									o = 1
 								}
 
-								var quantity = o - 1;
+								var quantity = parseFloat(o) - parseFloat(1);
                                 var u = e(r).find(".product-title").text();
 								var a = e(r).find(".product-grid-image img").attr("src");
 
 								t.doAjaxUpdateCart(s, quantity, u, a)
 
-								if (o == 1) {
+								if (quantity < 1) {
 						          	e(this).parent().hide();
 							  		e(this).closest('form').find('.single-add-to-cart-button').show();
 						        } else {
