@@ -320,18 +320,19 @@ var shopCurrency = '{{ shop.currency }}';
 					n.preventDefault();
 					var r = e(this).parents(".item").attr("id");
 					r = r.match(/\d+/g);
-					// Shopify.removeItem(r, function(e) {
-					// 	t.doUpdateDropdownCart(e);
-					// })
 					
-                   var prod_id = e(this).parent().attr("id");
-				   prod_id = prod_id.match(/\d+/g);
+					var prod_id = e(this).parent().attr("id");
+					prod_id = prod_id.match(/\d+/g);
 
-				   var x = document.getElementsByClassName("product-actions-" + prod_id);
-				   if (x.length > 0) {
-				   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
-				  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
-				   }	   
+					Shopify.removeItem(r, function(x) {
+						t.doUpdateDropdownCart(x);	
+
+						var x = document.getElementsByClassName("product-actions-" + prod_id);
+					   if (x.length > 0) {
+					   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
+					  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
+					   }	 					
+					})  									
 				});
 				e("#mobile-cart a.btn-remove").live("click", function(n) {
 					n.preventDefault();
@@ -574,7 +575,7 @@ var shopCurrency = '{{ shop.currency }}';
 				})
 			},
           	doUpdateDropdownCart: function(n) {
-				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
+				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div id="product-details-{PRODUCT_ID}" class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
 				e(".count").text(n.item_count);
 	      
 		       	{% if settings.show_multiple_currencies %}	
@@ -602,6 +603,7 @@ var shopCurrency = '{{ shop.currency }}';
 						for (var i = 0; i < n.items.length; i++) {
 							var s = r;
 							s = s.replace(/\{ID\}/g, n.items[i].id);
+							s = s.replace(/\{PRODUCT_ID\}/g, n.items[i].product_id);
 							s = s.replace(/\{URL\}/g, n.items[i].url);
 							s = s.replace(/\{TITLE\}/g, n.items[i].title);
 							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
@@ -630,7 +632,7 @@ var shopCurrency = '{{ shop.currency }}';
              
 			},
 			doUpdateMobileCart: function(n) {
-				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
+				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div id="product-details-{PRODUCT_ID}" class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
 				e(".count").text(n.item_count);
 	      
 		       	{% if settings.show_multiple_currencies %}	
@@ -658,6 +660,7 @@ var shopCurrency = '{{ shop.currency }}';
 						for (var i = 0; i < n.items.length; i++) {
 							var s = r;
 							s = s.replace(/\{ID\}/g, n.items[i].id);
+							s = s.replace(/\{PRODUCT_ID\}/g, n.items[i].product_id);
 							s = s.replace(/\{URL\}/g, n.items[i].url);
 							s = s.replace(/\{TITLE\}/g, n.items[i].title);
 							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
