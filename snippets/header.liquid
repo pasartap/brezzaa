@@ -119,27 +119,24 @@
                           <div id="product-details-{{item.product_id}}" class="product-details"> 
                           	<a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
                             <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
-                            {% comment %}<div class="option"> {% if item.product.variants.size != 0 %}
-                              {% unless item.variant.title contains 'Default' %} <small>{{ item.variant.title }}</small> {% endunless %}
-                              {% endif %}  
-                            </div>{% endcomment %}
                             <div class="cart-collateral" style="color:grey;margin-bottom:10px">
                             	{% if item.product.variants.size != 0 %}
                             		{% unless item.variant.title contains 'Default' %} 
                             			{{ item.variant.title }} | 
                         			{% endunless %}
                               {% endif %}
-                          	  {{item.price | money}}</div>
+                          	  {{item.price | money}}
+                          	</div>
                           </div>
-                          <div class="cart-buttons-in-cart">
-						      <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
-						      <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button>
-						      <input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity" readonly>
-						      <button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                          <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ item.product_id }}" class="addToCartForm product-actions-{{ item.product_id }}">
+						  	<div class="cart-buttons-in-cart">
+						      <input type="hidden" name="id" value="{{ item.id }}" />
+						      <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button><input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity-cart" readonly><button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
 						      <div class="cart-collateral cart-line-item-price">
-						      	<span class="money">{{item.line_price | money}}</span>
-						      </div>	                       
-				    	  </div>                  
+						          <span class="money">{{ item.line_price | money }}</span>
+						      </div>
+						  	</div>
+						  </form>
                         </li>
                         {% endfor %}
                       </ol>
@@ -469,6 +466,42 @@ var shopCurrency = '{{ shop.currency }}';
 					})
 				}
 
+				/* Plus button in cart event handler */
+				if (e(".btn-add-cart").length > 0) {
+					e(".btn-add-cart").click(function(n) {
+						n.preventDefault();
+						if (e(this).attr("disabled") != "disabled") {
+							var r = e(this).closest("form");
+							var i = e(r).attr("data-id");
+
+							i = i.match(/\d+/g);
+							
+							if (window.ajax_cart) {                            
+								e(".product-actions-" + i).submit();
+							} else {
+								var s = e(".product-actions-" + i + " select[name=id]").val();
+                             
+								if (!s) {
+                                 
+									s = e(".product-actions-" + i + " input[name=id]").val()
+								}
+								var o = e(".product-actions-" + i + " input[name=quantity]").val();
+								if (!o) {
+									o = 1
+								}
+                               
+                                var quantity = parseFloat(o) + parseFloat(1);
+								var u = e(r).find(".product-title").text();
+								var a = e(r).find(".product-grid-image img").attr("src");
+								t.doAjaxUpdateCart(s, quantity, u, a)
+
+								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
+							}						
+						}
+						return false;
+					})
+				}
+
 				/* Remove button event handler */
 				if (e(".btn-remove-from-cart").length > 0) {
 					e(".btn-remove-from-cart").click(function(n) {
@@ -592,7 +625,7 @@ var shopCurrency = '{{ shop.currency }}';
 				})
 			},
           	doUpdateDropdownCart: function(n) {
-				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div id="product-details-{PRODUCT_ID}" class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
+				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div id="product-details-{PRODUCT_ID}" class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral" style="color:grey;margin-bottom:10px" >{PRICE}</div></div><form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{PRODUCT_ID}" class="addToCartForm product-actions-{PRODUCT_ID}"><div class="cart-buttons-in-cart"><input type="hidden" name="id" value="{ID}" /><button type="submit" name="minus" class="btn-remove-cart" {DISABLED}><i class="fa fa-minus" aria-hidden="true"></i></button><input type="text" id="quantity" name="quantity" value="{QUANTITY}" class="add-to-cart-quantity-cart" readonly><button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button><div class="cart-collateral cart-line-item-price"><span class="money">{LINE_PRICE}</span></div></div></form></li>';
 				e(".count").text(n.item_count);
 	      
 		       	{% if settings.show_multiple_currencies %}	
@@ -619,13 +652,27 @@ var shopCurrency = '{{ shop.currency }}';
 					if (n.item_count > 0) {
 						for (var i = 0; i < n.items.length; i++) {
 							var s = r;
+							var price = Shopify.formatMoney(n.items[i].price, window.formatMoney);
 							s = s.replace(/\{ID\}/g, n.items[i].id);
 							s = s.replace(/\{PRODUCT_ID\}/g, n.items[i].product_id);
 							s = s.replace(/\{URL\}/g, n.items[i].url);
 							s = s.replace(/\{TITLE\}/g, n.items[i].title);
 							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
 							s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
-							s = s.replace(/\{PRICE\}/g, Shopify.formatMoney(n.items[i].price, window.formatMoney));
+							s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
+
+							if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
+								price =  n.items[i].variant_options[0]  + ' | ' + price;
+							}
+
+							s = s.replace(/\{PRICE\}/g, price);
+
+							if (n.items[i].quantity == 1) {
+								s = s.replace(/\{DISABLED\}/g, 'disabled');
+							} else {
+								s = s.replace(/\{DISABLED\}/g, '');
+							}
+							
 							e("#dropdown-cart .mini-products-list").append(s)
 						}
 						e("#dropdown-cart .btn-remove").click(function(n) {
@@ -646,7 +693,83 @@ var shopCurrency = '{{ shop.currency }}';
 					}
        
 				t.checkItemsInDropdownCart();
-             
+
+				/* Plus button in cart event handler */
+				if (e(".btn-add-cart").length > 0) {
+					e(".btn-add-cart").click(function(n) {
+						n.preventDefault();
+						if (e(this).attr("disabled") != "disabled") {
+							var r = e(this).closest("form");
+							var i = e(r).attr("data-id");
+
+							i = i.match(/\d+/g);
+							
+							if (window.ajax_cart) {                            
+								e(".product-actions-" + i).submit();
+							} else {
+								var s = e(".product-actions-" + i + " select[name=id]").val();
+                             
+								if (!s) {
+                                 
+									s = e(".product-actions-" + i + " input[name=id]").val()
+								}
+								var o = e(".product-actions-" + i + " input[name=quantity]").val();
+								if (!o) {
+									o = 1
+								}
+                               
+                                var quantity = parseFloat(o) + parseFloat(1);
+								var u = e(r).find(".product-title").text();
+								var a = e(r).find(".product-grid-image img").attr("src");
+								t.doAjaxUpdateCart(s, quantity, u, a)
+
+								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
+							}						
+						}
+						return false;
+					})
+				} 
+
+				/* Remove button in cart event handler */
+				if (e(".btn-remove-cart").length > 0) {
+					e(".btn-remove-cart").click(function(n) {
+						n.preventDefault();
+						if (e(this).attr("disabled") != "disabled") {
+							var r = e(this).closest("form");
+							var i = e(r).attr("data-id");
+                          
+							i = i.match(/\d+/g);
+							if (window.ajax_cart) {
+                             
+								e(".product-actions-" + i).submit();
+							} else {
+								var s = e(".product-actions-" + i + " select[name=id]").val();                            
+								if (!s) {
+									s = e(".product-actions-" + i + " input[name=id]").val()
+								}
+								
+								var o = e(".product-actions-" + i + " input[name=quantity]").val();
+								if (!o) {
+									o = 1
+								}
+
+								var quantity = parseFloat(o) - parseFloat(1);
+                                var u = e(r).find(".product-title").text();
+								var a = e(r).find(".product-grid-image img").attr("src");
+
+								t.doAjaxUpdateCart(s, quantity, u, a)
+
+								if (quantity < 1) {
+						          	e(this).parent().hide();
+							  		e(this).closest('form').find('.single-add-to-cart-button').show();
+						        } else {
+						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
+						        }
+							}						
+						}
+						return false;
+					})
+				}  
 			},
 			doUpdateMobileCart: function(n) {
 				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div id="product-details-{PRODUCT_ID}" class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral">{QUANTITY} x <span class="money">{PRICE}</span></div></div></li>';
@@ -676,13 +799,23 @@ var shopCurrency = '{{ shop.currency }}';
 					if (n.item_count > 0) {
 						for (var i = 0; i < n.items.length; i++) {
 							var s = r;
+							var price = Shopify.formatMoney(n.items[i].price, window.formatMoney);
 							s = s.replace(/\{ID\}/g, n.items[i].id);
 							s = s.replace(/\{PRODUCT_ID\}/g, n.items[i].product_id);
 							s = s.replace(/\{URL\}/g, n.items[i].url);
 							s = s.replace(/\{TITLE\}/g, n.items[i].title);
 							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
 							s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
-							s = s.replace(/\{PRICE\}/g, Shopify.formatMoney(n.items[i].price, window.formatMoney));
+							
+							// var variantHtml = price;
+							// {% if n.items[i].product.variants.size != 0 %}
+							// 	{% unless n.items[i].variant.title contains 'Default' %} 
+							// 		price =  n.items[i].variant.title  | price;
+							// 	{% endunless %}
+							// {% endif %}
+
+							s = s.replace(/\{PRICE\}/g, price);
+
 							e("#mobile-cart .mini-products-list").append(s)
 						}
 						e("#mobile-cart .btn-remove").click(function(n) {
