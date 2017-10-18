@@ -119,15 +119,22 @@
                           <div id="product-details-{{item.product_id}}" class="product-details"> 
                           	<a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
                             <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
-                            <div class="option"> {% if item.product.variants.size != 0 %}
+                            {% comment %}<div class="option"> {% if item.product.variants.size != 0 %}
                               {% unless item.variant.title contains 'Default' %} <small>{{ item.variant.title }}</small> {% endunless %}
-                              {% endif %} </div>
-                            <div style="color:grey"><span class="money">{{item.price | money}}</span> x {{item.quantity}}</div>
+                              {% endif %}  
+                            </div>{% endcomment %}
+                            <div class="cart-collateral" style="color:grey;margin-bottom:10px">
+                            	{% if item.product.variants.size != 0 %}
+                            		{% unless item.variant.title contains 'Default' %} 
+                            			{{ item.variant.title }} | 
+                        			{% endunless %}
+                              {% endif %}
+                          	  {{item.price | money}}</div>
                           </div>
                           <div class="cart-buttons-in-cart">
 						      <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
-						      <button type="submit" name="minus" class="btn-remove-cart"><i class="fa fa-minus" aria-hidden="true"></i></button>
-						      {% comment %}<input type="text" id="quantity" name="quantity" value="{{ item_quantity }}" class="add-to-cart-quantity" readonly>{% endcomment %}
+						      <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button>
+						      <input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity" readonly>
 						      <button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
 						      <div class="cart-collateral cart-line-item-price">
 						      	<span class="money">{{item.line_price | money}}</span>
