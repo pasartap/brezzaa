@@ -116,13 +116,23 @@
                       <ol class="mini-products-list">
                         {% for item in cart.items %}
                         <li class="item" id="cart-item-{{item.id}}"> <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
-                          <div id="product-details-{{item.product_id}}" class="product-details"> <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
+                          <div id="product-details-{{item.product_id}}" class="product-details"> 
+                          	<a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
                             <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
                             <div class="option"> {% if item.product.variants.size != 0 %}
                               {% unless item.variant.title contains 'Default' %} <small>{{ item.variant.title }}</small> {% endunless %}
                               {% endif %} </div>
-                            <div class="cart-collateral"><span class="money">{{item.price | money}}</span> x {{item.quantity}}</div>
+                            <div style="color:grey"><span class="money">{{item.price | money}}</span> x {{item.quantity}}</div>
                           </div>
+                          <div class="cart-buttons-in-cart">
+						      <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+						      <button type="submit" name="minus" class="btn-remove-cart"><i class="fa fa-minus" aria-hidden="true"></i></button>
+						      {% comment %}<input type="text" id="quantity" name="quantity" value="{{ item_quantity }}" class="add-to-cart-quantity" readonly>{% endcomment %}
+						      <button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
+						      <div class="cart-collateral cart-line-item-price">
+						      	<span class="money">{{item.line_price | money}}</span>
+						      </div>	                       
+				    	  </div>                  
                         </li>
                         {% endfor %}
                       </ol>
@@ -672,11 +682,19 @@ var shopCurrency = '{{ shop.currency }}';
 							n.preventDefault();
 							var r = e(this).parents(".item").attr("id");
 							r = r.match(/\d+/g);
-							Shopify.removeItem(r, function(e) {
-								t.doUpdateMobileCart(e);
-	                         
+							
+	                        var prod_id = e(this).parent().attr("id");
+							prod_id = prod_id.match(/\d+/g);
+
+							Shopify.removeItem(r, function(x) {
+								t.doUpdateMobileCart(x);	
+
+								var x = document.getElementsByClassName("product-actions-" + prod_id);
+							   if (x.length > 0) {
+							   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
+							  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
+							   }	 					
 							})
-	                        
 						});
 						/*
 						if (t.checkNeedToConvertCurrency()) { 

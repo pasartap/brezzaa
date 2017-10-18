@@ -13,6 +13,7 @@
 
 
 
+
 /*
 .header-top {
     display: none;
@@ -37,6 +38,7 @@
     overflow-y: auto;
     max-height: 500px;
 }
+
 
 
 
@@ -196,6 +198,7 @@ nav#sticky-cart:not( .mm-menu) {
 
 
 
+
 /* Cart */
 
 #dropdown-cart {
@@ -206,6 +209,11 @@ nav#sticky-cart:not( .mm-menu) {
     padding: 0;
     overflow-y: auto;
     max-height: 500px;
+}
+
+.mini-products-list .item {
+    padding: 0;
+    margin-bottom: 10px;
 }
 
 textarea {
@@ -224,7 +232,9 @@ textarea {
 
 .add-to-cart-quantity,
 .btn-remove-from-cart,
-.btn-add-to-cart {
+.btn-add-to-cart,
+.btn-remove-cart,
+.btn-add-cart {
     border: none !important;
     height: 32px;
     width: 32px;
@@ -234,15 +244,39 @@ textarea {
 
 .sca-qv-button,
 .btn-remove-from-cart,
-.btn-add-to-cart {
+.btn-add-to-cart,
+.btn-remove-cart,
+.btn-add-cart {
     color: white !important;
     background-color: #60be74 !important;
+}
+
+.btn-remove-cart,
+.btn-add-cart {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.cart-buttons-in-cart {
+    display: inline-block;
+    width: 70%;
+}
+
+.cart-line-item-price {
+    float: right;
+    margin-top: 30px;
+    margin-right: 5px;
+}
+
+.tile_cart .mini-products-list a {
+    min-height: 32px;
 }
 
 /*.sca-qv-button:hover,
 .btn-add-to-cart:hover {
     background-color: black !important;
 }*/
+
 
 /*  Homepage  */
 
@@ -256,11 +290,13 @@ textarea {
 
 
 
+
 /* Widget bestsellers */
 
 .bestsell-pro .block-content {
     padding: 0px;
 }
+
 
 
 
@@ -290,6 +326,7 @@ textarea {
 
 
 
+
 /* Footer */
 
 #bottom .social-links h3 {
@@ -302,11 +339,13 @@ textarea {
 
 
 
+
 /* Collections page */
 
 .section-header {
     margin-top: 15px;
 }
+
 
 
 
