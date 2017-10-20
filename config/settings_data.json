@@ -832,7 +832,8 @@
         "homepage_featured_collection_8": "spices",
         "homepage_featured_collection_9": "noodles-beancurd-cooking-supplements",
         "homepage_featured_collection_10": "fruit-vegetables-juices",
-        "header_msg": "Opening hours: Tuesday - Sunday, 9am - 7pm | Order before <strong>3pm<\/strong> for same day delivery"
+        "header_msg": "Opening hours: Tuesday - Sunday, 9am - 7pm | Order before <strong>3pm<\/strong> for same day delivery",
+        "cart_information": "Price excludes <strong>10%<\/strong> handling fee and <strong>RM3<\/strong> delivery fee, which is applied at checkout."
     },
     "presets":
     {}

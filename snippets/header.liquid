@@ -141,8 +141,10 @@
                         {% endfor %}
                       </ol>
                       <div class="summary">
-                        <p class="total"> <span style="color:#000; margin-left:10px">Total:</span> <span class="money amount" style="margin-right:10px">{{cart.total_price | money}}</span> </p>
+                        <span style="float:left;margin-left:10px">SUBTOTAL</span> 
+                        <span class="money amount" style="float:right;margin-right:10px">{{cart.total_price | money}}</span>
                       </div>
+                      <p class="cart-info">{{ settings.cart_information }}</p>
                       {% comment %}
                       {% include 'local-delivery-cart' %}
 				      
@@ -784,14 +786,14 @@ var shopCurrency = '{{ shop.currency }}';
           
 		       		e(".carttop .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
 		 
-		      		e("#mobile-cart .summary .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
+		      		e("#mobile-cart .summary-mobile .money").html(Shopify.formatMoney(Currency.convert(n.total_price, shopCurrency, jQuery("#currencies").val()), Currency.money_format[jQuery("#currencies").val()]));
       			{% else %}
       
        				window.formatMoney='{{ shop.money_format }}';
     
       				e(".carttop .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
           
-      				e("#mobile-cart .summary .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
+      				e("#mobile-cart .summary-mobile .money").html(Shopify.formatMoney(n.total_price,window.formatMoney));
     
      			{% endif %}
   
