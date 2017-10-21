@@ -254,7 +254,7 @@ textarea {
 .btn-add-cart {
     border: none !important;
     height: 32px;
-    width: 32px;
+    width: 36px;
     display: inline-block;
     text-align: center;
 }
@@ -263,7 +263,13 @@ textarea {
 .btn-remove-cart,
 .btn-add-cart {
     height: 24px;
-    width: 24px;
+    width: 28px;
+}
+
+.btn-remove-cart,
+.btn-add-cart {
+    margin:0;
+    padding:0;
 }
 
 .sca-qv-button,
@@ -283,8 +289,11 @@ textarea {
 
 @media only screen and (max-width:767px) {
     .cart-buttons-in-cart {
-        width: 62%;
-        float: right;
+        width: auto;
+    }
+
+    .money {
+        font-weight: bold;
     }
 }
 

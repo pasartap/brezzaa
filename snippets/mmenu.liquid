@@ -76,64 +76,63 @@
     <div class="wrapper-top-cart">
         <div id="mobile-cart" style="display:block">
             <!-- shopping cart -->
-            {% if cart.item_count == 0 %}
-                <div class="no-items">
-                    <p>It appears that your cart is currently empty!</p>
-                    <!-- <p class="text-continue"><a href="javascript:void(0)">Continue Shopping</a></p> -->
+            <div class="no-items">
+                <p>It appears that your cart is currently empty!</p>
+                <!-- <p class="text-continue"><a href="javascript:void(0)">Continue Shopping</a></p> -->
+            </div>
+            <div class="has-items">
+                <ol class="mini-products-list">
+                    {% for item in cart.items %}
+                    <li class="item" id="cart-item-{{item.id}}"> 
+                        <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
+                        <div id="product-details-{{item.product_id}}" class="product-details"> 
+                            <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
+                            <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
+                            <div class="cart-collateral" style="color:grey;margin-bottom:10px">
+                            {% if item.product.variants.size != 0 %}
+                                {% unless item.variant.title contains 'Default' %} 
+                                    {{ item.variant.title }} | 
+                                {% endunless %}
+                            {% endif %}
+                            {{item.price | money}}
+                            </div>
+                        </div>
+                      <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ item.product_id }}" class="addToCartForm product-actions-{{ item.product_id }}">
+                        <div class="cart-buttons-in-cart">
+                          <input type="hidden" name="id" value="{{ item.id }}" />
+                          <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button>
+                          <input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity-cart" readonly>
+                          <button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>                            
+                        </div>
+                        <div class="cart-collateral cart-line-item-price">
+                          <span class="money">{{ item.line_price | money }}</span>
+                        </div>
+                      </form>
+                    </li>
+                    {% endfor %}
+                </ol>
+                <div class="summary-mobile">
+                    <span>SUBTOTAL</span> 
+                    <span class="money amount" style="float:right">{{cart.total_price | money}}</span>
                 </div>
-            {% else %}
-                <div class="has-items">
-                    <ol class="mini-products-list">
-                        {% for item in cart.items %}
-                        <li class="item" id="cart-item-{{item.id}}"> 
-                            <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
-                            <div class="product-details"> 
-                                <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
-                                <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
-                                <div class="cart-collateral" style="color:grey;margin-bottom:10px">
-                                {% if item.product.variants.size != 0 %}
-                                    {% unless item.variant.title contains 'Default' %} 
-                                        {{ item.variant.title }} | 
-                                    {% endunless %}
-                                {% endif %}
-                                {{item.price | money}}
-                                </div>
-                            </div>
-                          <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ item.product_id }}" class="addToCartForm product-actions-{{ item.product_id }}">
-                            <div class="cart-buttons-in-cart">
-                              <input type="hidden" name="id" value="{{ item.id }}" />
-                              <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button><input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity-cart" readonly><button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                              <div class="cart-collateral cart-line-item-price">
-                                  <span class="money">{{ item.line_price | money }}</span>
-                              </div>
-                            </div>
-                          </form>
-                        </li>
-                        {% endfor %}
-                    </ol>
-                    <div class="summary-mobile">
-                        <span>SUBTOTAL</span> 
-                        <span class="money amount" style="float:right">{{cart.total_price | money}}</span>
-                    </div>
-                    <div class="cart-info">
-                        <p>{{ settings.cart_information }}</p>
-                    </div>  
-                    {% comment %}
-                    {% include 'local-delivery-cart' %}
+                <div class="cart-info">
+                    <p>{{ settings.cart_information }}</p>
+                </div>  
+                {% comment %}
+                {% include 'local-delivery-cart' %}
 
-                    For the special instructions to be submitted with order,
-                    they need to use a name attribute set to 'note'. That's case-sensitive.
-                    {% endcomment %}
-                    <div class="cart_instructions">
-                      <p>Add instructions</p>
-                      <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
-                    </div>
-                    <div class="actions">
-                        <button class="btn-checkout-mobile" style="width:100%" onclick="window.location='/checkout'">Checkout</button>
-                        {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
-                    </div>          
+                For the special instructions to be submitted with order,
+                they need to use a name attribute set to 'note'. That's case-sensitive.
+                {% endcomment %}
+                <div class="cart_instructions">
+                  <p>Add instructions</p>
+                  <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
                 </div>
-            {% endif %}
+                <div class="actions">
+                    <button class="btn-checkout-mobile" style="width:100%" onclick="window.location='/checkout'">Checkout</button>
+                    {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
+                </div>          
+            </div>
         </div>
     </div>
 </nav>
