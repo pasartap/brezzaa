@@ -345,6 +345,7 @@ var shopCurrency = '{{ shop.currency }}';
 
 						var x = document.getElementsByClassName("product-actions-" + prod_id);
 					   if (x.length > 0) {
+					   		$(".product-actions-" + prod_id).find('#quantity').val(1);
 					   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
 					  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
 					   }	 					
@@ -363,6 +364,7 @@ var shopCurrency = '{{ shop.currency }}';
 
 						var x = document.getElementsByClassName("product-actions-" + prod_id);
 					   if (x.length > 0) {
+					   		$(".product-actions-" + prod_id).find('#quantity').val(1);
 					   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
 					  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
 					   }	 					
@@ -542,12 +544,11 @@ var shopCurrency = '{{ shop.currency }}';
 
 								t.doAjaxUpdateCart(s, quantity, u, a)
 
+								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 								if (quantity < 1) {
 						          	e(this).parent().hide();
 							  		e(this).closest('form').find('.single-add-to-cart-button').show();
-						        } else {
-						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
-						        }
+						        } 
 							}						
 						}
 						return false;
@@ -583,11 +584,10 @@ var shopCurrency = '{{ shop.currency }}';
 
 								t.doAjaxUpdateCart(s, quantity, u, a)
 
+								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 								if (quantity < 1) {
 						          	e(this).parent().hide();
 							  		e(this).closest('form').find('.single-add-to-cart-button').show();
-						        } else {
-						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 						        }
 							}						
 						}
@@ -727,21 +727,6 @@ var shopCurrency = '{{ shop.currency }}';
 							
 							e("#dropdown-cart .mini-products-list").append(s);
 						}
-						e("#dropdown-cart .btn-remove").click(function(n) {
-							n.preventDefault();
-							var r = e(this).parents(".item").attr("id");
-							r = r.match(/\d+/g);
-							Shopify.removeItem(r, function(e) {
-								t.doUpdateDropdownCart(e);
-	                         
-							})
-	                        
-						});
-						/*
-						if (t.checkNeedToConvertCurrency()) { 
-	                     
-							Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
-						}*/
 					}
        
 				t.checkItemsInDropdownCart();
@@ -811,11 +796,10 @@ var shopCurrency = '{{ shop.currency }}';
 
 								t.doAjaxUpdateCart(s, quantity, u, a)
 
+								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 								if (quantity < 1) {
 						          	e(this).parent().hide();
 							  		e(this).closest('form').find('.single-add-to-cart-button').show();
-						        } else {
-						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 						        }
 							}						
 						}
@@ -874,24 +858,6 @@ var shopCurrency = '{{ shop.currency }}';
 
 							e("#mobile-cart .mini-products-list").append(s);
 						}
-						e("#mobile-cart .btn-remove").click(function(n) {
-							n.preventDefault();
-							var r = e(this).parents(".item").attr("id");
-							r = r.match(/\d+/g);
-							
-	                        var prod_id = e(this).parent().attr("id");
-							prod_id = prod_id.match(/\d+/g);
-
-							Shopify.removeItem(r, function(x) {
-								t.doUpdateMobileCart(x);	
-
-								var x = document.getElementsByClassName("product-actions-" + prod_id);
-							   if (x.length > 0) {
-							   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
-							  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
-							   }	 					
-							})
-						});
 						/*
 						if (t.checkNeedToConvertCurrency()) { 
 	                     
