@@ -31,10 +31,6 @@
     }
 }
 
-.mh-head {
-    background-color: #60be74;
-}
-
 #sticky-mmenu {
     position: fixed;
     width: 100%;
@@ -61,6 +57,14 @@ nav#sticky-cart:not( .mm-menu) {
     border: none;
     top: 0;
     height: auto;
+}
+
+.mm-navbar-size-2 {
+    height: 60px;
+}
+
+.mm-hasnavbar-top-2 .mm-panels {
+    top: 60px;
 }
 
 .mm-menu {
@@ -115,7 +119,7 @@ nav#sticky-cart:not( .mm-menu) {
 }
 
 .mgk-top-cart .wishlist a {
-    color: #60be74;
+    color: #50a746;
 }
 
 .wishlist {
@@ -144,10 +148,10 @@ nav#sticky-cart:not( .mm-menu) {
     z-index: 1000;
     display: block;
     top: 0px;
-    background: #60be74;
+    background: #50a746;
     width: 100%;
     transition: all 0.5s;
-    border-bottom: 3px solid #60be74;
+    border-bottom: 3px solid #50a746;
 }
 
 .sticky-user {
@@ -161,7 +165,7 @@ nav#sticky-cart:not( .mm-menu) {
 .top-nav::before {
     width: 0;
     height: 0;
-    border-right: 25px solid #60be74;
+    border-right: 25px solid #50a746;
     border-top: 27px solid transparent;
     border-bottom: 27px solid transparent;
     content: "";
@@ -214,7 +218,7 @@ nav#sticky-cart:not( .mm-menu) {
 }
 
 #dropdown-cart .summary {
-    color: #60be74;
+    color: #50a746;
     font-size: 16px;
     font-weight: 700;
     font-family: 'Open Sans', sans-serif;
@@ -230,7 +234,7 @@ textarea {
 }
 
 .btn-checkout-mobile {
-    background: #60be74;
+    background: #50a746;
     height: 40px;
     border: none;
     color: #fff;
@@ -243,7 +247,7 @@ textarea {
 .add-to-cart-quantity {
     font-weight: bold;
     font-size: 14px;
-    color: #60be74;
+    color: #50a746;
 }
 
 .add-to-cart-quantity-cart,
@@ -278,7 +282,7 @@ textarea {
 .btn-remove-cart,
 .btn-add-cart {
     color: white !important;
-    background-color: #60be74 !important;
+    background-color: #50a746 !important;
 }
 
 .cart-buttons-in-cart {
@@ -304,9 +308,13 @@ textarea {
     display: inline-block;
 }
 
-.mobile-cart {
-    background-color: #60be74 !important;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.16);
+.mh-head {
+   background-color: #50a746 !important; 
+}
+
+.mobile-shadow {
+    background-color: #50a746 !important;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.16);
 }
 
 .mobile-cart-close {

@@ -3,12 +3,12 @@
         <span class="mh-btns-left">
             <a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
         </span>
-        <a href="/"> {{ 'logo_white_145x40.png' | asset_url | img_tag: shop.name }} </a>
+        <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_green.png' | asset_img_url: '2048x575' }}" /> </a>
         <span class="mh-btns-right">
             <a id="sticky-cart-button" href="#sticky-cart"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i></a>
         </span>
     </div>
-    <div class="mh-head">
+    <div class="mh-head mobile-shadow">
         <form class="mh-form search-form form-inline" action="/search" method="get">
             <input placeholder="Search" type="text" name="q" />
             <a href="#" class="fa fa-search" onclick="$(this).closest('form').submit()"></a>
@@ -154,7 +154,7 @@ $(document).ready(function(){
                 height: 2,
                 position: "top",
                 content: [
-                  "<a href='/'> <img src='{{ 'logo_189x48_transparent.png' | asset_img_url: '158x40' }}' /> </a>"
+                  "<a href='/'> <img style='width:142px;height:31px' src='{{ 'logo_transparent.png' | asset_img_url: '4739x1032' }}' /> </a>"
                ]
             },
             {
@@ -207,7 +207,7 @@ $(document).ready(function(){
     $(".mm-next").addClass("mm-fullsubopen");
 
     // change sticky cart css class
-    $("#sticky-cart").find('.mm-navbars-top').addClass("mobile-cart");
+    $("#sticky-cart").find('.mm-navbars-top').addClass("mobile-shadow");
 
     // remove quick view class
     $('li').removeClass('sca-qv-image');
