@@ -189,7 +189,7 @@ $(document).ready(function(){
         navbars: [{
             position: "top",
             content: [
-              "<div style='color:white'><a class='mobile-cart-close' href='#mm-0' aria-owns='mm-0'><i class='fa fa-chevron-left' aria-hidden='true'></i></a></div><div style='float:right'><a href='#' style='float:right;'><span class='carttop sticky-cart-total'> <span class='cart-total-items'><span id='cart-count' class='count'>{{ cart.item_count }}</span> </span> | <span class='money amount' data-total-price='{{ cart.total_price }}'> {{ cart.total_price | money }}</span><i class='fa fa-shopping-cart' style='color:white;margin-right:5px;margin-top:1px'></i> </span></a></div>"
+              "<div style='color:white'><a class='mobile-cart-close' href='#mm-0' aria-owns='mm-0'><i class='fa fa-chevron-left' aria-hidden='true'></i></a></div><div style='float:right'><a href='#' style='float:right;'><span class='carttop sticky-cart-total'> <span class='cart-total-items'><span id='cart-count' class='count'>{{ cart.item_count }}</span> </span> | <span id='cart-total' class='money amount' data-total-price='{{ cart.total_price }}'> {{ cart.total_price | money }}</span><i class='fa fa-shopping-cart' style='color:white;margin-right:5px;margin-top:1px'></i> </span></a></div>"
             ]
         }],
         offCanvas: {
@@ -214,5 +214,55 @@ $(document).ready(function(){
 
     // remove quick view class
     $('li').removeClass('sca-qv-image');
+
+    // check spend
+    var total_price = $("#cart-total").attr('data-total-price');
+    if (total_price > 0 && total_price < 2000) {
+
+        // set checkout button enablement 
+        if (total_price < 2000) {
+            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+        } else {
+            $("#dropdown-cart").find('.btn').removeAttr('disabled');
+            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+        }
+
+        var remaining_amount = parseFloat(2000) - parseFloat(total_price);
+        var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
+        var order_minimum = Shopify.formatMoney(2000,window.formatMoney);
+        var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more to reach the order minimum of <span class ="order-minimum money">' +  order_minimum + '</span></p>';
+
+        if ($("#sticky-cart").find('.spend-notification').length == 0 ) {
+            $("#sticky-cart").find('.mm-navbar').after('<div class="spend-notification">' + spend_text + '</div>');
+        }       
+
+        if ($("#sticky-cart").find('.mm-panels').hasClass("has-spend-notification")) {
+        } else {
+            $("#sticky-cart").find('.mm-panels').addClass("has-spend-notification");
+        }
+
+
+        if ($("#sticky-cart").find('.mm-panels').hasClass("no-spend-notification")) {
+            $("#sticky-cart").find('.mm-panels').removeClass("no-spend-notification");
+        }
+        
+    // } else if (n.total_price > 2000 && n.total_price < 5000) {
+ //         var remaining_amount = parseFloat(5000) - parseFloat(n.total_price);
+ //         var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
+ //         var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more to get free delivery!</span></p>';
+        
+    //  e("#spend-notification").html(spend_text);
+    //  e("#spend-notification").show();
+    } else {
+        if ($("#sticky-cart").find('.mm-panels').hasClass("no-spend-notification")) {   
+        } else {
+            $("#sticky-cart").find('.mm-panels').addClass("no-spend-notification");
+        } 
+
+        if ($("#sticky-cart").find('.mm-panels').hasClass("has-spend-notification")) {
+            $("#sticky-cart").find('.mm-panels').removeClass("has-spend-notification");
+        }
+    }
 });
 </script>
