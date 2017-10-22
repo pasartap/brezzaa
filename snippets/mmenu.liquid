@@ -5,7 +5,10 @@
         </span>
         <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_green.png' | asset_img_url: '2048x575' }}" /> </a>
         <span class="mh-btns-right">
-            <a id="sticky-cart-button" href="#sticky-cart"><i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i></a>
+            <a id="sticky-cart-button" href="#sticky-cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span class="notification-badge count" {% if cart.item_count == 0 %} style="display:none" {% endif %}>{{ cart.item_count }}</span>
+            </a>
         </span>
     </div>
     <div class="mh-head mobile-shadow">

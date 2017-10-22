@@ -275,18 +275,20 @@ var shopCurrency = '{{ shop.currency }}';
 			checkItemsInDropdownCart: function() {
 				if (e("#dropdown-cart .mini-products-list").children().length > 0) {
 					e("#dropdown-cart .no-items").hide();
-					e("#dropdown-cart .has-items").show()
+					e("#dropdown-cart .has-items").show();
 				} else {
 					e("#dropdown-cart .has-items").hide();
-					e("#dropdown-cart .no-items").show()
+					e("#dropdown-cart .no-items").show();
 				}
 
 				if (e("#mobile-cart .mini-products-list").children().length > 0) {
 					e("#mobile-cart .no-items").hide();
-					e("#mobile-cart .has-items").show()
+					e("#mobile-cart .has-items").show();
+					e("#sticky-cart-button .notification-badge").show();
 				} else {
-					e("#mobile-cart .has-items").hide();
-					e("#mobile-cart .no-items").show()
+					e("#mobile-cart .has-items").hide()
+					e("#sticky-cart-button .notification-badge").hide();;
+					e("#mobile-cart .no-items").show();
 				}
 			},
 			initModal: function() {
@@ -543,12 +545,13 @@ var shopCurrency = '{{ shop.currency }}';
 								var a = e(r).find(".product-grid-image img").attr("src");
 
 								t.doAjaxUpdateCart(s, quantity, u, a)
-
-								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
+								
 								if (quantity < 1) {
 						          	e(this).parent().hide();
 							  		e(this).closest('form').find('.single-add-to-cart-button').show();
-						        } 
+						        } else {
+						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
+						        }
 							}						
 						}
 						return false;
@@ -584,10 +587,11 @@ var shopCurrency = '{{ shop.currency }}';
 
 								t.doAjaxUpdateCart(s, quantity, u, a)
 
-								e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 								if (quantity < 1) {
 						          	e(this).parent().hide();
 							  		e(this).closest('form').find('.single-add-to-cart-button').show();
+						        } else {
+						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
 						        }
 							}						
 						}
@@ -832,38 +836,39 @@ var shopCurrency = '{{ shop.currency }}';
      			{% endif %}
   
       			e("#mobile-cart .mini-products-list").html("");
-					if (n.item_count > 0) {
-						for (var i = 0; i < n.items.length; i++) {
-							var s = r;
-							var price = Shopify.formatMoney(n.items[i].price, window.formatMoney);
-							s = s.replace(/\{ID\}/g, n.items[i].id);
-							s = s.replace(/\{PRODUCT_ID\}/g, n.items[i].product_id);
-							s = s.replace(/\{URL\}/g, n.items[i].url);
-							s = s.replace(/\{TITLE\}/g, n.items[i].title);
-							s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
-							s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
-							s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
+				
+				if (n.item_count > 0) {
+					for (var i = 0; i < n.items.length; i++) {
+						var s = r;
+						var price = Shopify.formatMoney(n.items[i].price, window.formatMoney);
+						s = s.replace(/\{ID\}/g, n.items[i].id);
+						s = s.replace(/\{PRODUCT_ID\}/g, n.items[i].product_id);
+						s = s.replace(/\{URL\}/g, n.items[i].url);
+						s = s.replace(/\{TITLE\}/g, n.items[i].title);
+						s = s.replace(/\{QUANTITY\}/g, n.items[i].quantity);
+						s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
+						s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
 
-							if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
-								price =  n.items[i].variant_options[0]  + ' | ' + price;
-							}
-
-							s = s.replace(/\{PRICE\}/g, price);
-
-							if (n.items[i].quantity == 1) {
-								s = s.replace(/\{DISABLED\}/g, 'disabled');
-							} else {
-								s = s.replace(/\{DISABLED\}/g, '');
-							}
-
-							e("#mobile-cart .mini-products-list").append(s);
+						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
+							price =  n.items[i].variant_options[0]  + ' | ' + price;
 						}
-						/*
-						if (t.checkNeedToConvertCurrency()) { 
-	                     
-							Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
-						}*/
+
+						s = s.replace(/\{PRICE\}/g, price);
+
+						if (n.items[i].quantity == 1) {
+							s = s.replace(/\{DISABLED\}/g, 'disabled');
+						} else {
+							s = s.replace(/\{DISABLED\}/g, '');
+						}
+
+						e("#mobile-cart .mini-products-list").append(s);
 					}
+					/*
+					if (t.checkNeedToConvertCurrency()) { 
+                     
+						Currency.convertAll(shopCurrency, jQuery("#currencies").val(), ".top-cart-contain span.money", window.formatMoney)
+					}*/
+				}
        
 				t.checkItemsInDropdownCart();
              
