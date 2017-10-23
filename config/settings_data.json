@@ -306,7 +306,7 @@
         "collection-title": "",
         "collection-desc": "",
         "pagination_limit": "24",
-        "collection_listing_cols": "5",
+        "collection_listing_cols": "6",
         "enable_left_sidebar": false,
         "left_sidebar_width": "3",
         "enable_right_sidebar": false,

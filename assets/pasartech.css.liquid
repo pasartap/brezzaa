@@ -1,6 +1,6 @@
 /*
- * PasarTap CSS customization
- */
+* PasarTap CSS customization
+*/
 
 #header {
     background-image: none !important;
@@ -392,7 +392,150 @@ button[disabled] {
     text-align: center;
 }
 
+
+#main_content .product {
+    overflow: hidden;
+}
+
+#main_content .product.sca-qv-image .sca-qv-button,
+.hot-deal.sca-qv-image .sca-qv-button,
+.owl-carousel .owl-item.sca-qv-image .sca-qv-button,
+#best-seller-block .owl-carousel .owl-item.sca-qv-image .sca-qv-button {
+    border-radius: 0;
+    display: inherit !important;
+    height: 38px !important;
+    left: 102px !important;
+    line-height: 16px !important;
+    padding: 10px 0 6px !important;
+    position: absolute !important;
+    top: 61px !important;
+    width: 34px !important;
+    right: -50px;
+    font-family: "Open Sans", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    transition: all 0.3s ease-out !important;
+    -webkit-transition: all 0.3s ease-out !important;
+    -moz-transition: all 0.3s ease-out !important;
+    -ms-transition: all 0.3s ease-out !important;
+    -o-transition: all 0.3s ease-out !important;
+    right: inherit !important;
+    z-index: 10 !important;
+}
+
+#main_content .product.sca-qv-image .sca-qv-button {
+    border-radius: 0;
+    display: inherit !important;
+    height: 38px !important;
+    left: 81px !important;
+    line-height: 16px !important;
+    padding: 10px 0 6px !important;
+    position: absolute !important;
+    top: 79px !important;
+}
+
+#main_content .product.sca-qv-image .sca-qv-button:before,
+.owl-carousel .owl-item.sca-qv-image .sca-qv-button:before,
+.hot-deal.sca-qv-image .sca-qv-button:before,
+#best-seller-block .owl-carousel .owl-item.sca-qv-image .sca-qv-button:before {
+    content: "\f002";
+    font-family: 'FontAwesome';
+    font-size: 15px;
+    margin-right: 1px;
+    font-weight: normal;
+}
+
+#main_content .product.sca-qv-image:hover .sca-qv-button {
+    right: 0px;
+    transition: all 0.3s ease-in !important;
+    -webkit-transition: all 0.3s ease-in !important;
+    -moz-transition: all 0.3s ease-in !important;
+    -ms-transition: all 0.3s ease-in !important;
+    -o-transition: all 0.3s ease-in !important;
+}
+
+#main_content .product:hover .box-hover {
+    top: 0px;
+  z-index: 10;
+   
+}
+
+#main_content .product:hover .btn.btn-primary,
+.item-inner:hover .btn.btn-primary{
+    background: {{ settings.btn_primary_color_hover }};  
+    color: {{ settings.btn_txt_color_hover }} !important;
+    border: 1px {{ settings.btn_border_color_hover }} solid;
+}
+
+.slider-items-products .item {
+    text-align: center;
+    margin-top: 15px!important
+}
+
 /* Responsive CSS */
+
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    #main_content .product.col-sm-4 {
+        width: 48% !important;
+    }
+
+    .owl-item .item {
+        margin: 10px 0 5px !important;
+    }
+    .bestsell-pro .block-title h2 {
+        font-size: 18px;
+        padding-bottom: 6px;
+    }
+
+    .bestsell-pro .slider-items-products .owl-buttons .owl-next {
+        right: -45px;
+        top: -8px;
+    }
+
+    .bestsell-pro .slider-items-products .owl-buttons .owl-prev {
+        left: 12px;
+        top: -8px;
+    }
+
+    .featured-pro .slider-items-products .owl-buttons .owl-next {
+        right: 20px;
+    }
+
+    .featured-pro .slider-items-products .owl-buttons .owl-prev {
+        left: -45px;
+    }
+
+    .featured-block .item-inner {
+        margin: 0 5px;
+    }
+
+    #main_content .grid-uniform .product {
+        margin: 0;
+        width: 48%;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    #main_content .product.col-sm-4 {
+        width: 48%;
+    }
+
+    #main_content .grid-uniform .product {
+        margin: 0;
+        width: 48%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    #main_content .product.col-sm-4 {
+        width: 31%;
+    }
+    #main_content .grid-uniform .product {
+        margin: 0;
+        width: 25%;
+    }
+}
 
 @media(min-width: 601px) {
     .mh-head {
@@ -450,5 +593,18 @@ button[disabled] {
     }
 
     .mm-page {
-    margin-top: 80px !important;
+        margin-top: 80px !important;
+    }
+
+    .image-item {
+        margin-top: 20px !important;
+    }
+
+    #main_content .product.col-sm-4 {
+        width: 23%;
+    }
+
+    .grid-uniform>[class*="col-sm-4"]:nth-child(3n+1) {
+        clear: inherit;
+    }
 }
