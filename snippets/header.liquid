@@ -108,19 +108,19 @@
                   <!-- shopping cart --> 
                   <a href="/cart" id="cartToggle" style="float:right;"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span id="cart-count" class="count">{{ cart.item_count }}</span> </span> / <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
                   <div id="dropdown-cart" style="display:none">
-                  	<!-- Spend notification --> 
-                  	<div class="spend-notification" {% if cart.total_price == 0 or cart.total_price > 2000 %} style="display:none" {% endif %} >
-             			{% if cart.total_price > 0 and cart.total_price < 2000 %}
+                  	 <!-- Spend notification --> 
+                  	 <div class="spend-notification" {% if cart.total_price == 0 or cart.total_price > 2000 %} style="display:none" {% endif %} >
+             			    {% if cart.total_price > 0 and cart.total_price < 2000 %}
                   			{% assign remaining_amount = 2000 | minus: cart.total_price %}
-          	 				<p class="spend-notification-text">Spend <span class="remaining-amount money">{{ remaining_amount | money }}</span> more to reach the order minimum of <span class ="order-minimum money">{{ 2000 | money }}</span></p>
-		            		{% comment %}{% elsif cart.total_price > 2000 and cart.total_price < 5000 %}
+          	 				    <p class="spend-notification-text">Spend <span class="remaining-amount money">{{ remaining_amount | money }}</span> more to reach the order minimum of <span class ="order-minimum money">{{ 2000 | money }}</span></p>
+		            		    {% comment %}{% elsif cart.total_price > 2000 and cart.total_price < 5000 %}
 		                  	{% assign remaining_amount = 5000 | minus: cart.total_price %}
-		          	 		<p class="spend-notification-text">Spend <span class="remaining-amount money">{{ remaining_amount | money }}</span> more to get free delivery!</span></p>{% endcomment %}	            	    
-	          	 		{% endif %} 
-       	    		</div>	
+		          	 		    <p class="spend-notification-text">Spend <span class="remaining-amount money">{{ remaining_amount | money }}</span> more to get free delivery!</span></p>{% endcomment %}		  
+                      {% endif %} 
+       	    		    </div>	
                     <div class="no-items">
-                      <p>It appears that your cart is currently empty!</p>
-                      <!-- <p class="text-continue"><a href="javascript:void(0)">Continue Shopping</a></p> --> 
+                      <img class="empty-cart-icon" src="{{ 'empty_cart_icon.png' | asset_img_url: '4612x4644' }}" />
+                      <p class = "empty-cart-text" >It appears that your cart is currently empty!</p>
                     </div>
                     <div class="has-items">
 
@@ -198,9 +198,11 @@
 				jQuery(window).scroll(function() {
 					if (jQuery(this).scrollTop() > 175) {
 						jQuery("#navigation").addClass("sticky-header");
+            jQuery(".site-nav-dropdown").addClass("margin-top-3px");
 						jQuery("#sticky-topbar").show();
 					} else {
 						jQuery("#navigation").removeClass("sticky-header");
+            jQuery(".site-nav-dropdown").removeClass("margin-top-3px");
 						jQuery("#sticky-topbar").hide();
 					}
 				});

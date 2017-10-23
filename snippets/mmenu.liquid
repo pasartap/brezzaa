@@ -80,8 +80,8 @@
         <div id="mobile-cart" style="display:block">
             <!-- shopping cart -->
             <div class="no-items">
-                <p>It appears that your cart is currently empty!</p>
-                <!-- <p class="text-continue"><a href="javascript:void(0)">Continue Shopping</a></p> -->
+                <img class="empty-cart-icon" src="{{ 'empty_cart_icon.png' | asset_img_url: '4612x4644' }}" />
+                <p class = "empty-cart-text" >It appears that your cart is currently empty!</p>
             </div>
             <div class="has-items">
                 <ol class="mini-products-list">
@@ -229,8 +229,8 @@ $(document).ready(function(){
         }
 
         var remaining_amount = parseFloat(2000) - parseFloat(total_price);
-        var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
-        var order_minimum = Shopify.formatMoney(2000,window.formatMoney);
+        var amount = Shopify.formatMoney(remaining_amount, '{{shop.money_format}}');
+        var order_minimum = Shopify.formatMoney(2000, '{{shop.money_format}}');
         var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more to reach the order minimum of <span class ="order-minimum money">' +  order_minimum + '</span></p>';
 
         if ($("#sticky-cart").find('.spend-notification').length == 0 ) {
