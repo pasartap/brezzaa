@@ -485,6 +485,26 @@ button[disabled] {
     padding: 7px 20px;
 }
 
+.brand-logo {
+    background-color: white;
+}
+
+.brand-header {
+    margin-top: 30px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #50a746;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.copyright {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
 /* Responsive CSS */
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
@@ -532,6 +552,10 @@ button[disabled] {
         margin: 0;
         width: 48%;
     }
+
+    .brand-header {
+        font-size: 18px;
+    }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -555,6 +579,10 @@ button[disabled] {
     .mh-head,
     #sticky-mmenu {
         display: none;
+    }
+
+    #bottom {
+        padding: 40px 0 0;
     }
 }
 
@@ -615,5 +643,9 @@ button[disabled] {
 
     .grid-uniform>[class*="col-sm-4"]:nth-child(3n+1) {
         clear: inherit;
+    }
+
+    #mc_embed_signup_scroll1 {
+        margin-top: 15px;
     }
 }
