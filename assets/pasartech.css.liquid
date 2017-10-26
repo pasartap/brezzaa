@@ -505,6 +505,21 @@ button[disabled] {
     padding-bottom: 15px;
 }
 
+#product_price {
+    margin-top: 30px;
+    border-bottom: none;
+}
+
+.product_wrap #purchase #add-to-cart {
+    margin-left: 10px;
+    margin-top: 0;
+    background-color: #50a746 !important;
+}
+
+.product_wrap #purchase #quantity {
+    margin: 0;
+}
+
 /* Responsive CSS */
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
@@ -556,6 +571,18 @@ button[disabled] {
     .brand-header {
         font-size: 18px;
     }
+
+    .footer-newsletter #mc_embed_signup1 .button {
+        margin: 10px 0;
+    }
+
+    .footer-newsletter #mc_embed_signup1 .button:hover {
+        padding: 0;
+    }
+
+    #mc-embedded-subscribe1 {
+        margin: 10px 0 0 0 !important;
+    }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -567,11 +594,19 @@ button[disabled] {
         margin: 0;
         width: 31%;
     }
+
+    #mc-embedded-subscribe1 {
+        margin: 0 0 0 10px !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
     #main_content .product.col-sm-4 {
         width: 31%;
+    }
+
+    #mc-embedded-subscribe1 {
+        margin: 0 0 0 10px !important;
     }
 }
 
@@ -594,6 +629,20 @@ button[disabled] {
 
     .tile_search input {
         width: 355px;
+    }
+
+    #footer .newsletter-wrap {
+        margin: 0;
+        width: 100%;
+    }
+
+    #footer .social-links {
+        float: left;
+        width: 100%;
+    }
+
+    #mc-embedded-subscribe1 {
+        margin: 10px 10px 0 0 !important;
     }
 }
 

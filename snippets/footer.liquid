@@ -4,43 +4,43 @@
     <div id="bottom">
         <div class="container">
             <div class="row">
-                {% if settings.display_footer_block1 %} 
-                  {% if settings.display_footer_block1 != blank %}
+                {% if settings.display_footer_block_1 %} 
+                  {% if settings.display_footer_block_1 != blank %}
                     <div class="bottom_block_2 col-md-4 col-sm-4 col-lg-3">
-                        <h3>{{ settings.bottom_block_2_title }}</h3>
+                        <h3>{{ settings.bottom_block_1_title }}</h3>
                         <ul class="list">
-                            {% for link in linklists[settings.bottom_block_2_list].links %}
+                            {% for link in linklists[settings.bottom_block_1_list].links %}
                               <li>{{ link.title | link_to: link.url }}</li>
                             {% endfor %}
                         </ul>
                     </div>
                   {% endif %} 
                 {% endif %} 
-                {% if settings.display_footer_block2 %} 
-                  {% if settings.display_footer_block2 != blank %}
+                {% if settings.display_footer_block_2 %} 
+                  {% if settings.display_footer_block_2 != blank %}
                     <div class="bottom_block_3 col-md-4 col-sm-4 col-lg-3">
-                        <h3>{{ settings.bottom_block_3_title }}</h3>
+                        <h3>{{ settings.bottom_block_2_title }}</h3>
                         <ul class="list">
-                            {% for link in linklists[settings.bottom_block_3_list].links %}
+                            {% for link in linklists[settings.bottom_block_2_list].links %}
                             <li>{{ link.title | link_to: link.url }}</li>
                             {% endfor %}
                         </ul>
                     </div>
                   {% endif %} 
                 {% endif %} 
-                {% if settings.display_footer_block3 %} 
-                  {% if settings.display_footer_block3 != blank %}
+                {% if settings.display_footer_block_3 %} 
+                  {% if settings.display_footer_block_3 != blank %}
                     <div class="bottom_block_4 col-md-4 col-sm-4 col-lg-3">
-                        <h3>{{ settings.bottom_block_4_title }}</h3>
+                        <h3>{{ settings.bottom_block_3_title }}</h3>
                         <ul class="list">
-                            {% for link in linklists[settings.bottom_block_4_list].links %}
+                            {% for link in linklists[settings.bottom_block_3_list].links %}
                               <li>{{ link.title | link_to: link.url }}</li>
                             {% endfor %}
                         </ul>
                     </div>
                   {% endif %} 
                 {% endif %}
-                <div class="bottom_block_5 col-md-12 col-sm-12 col-lg-3">
+                <div class="bottom_block_5 col-md-4 col-sm-4 col-lg-3">
                     <div class="newsletter-wrap">
                         {% if settings.display_newsletter %} {% if settings.display_newsletter != blank %} {% include 'widget-newsletter' %} {% endif %} {% endif %}
                     </div>

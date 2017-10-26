@@ -1,3 +1,13 @@
+{% assign quantity = 0 %}
+{% assign line_price = 0 %}
+{% for item in cart.items %}
+  {% if item.product_id == product.id %}
+    {% assign quantity = item.quantity %}
+    {% assign line_price = item.line_price %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
 <div itemscope itemtype="http://schema.org/Product" class="product-scope">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" /> 
@@ -78,11 +88,22 @@
               {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %} 
                 {% assign hide_default_title = true %} 
               {% endif %}
-              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              {% comment %}<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>{% endcomment %}
+              <span style="font-size:16px;color:grey">
+                {% if product.first_available_variant.option1 != 'Default Title' %}
+                  {{ product.first_available_variant.option1 }}
+                {% else %}
+                  {{ product.first_available_variant.weight | weight_with_unit }}
+                {% endif %}            
+              </span>
               <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ product.id }}" class="addToCartForm product-actions-{{ product.id }}">
                 <div class="options clearfix">
                   <div id="product_price">
-                      <p class="price product-price">{{ product.price | money }}</p>
+                      <p class="price product-price" style="float:left;font-weight:normal;">{{ product.price | money }}</p> 
+                      <div style="float:right;width:60%;">
+                        <p id="line-price" class="price product-price pull-right"><span style="color:#50a746">{{ quantity }}</span> / {{ line_price | money }}</p>
+                        <i class="fa fa-shopping-cart" aria-hidden="true" style="float: right;font-size: 20px;margin-right: 20px;color: #50a746;"></i>                        
+                      </div>
                   </div>
                   {% if settings.show_product_quantity %} 
                     {% if settings.show_product_quantity != blank %}
@@ -113,34 +134,36 @@
                       {% endfor %}
                     </select>
                   </div>
-                  <div id="product_description"> {{ product.description | truncatewords: 65 }} </div>
-                    <div id="purchase">
-                      <div class="add-quantity">
-                        <label for="quantity">Quantity: </label>
-                        <div class="dec button"><i class="fa fa-minus" aria-hidden="true"></i></div>
-                        <input type="text" id="quantity" name="quantity" value="1" style="border:none; width:40px" readonly>
-                        <div class="inc button"><i class="fa fa-plus" aria-hidden="true"></i></div>
-                        <script>
-                          jQuery(".button").on("click", function() {
-                            var oldValue = jQuery("#quantity").val(),
-                                newVal = 1;
+                  <div id="purchase">
+                    {% comment %}<div class="add-quantity">
+                      <label for="quantity">Quantity: </label>
+                      <div class="dec button"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                      <input type="text" id="quantity" name="quantity" value="1" style="border:none; width:40px" readonly>
+                      <div class="inc button"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                      <script>
+                        jQuery(".button").on("click", function() {
+                          var oldValue = jQuery("#quantity").val(),
+                              newVal = 1;
 
-                              if (jQuery(this).text() == "+") {
-                                  newVal = parseInt(oldValue) + 1;
-                              } else if (oldValue > 1) {
-                                  newVal = parseInt(oldValue) - 1;
-                              }
+                            if (jQuery(this).text() == "+") {
+                                newVal = parseInt(oldValue) + 1;
+                            } else if (oldValue > 1) {
+                                newVal = parseInt(oldValue) - 1;
+                            }
 
-                              jQuery("#quantity").val(newVal); { % if settings.display_subtotal and product.available % }
-                              updatePricing(); { % endif % }
-                          });
-                        </script>
-                      </div>
-                      {% comment %}
-                      <button class="btn btn-primary add-to-cart-btn" title="Add to Cart" type="submit" name="add" id="add-to-cart" value="Add to Cart"><span>Add to Cart</span></button>
-                      {% include 'wishlist-product' %} {% endcomment %}
-                    </div>
+                            jQuery("#quantity").val(newVal); {% if settings.display_subtotal and product.available %}
+                            updatePricing(); {% endif %}
+                        });
+                      </script>
+                    </div>{% endcomment %}
+                    <input type="number" min=1 id="quantity" name="quantity" value="1" style="">                   
+                    <button title="Add to Cart" type="submit" name="add" id="add-to-cart" value="Add to Cart"><span>Add to Cart</span></button>
+                    {% comment %}
+                    {% include 'wishlist-product' %} 
+                    {% endcomment %}
                   </div>
+                  <div id="product_description"> {{ product.description | truncatewords: 65 }} </div>     
+                </div>
                   <!-- /.options -->
               </form>
             {% else %}
@@ -276,6 +299,36 @@ $(document).ready(function() {
         return false;
     });
   });
+
+  $("#add-to-cart").click(function(n) {
+    n.preventDefault();
+    if ($(this).attr("disabled") != "disabled") {
+      var r = $(this).parents(".product-item");
+      var i = $(r).attr("data-id");
+                  
+      i = i.match(/\d+/g);
+      if (window.ajax_cart) {
+                     
+        $(".product-actions-" + i).submit();
+      } else {
+        var s = $(".product-actions-" + i + " select[name=id]").val();
+                     
+        if (!s) {
+                         
+          s = $(".product-actions-" + i + " input[name=id]").val()
+        }
+        var o = $(".product-actions-" + i + " input[name=quantity]").val();
+        if (!o) {
+          o = 1
+        }
+                       
+        var u = $(r).find(".product-title").text();
+        var a = $(r).find(".product-grid-image img").attr("src");
+        doAjaxAddToCart(s, o, u, a)
+      }           
+    }
+    return false;
+  });
 });
 </script>
 {% if product.available %}
@@ -332,15 +385,15 @@ var selectCallback = function(variant, selector) {
 
 // initialize multi selector for product
 $(function() {
-    new Shopify.OptionSelectors("product-select", { product: { { product | json } }, onVariantSelected: selectCallback });
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
 
     // Add label if only one product option and it isn't 'Title'.
-    { % if product.options.size == 1 and product.options.first != 'Title' % }
-    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>'); { % endif % }
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>'); {% endif %}
 
     // Auto-select first available variant on page load.
-    { % assign found_one_in_stock = false % } { % for variant in product.variants % } { % if variant.available and found_one_in_stock == false % } { % assign found_one_in_stock = true % } { % for option in product.options % }
-    $('.single-option-selector:eq({{ forloop.index0 }})').val({ { variant.options[forloop.index0] | json } }).trigger('change'); { % endfor % } { % endif % } { % endfor % }
+    {% assign found_one_in_stock = false %} {% for variant in product.variants %} {% if variant.available and found_one_in_stock == false %} {% assign found_one_in_stock = true %} {% for option in product.options %}
+    $('.single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change'); {% endfor %} {% endif %} {% endfor %}
 
 });
 </script>
@@ -351,30 +404,30 @@ $(function() {
         thumbnails,
         variant,
         variantImage,
-        optionValue; { % for variant in product.variants % }
-    variant = { { variant | json } };
+        optionValue; {% for variant in product.variants %}
+    variant = {{ variant | json }};
     if (typeof variant.featured_image !== 'undefined' && variant.featured_image !== null) {
         variantImage = variant.featured_image.src.split('?')[0].replace(/http(s)?:/, '');
-        variantImages[variantImage] = variantImages[variantImage] || {}; { % for option in product.options % } { % assign option_value = variant.options[forloop.index0] % } { % assign option_key = 'option-' | append: forloop.index0 % }
-        if (typeof variantImages[variantImage][{ { option_key | json } }] === 'undefined') {
-            variantImages[variantImage][{ { option_key | json } }] = { { option_value | json } };
+        variantImages[variantImage] = variantImages[variantImage] || {}; {% for option in product.options %} {% assign option_value = variant.options[forloop.index0] %} {% assign option_key = 'option-' | append: forloop.index0 %}
+        if (typeof variantImages[variantImage][{{ option_key | json }}] === 'undefined') {
+            variantImages[variantImage][{{ option_key | json }}] = {{ option_value | json }};
         } else {
-            var oldValue = variantImages[variantImage][{ { option_key | json } }];
-            if (oldValue !== null && oldValue !== { { option_value | json } }) {
-                variantImages[variantImage][{ { option_key | json } }] = null;
+            var oldValue = variantImages[variantImage][{{ option_key | json }}];
+            if (oldValue !== null && oldValue !== {{ option_value | json }}) {
+                variantImages[variantImage][{{ option_key | json }}] = null;
             }
-        } { % endfor % }
-    } { % endfor % }
+        } {% endfor %}
+    } {% endfor %}
     $(function() {
         thumbnails = $('img[src*="/products/"]').not(':first');
         if (thumbnails.size()) {
             thumbnails.bind('click', function() {
                 var image = $(this).attr('src').split('?')[0].replace(/(_thumb\.)|(_small\.)|(_compact\.)|(_medium\.)|(_large\.)|(_grande\.)/, '.');
-                if (typeof variantImages[image] !== 'undefined') { { % for option in product.options % }
+                if (typeof variantImages[image] !== 'undefined') {% for option in product.options %}
                     optionValue = variantImages[image]['option-{{ forloop.index0 }}'];
                     if (optionValue !== null && $('.single-option-selector:eq({{ forloop.index0 }}) option').filter(function() { return $(this).text() === optionValue }).length) {
                         $('.single-option-selector:eq({{ forloop.index0 }})').val(optionValue).trigger('change');
-                    } { % endfor % }
+                    } {% endfor %}
                 }
             });
         }
@@ -440,27 +493,27 @@ var selectCallback = function(variant, selector) {
 
 // initialize multi selector for product
 $(function() {
-    new Shopify.OptionSelectors("product-select", { product: { { product | json } }, onVariantSelected: selectCallback });
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
 
     // Add label if only one product option and it isn't 'Title'.
-    { % if product.options.size == 1 and product.options.first != 'Title' % }
-    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>'); { % endif % }
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>'); {% endif %}
 
     // Auto-select first available variant on page load.
-    { % assign found_one_in_stock = false % } { % for variant in product.variants % } { % if variant.available and found_one_in_stock == false % } { % assign found_one_in_stock = true % } { % for option in product.options % }
-    $('.single-option-selector:eq({{ forloop.index0 }})').val({ { variant.options[forloop.index0] | json } }).trigger('change'); { % endfor % } { % endif % } { % endfor % }
+    {% assign found_one_in_stock = false %} {% for variant in product.variants %} {% if variant.available and found_one_in_stock == false %} {% assign found_one_in_stock = true %} {% for option in product.options %}
+    $('.single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change'); {% endfor %} {% endif %} {% endfor %}
 
 });
 </script>
 <script type="text/javascript">
 //product image zoom
-$('.zoom').elevateZoom({
-    gallery: "productThumbs",
-    zoomType: "inner",
-    cursor: "zoom-in",
-    zoomWindowFadeIn: 300,
-    zoomWindowFadeOut: 450
-});
+// $('.zoom').elevateZoom({
+//     gallery: "productThumbs",
+//     zoomType: "inner",
+//     cursor: "zoom-in",
+//     zoomWindowFadeIn: 300,
+//     zoomWindowFadeOut: 450
+// });
 
 
 //product image popup
@@ -478,7 +531,7 @@ $("#productPhotoImg").bind("click", function(e) {
             src: $('#productPhotoImg').data('zoom-image'),
             type: 'image'
         };
-    } { % if settings.product_image_settings == 'zoom_and_popup' % }
+    } {% if settings.product_image_settings == 'zoom_and_popup' %}
 
     var mPopup = $.magnificPopup.instance;
     mPopup.open({
@@ -502,7 +555,7 @@ $("#productPhotoImg").bind("click", function(e) {
         mPopup.goTo(parseInt($("#productPhotoImg").attr('data-position')));
     }
 
-    { % endif % }
+    {% endif %}
 
     return false;
 });
