@@ -92,12 +92,12 @@
                             <a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
                             <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
                             <div class="cart-collateral" style="color:grey;margin-bottom:10px">
-                            {% if item.product.variants.size != 0 %}
-                                {% unless item.variant.title contains 'Default' %} 
-                                    {{ item.variant.title }} | 
-                                {% endunless %}
-                            {% endif %}
-                            {{item.price | money}}
+                            {% if item.product.first_available_variant.option1 != nil and item.product.first_available_variant.option1 != 'Default Title' %}
+                              {{ item.product.first_available_variant.option1 }} | 
+                            {% else %}
+                              {% for variant in item.product.variants %}{{ variant.weight | weight_with_unit }}{% endfor %} | 
+                            {% endif %} 
+                            {{ item.price | money}}
                             </div>
                         </div>
                       <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ item.product_id }}" class="addToCartForm product-actions-{{ item.product_id }}">

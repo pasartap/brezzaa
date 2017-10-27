@@ -131,12 +131,12 @@
                           	<a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a>
                             <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
                             <div class="cart-collateral" style="color:grey;margin-bottom:10px">
-                            	{% if item.product.variants.size != 0 %}
-                            		{% unless item.variant.title contains 'Default' %} 
-                            			{{ item.variant.title }} | 
-                        			{% endunless %}
-                              {% endif %}
-                          	  {{item.price | money}}
+                            	{% if item.product.first_available_variant.option1 != nil and item.product.first_available_variant.option1 != 'Default Title' %}
+                                {{ item.product.first_available_variant.option1 }} | 
+                              {% else %}
+                                {% for variant in item.product.variants %}{{ variant.weight | weight_with_unit }}{% endfor %} | 
+                              {% endif %} 
+                              {{ item.price | money}}
                           	</div>
                           </div>
                           <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ item.product_id }}" class="addToCartForm product-actions-{{ item.product_id }}">
@@ -285,7 +285,7 @@ var shopCurrency = '{{ shop.currency }}';
 					e(n).fadeOut(500)
 				}, 5e3)
 			},
-			checkSpentAmount: function(n) {
+      checkSpentAmount: function(n) {
 				if (n.total_price > 0 && n.total_price < 2000) {
 
 					// set checkout button enablement 
@@ -417,6 +417,17 @@ var shopCurrency = '{{ shop.currency }}';
 					  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
 					   }	
 
+            // Update line item details in product page
+            var line_quantity = e(".product-actions-" + prod_id).find("#line-quantity");                            
+            if (line_quantity.length > 0) {
+              line_quantity[0].innerHTML = 0;
+            }
+
+            var line_quantity = e(".product-actions-" + prod_id).find("#line-price");                            
+            if (line_quantity.length > 0) {
+              line_quantity[0].innerHTML = Shopify.formatMoney(0, window.formatMoney);
+            }       
+
 					    /* Plus button in cart event handler */
 						if (e(".btn-add-cart").length > 0) {
 							e(".btn-add-cart").click(function(n) {
@@ -511,7 +522,18 @@ var shopCurrency = '{{ shop.currency }}';
 					   		$(".product-actions-" + prod_id).find('#quantity').val(1);
 					   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
 					  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
-					   }	 					
+					  }
+
+            // Update line item details in product page
+            var line_quantity = e(".product-actions-" + prod_id).find("#line-quantity");                            
+            if (line_quantity.length > 0) {
+              line_quantity[0].innerHTML = 0;
+            }
+
+            var line_quantity = e(".product-actions-" + prod_id).find("#line-price");                            
+            if (line_quantity.length > 0) {
+              line_quantity[0].innerHTML = Shopify.formatMoney(0, window.formatMoney);;
+            } 					
 					})
 				})
 			},
@@ -586,6 +608,38 @@ var shopCurrency = '{{ shop.currency }}';
 						return false;
 					})
 				}
+
+        /* Product Page Add to Cart button event handler */
+        if (e("#add-to-cart").length > 0) {
+          e("#add-to-cart").click(function(n) {
+            n.preventDefault();
+            if (e(this).attr("disabled") != "disabled") {
+              var r = e(this).parents(".product-item");
+              var i = e(r).attr("data-id");
+                          
+              i = i.match(/\d+/g);
+              if (window.ajax_cart) {
+                             
+                e(".product-actions-" + i).submit();
+              } else {
+                var s = e(".product-actions-" + i + " select[name=id]").val();                         
+                if (!s) {                                 
+                  s = e(".product-actions-" + i + " input[name=id]").val()
+                }
+
+                var o = e(this).parents(".product-item").find("#quantity").val();
+                if (!o) {
+                  o = 1
+                }
+
+                var u = e(r).find(".product-title").text();
+                var a = e(r).find(".product-grid-image img").attr("src");
+                t.doAjaxAddToCart(s, o, u, a)
+              }           
+            }
+            return false;
+          })
+        }
 
 				/* Plus button event handler */
 				if (e(".btn-add-to-cart").length > 0) {
@@ -873,6 +927,17 @@ var shopCurrency = '{{ shop.currency }}';
 						}
 						
 						e("#dropdown-cart .mini-products-list").append(s);
+
+            // Update line item details in product page
+            var line_quantity = e(".product-actions-" + n.items[i].product_id).find("#line-quantity");                            
+            if (line_quantity.length > 0) {
+              line_quantity[0].innerHTML = n.items[i].quantity;
+            }
+
+            var line_quantity = e(".product-actions-" + n.items[i].product_id).find("#line-price");                            
+            if (line_quantity.length > 0) {
+              line_quantity[0].innerHTML = Shopify.formatMoney(n.items[i].line_price, window.formatMoney);
+            }
 					}
 				}
 

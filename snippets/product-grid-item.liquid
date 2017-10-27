@@ -55,14 +55,16 @@
           </a>
          
         </div>
-  <span style="color:grey">
-    {% if product.first_available_variant.option1 != 'Default Title' %}
-      {{ product.first_available_variant.option1 }}
-    {% else %}
-      {{ product.first_available_variant.weight | weight_with_unit }}
-    {% endif %}            
-  </span>
-      <div class="product_price">
+  
+        <span style="color:grey">
+          {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' %}
+            {{ product.first_available_variant.option1 }}
+          {% else %}
+            {% for variant in product.variants %}{{ variant.weight | weight_with_unit }}{% endfor %}
+          {% endif %}
+        </span>
+        
+        <div class="product_price">
        {% if product.price < product.compare_at_price_min %}
  <span class="money"> {{ product.price | money }}</span> <del><span class="money"> {{ product.compare_at_price_min | money }}</span></del> <span class="sale-badge">Sale</span>
 {% else %}
