@@ -227,14 +227,6 @@ jQuery(document).ready(function() {
 autosize(document.querySelectorAll('textarea'));
 document.getElementById("cart-note").rows = "1";
 
-jQuery(".ui-datepicker-prev").click(function() {
-  jQuery("#dropdown-cart").show();
-});
-
-jQuery(".ui-datepicker-next").click(function() {
-  jQuery("#dropdown-cart").show();
-});
-
 var shopCurrency = '{{ shop.currency }}'; 
      
       window.show_multiple_currencies = '{{ settings.show_multiple_currencies }}';

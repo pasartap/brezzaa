@@ -143,6 +143,18 @@
 </nav>
 <script type="text/javascript">
 $(document).ready(function(){
+    var isMobile = navigator.userAgent.match(/Mobile/i) != null;
+    if (isMobile) {
+        var order_delivery = $("#dropdown-cart").find("#order-delivery");
+        if (order_delivery.length > 0) {
+            order_delivery[0].remove();
+        }
+    } else {
+        var order_delivery = $("#mobile-cart").find("#order-delivery");
+        if (order_delivery.length > 0) {
+            order_delivery[0].remove();
+        }
+    }
 
     $("#sticky-menu").mmenu({
         extensions: [
@@ -165,10 +177,10 @@ $(document).ready(function(){
             {
                position: "bottom",
                content: [
-                  "{% if settings.show_twitter %} <a class='fa fa-twitter' href='{{ settings.header_social_1_twi }}'</a>{% endif %}",
-                  "{% if settings.show_facebook %} <a class='fa fa-facebook' href='{{ settings.header_social_3_fcb }}'</a>{% endif %}",
-                  "{% if settings.show_linkedin %} <a class='fa fa-linkedin' href='{{ settings.header_social_4_linkedin }}'</a>{% endif %}",
-                  "{% if settings.show_instagram1 %} <a class='fa fa-instagram' href='{{ settings.header_social_4_instagram }}'</a>{% endif %}"
+                  "{% if settings.show_twitter %} <a class='fa fa-twitter' target='_blank' href='{{ settings.header_social_1_twi }}'</a>{% endif %}",
+                  "{% if settings.show_facebook %} <a class='fa fa-facebook' target='_blank' href='{{ settings.header_social_3_fcb }}'</a>{% endif %}",
+                  "{% if settings.show_linkedin %} <a class='fa fa-linkedin' target='_blank' href='{{ settings.header_social_4_linkedin }}'</a>{% endif %}",
+                  "{% if settings.show_instagram1 %} <a class='fa fa-instagram' target='_blank' href='{{ settings.header_social_4_instagram }}'</a>{% endif %}"
                ]
             }
         ],
