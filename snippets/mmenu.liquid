@@ -81,7 +81,8 @@
             <!-- shopping cart -->
             <div class="no-items">
                 <img class="empty-cart-icon" src="{{ 'empty_cart_icon.png' | asset_img_url: '4612x4644' }}" />
-                <p class = "empty-cart-text" >It appears that your cart is currently empty!</p>
+                <h3>It appears that your cart is currently empty!</h3>
+                <p class="empty-cart-text" >Continue shopping to add items to your cart.</p>
             </div>
             <div class="has-items">
                 <ol class="mini-products-list">
@@ -121,14 +122,15 @@
                 <div class="cart-info">
                     <p>{{ settings.cart_information }}</p>
                 </div>  
-                {% comment %}
+                
                 {% include 'local-delivery-cart' %}
-
+                {% comment %}
                 For the special instructions to be submitted with order,
                 they need to use a name attribute set to 'note'. That's case-sensitive.
                 {% endcomment %}
                 <div class="cart_instructions">
-                  <p>Add instructions</p>
+                  <span>Add instructions</span>
+                  <br />
                   <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
                 </div>
                 <div class="actions">

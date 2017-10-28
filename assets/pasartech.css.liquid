@@ -73,6 +73,25 @@ nav#sticky-cart:not( .mm-menu) {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #333;
+}
+
+#sticky-cart .summary-mobile,
+#sticky-cart #order-delivery h3,
+#sticky-cart .cart_instructions span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+#sticky-cart .cart_instructions {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#sticky-cart .cart_instructions textarea {
+    margin-top: 10px;
 }
 
 #logo {
@@ -182,8 +201,11 @@ nav#sticky-cart:not( .mm-menu) {
     font-size: 10px;
 }
 
-. .cart_instructions {
+#dropdown-cart #order-delivery {
+    margin: 0 10px;
+}
 
+.cart_instructions {
     margin: 0 auto 10px;
 }
 
@@ -194,14 +216,31 @@ nav#sticky-cart:not( .mm-menu) {
     border: 2px solid #e0e0e0;
     padding: 0;
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 500px;
 }
 
+#dropdown-cart .heading--add-small,
+#dropdown-cart .cart_instructions h3,
 #dropdown-cart .summary {
     color: #50a746;
     font-size: 16px;
     font-weight: 700;
     font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+}
+
+#dropdown-cart .cart_instructions {
+    margin-top: 10px;
+}
+
+.ui-state-default {
+    line-height: 1 !important;
+}
+
+#dropdown-cart .actions .btn {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .mini-products-list .item {
@@ -219,8 +258,9 @@ textarea {
     border: none;
     color: #fff;
     font-family: "Open Sans", sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .add-to-cart-quantity-cart,
