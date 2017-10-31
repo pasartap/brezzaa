@@ -1,5 +1,28 @@
 jQuery(document).ready(function() {
+	// Disable quick view button
     $("product-grid-image").hover(function() {
         $('.sca-qv-button').contents().remove('');
     });
+
+    // Cart validation based on whether time slot is selected
+    var target = document.querySelector('#timeDiv');
+    var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach( function(mutation) {
+          var displayStyle = mutation.target.style.display;
+          if (displayStyle === 'none') {          
+            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+	        $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+          } else {
+            if (totalPrice < 20.00) {
+               $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+	           $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+	        } else {
+	            $("#dropdown-cart").find('.btn').removeAttr('disabled');
+	            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+	        }
+          }
+      });
+    });    
+    observer.observe(target, { attributes: true });
 });

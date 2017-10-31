@@ -143,6 +143,8 @@
 </nav>
 <script type="text/javascript">
 $(document).ready(function(){
+
+    // fix to set only one local delivery instance 
     var isMobile = navigator.userAgent.match(/Mobile/i) != null;
     if (isMobile) {
         var order_delivery = $("#dropdown-cart").find("#order-delivery");
@@ -155,6 +157,16 @@ $(document).ready(function(){
             order_delivery[0].remove();
         }
     }
+
+    $('#sticky-cart-button').click(function(){
+        if ($("#toTop").is(':visible')) {
+            $("#toTop").hide();
+        }       
+    });
+
+    $('#mobile-cart-close').click(function(){
+        $("#toTop").show();
+    });
 
     $("#sticky-menu").mmenu({
         extensions: [
@@ -231,17 +243,8 @@ $(document).ready(function(){
 
     // check spend
     var total_price = $("#cart-total").attr('data-total-price');
+
     if (total_price > 0 && total_price < 2000) {
-
-        // set checkout button enablement 
-        if (total_price < 2000) {
-            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
-        } else {
-            $("#dropdown-cart").find('.btn').removeAttr('disabled');
-            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
-        }
-
         var remaining_amount = parseFloat(2000) - parseFloat(total_price);
         var amount = Shopify.formatMoney(remaining_amount, '{{shop.money_format}}');
         var order_minimum = Shopify.formatMoney(2000, '{{shop.money_format}}');
@@ -269,6 +272,16 @@ $(document).ready(function(){
     //  e("#spend-notification").html(spend_text);
     //  e("#spend-notification").show();
     } else {
+
+        // set checkout button enablement 
+        if ($('#timeDiv').css('display') != 'block') {
+            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+        } else {
+            $("#dropdown-cart").find('.btn').removeAttr('disabled');
+            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+        }
+
         if ($("#sticky-cart").find('.mm-panels').hasClass("no-spend-notification")) {   
         } else {
             $("#sticky-cart").find('.mm-panels').addClass("no-spend-notification");
