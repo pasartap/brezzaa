@@ -305,8 +305,8 @@ textarea {
 .add-to-cart-quantity-cart,
 .btn-remove-cart,
 .btn-add-cart {
-    height: 24px;
-    width: 28px;
+    height: 24px !important;
+    width: 28px !important;
 }
 
 .btn-remove-cart,
@@ -374,6 +374,11 @@ textarea {
     background-color: rgb(247, 247, 247);
 }
 
+#searchresults .alert {
+    padding-left: 0 !important;
+}
+
+.search-result-highlight,
 .remaining-amount {
     color: rgb(230, 61, 0);
     font-weight: 600;
@@ -633,6 +638,10 @@ button[disabled] {
     width: 100%;
 }
 
+#main_content {
+    min-height: 180px;
+}
+
 /* Responsive CSS */
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
@@ -714,11 +723,19 @@ button[disabled] {
     .product_wrap #product_description {
         margin-top: 10px;
     }  
+
+    #searchresults h1.page_title {
+        font-size: 16px !important;
+    }
 }
 
 @media only screen and (max-width: 600px)  {
     .product-item .col-xs-6 {
         width: 100% !important;
+    }
+
+    #searchresults h1.page_title {
+        font-size: 16px !important;
     }
 }
 

@@ -13,15 +13,16 @@ selectors inside search.css.
 {% endcomment %}
 
 <div id="searchresults" class="search-scope grid-uniform">
-  
+  <h1 class="page_title">Results for "<span class="search-result-highlight">{{ search.terms }}</span>"<span style="float:right;"><span class="search-result-highlight" >{{ search.results_count }}</span> item{% if search.results_count > 1 %}s{% endif %}</span></h1>
+  {% comment %}
   <form action="/search" method="get" class="search-form form-inline">
-    <h1 class="page_title">Search</h1>
+    
     <div class="search-bar">
       <input type="text" name="q" value="{{ search.terms | escape }}" />
       <input type="submit" value="Search store..." class="btn btn-primary"/>
     </div>
   </form>
-  
+  {% endcomment %}
   {% comment %}
   search.performed is false when accessing the /search page without a 'q' parameter set
   in the URL. A shop-owner can link to the /search page from one of his link lists.
@@ -30,94 +31,34 @@ selectors inside search.css.
   
   {% if search.performed %}
     
-    {% paginate search.results by 10 %}
+    {% paginate search.results by 48 %}
     
-    {% comment %}
-    Common pitfall to avoid: search.results should never be accessed before the opening 
-    paginate tag. Move the opening and closing paginate tags to the very top and bottom of your
-    search.liquid template if you need to.
-    If you fail to do the above, the pagination of search results will be broken.
-    search.results_count is fine to access in or out of the paginate block.
-    {% endcomment %}
-  
-    {% if search.results_count == 0 %}  
-    <p class="alert alert-error">Your search for "{{ search.terms }}" did not yield any results.</p>              
-    {% else %}
-    <ul class="search-results grid-uniform">
-      {% for item in search.results %} 
-      
-      
-      
-      
-      <li class="search-result product product__product-grid-item product-item col-sm-{{ item_width }} {% case listing_cols %}{% when '1' %}{% cycle : '', 'alpha' %}{% when '2' %}{% cycle : '', '', 'alpha' %}{% when '3' %}{% cycle : '', '', '', 'alpha' %}{% when '4' %}{% cycle : '', '', '', '', 'alpha' %}{% when '6' %}{% cycle : '', '', '', '', '', '', 'alpha' %}{% endcase %}{% cycle 'odd_even': 'item_odd', 'item_even' %} {% cycle 'step3': 'step3-1', 'step3-2', 'step3-3' %} {% cycle 'step4': 'step4-1', 'step4-2', 'step4-3', 'step4-4' %}">
- {% if item.featured_image %}
-  <div class="product_image-wrap">  
-  
-      <a href="{{ item.url }}" title="{{ item.title | escape }}" class="product-grid-image">
-              {{ item.featured_image.src | product_img_url: 'large' | img_tag: item.featured_image.alt }}
-            </a>
-     
-  </div><!-- .prod-image-wrap -->
-  {% endif %}
-    <div class="box-hover">
-    <ul class="add-to-links">
-      <li>
-      
-   {% include 'wishlist-product' %}
-       
-      </li>
-  
-    </ul>
-  </div>  
- {% include 'color-switch' %}
-        <div class="product_title-wrap">
-          <a href="{{ product.url | within: collection }}" class="product_title">
-           {{ item.title | link_to: item.url }}
-          </a>
-         
-        </div>
-<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-      <div class="product_price">
-        <span class="money">{% if item.price < product.compare_at_price_min %}
-{{ item.price | money }} <del>{{ item.compare_at_price_min | money }}</del> <span class="sale-badge">Sale</span>
-{% else %}
-{{ item.price | money }}
-{% endif %}</span>
-		   
-          
-    	</div>
-  
-       <form action="/cart/add" method="post" enctype="multipart/form-data" class="addToCartForm">
-            {% for variant in item.variants limit:1 %}
-            <input type="hidden" name="id" value="{{ variant.id }}" class="btn"/>
-            {% endfor %}
-            {% if item.available %}
-            
-        <button type="submit" name="add" class="btn btn-primary addToCart">
-          <span class="addToCartText">Add to cart</span>
-        </button>
-            {% endif %}
-            </form>
- 
-  
-</li>
-      
-      
-      
-      
-     
-      
+      {% comment %}
+      Common pitfall to avoid: search.results should never be accessed before the opening 
+      paginate tag. Move the opening and closing paginate tags to the very top and bottom of your
+      search.liquid template if you need to.
+      If you fail to do the above, the pagination of search results will be broken.
+      search.results_count is fine to access in or out of the paginate block.
+      {% endcomment %}
+    
+      {% if search.results_count == 0 %}  
+        <p class="alert alert-error">Your search did not yield any results.</p>
+      {% else %}
+        <ul class="search-results grid-uniform">
+        {% assign listing_cols = settings.collection_listing_cols %}
+        {% for product in search.results %} 
+          {% include 'product-grid-item' %}
       {% endfor %}
-    </ul>
-    {% endif %}    
+        </ul>
+      {% endif %}    
 
-    <div class="clearfix"></div>
-    
-    {% if paginate.pages > 1 %}
-    <div class="pagination">
-      {{ paginate | default_pagination }}
-    </div>
-    {% endif %}
+      <div class="clearfix"></div>
+      
+      {% if paginate.pages > 1 %}
+        <div class="pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
     
     {% endpaginate %}    
     
