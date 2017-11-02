@@ -30,6 +30,8 @@
         {% endif %}
     {% elsif template contains "search" %}
         <li><span class="page-title">Search</span></li>
+    {% elsif canonical_url contains "help" %}
+        <li><span class="page-title">Help</span></li>
     {% else %}
         <li><span class="page-title">{{ page_title }}</span></li>
     {% endif %}
