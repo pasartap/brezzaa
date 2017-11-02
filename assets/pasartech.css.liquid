@@ -422,10 +422,6 @@ button[disabled] {
     margin-top: 7px;
 }
 
-.section-header {
-    margin-top: 15px;
-}
-
 .product_wrap #purchase {
     border: none;
 }
@@ -609,10 +605,6 @@ button[disabled] {
     width:auto;
 }
 
-.dropdown.mega-menu .site-nav-dropdown {
-    width: 80% !important;
-}
-
 .phone {
     padding-left: 0;
 }
@@ -727,6 +719,11 @@ button[disabled] {
     #searchresults h1.page_title {
         font-size: 16px !important;
     }
+
+    .section-header-left {
+        margin-bottom: 8px;
+        width: auto;
+    }  
 }
 
 @media only screen and (max-width: 600px)  {
@@ -767,6 +764,10 @@ button[disabled] {
     .col-mid, .col-right {
         width: 50%;
     }
+
+    .section-header .form-horizontal label {
+        display: inline-block;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
@@ -802,6 +803,15 @@ button[disabled] {
 
     .col-mid, .col-right {
         margin-top: 0;
+    }
+
+    .collection-view {
+        margin-left: 0;
+        float: right;
+    }
+
+    .section-header .form-horizontal label {
+        display: inline-block;
     }
 }
 
@@ -842,6 +852,33 @@ button[disabled] {
 
     .col-mid .img-block {
        margin-bottom: 20px;
+    }
+
+    .section-header .form-horizontal {
+        float: left;
+    }
+
+    .section-header .form-horizontal label {
+        display: inline-block;
+    }
+
+    .section-header-left {
+        width: auto;
+    }   
+
+    .section-header-right {
+        display: inline-block;
+        float: left;
+        margin-bottom: 10px;
+        margin-top: 3px;
+        text-align: right;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    .collection-view {
+        margin-left: 0;
+        float: right;
     }
 }
 

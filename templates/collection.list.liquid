@@ -19,12 +19,11 @@
     
      {% endcomment %}
     <header class="section-header">
-      <h1 class="section-header-left">{{ collection.title }}</h1>
-      <div class="section-header-right">       
-       
-         {% include 'collection-sorting' %}
-         {% include 'collection-views' %}
-     
+      <h1 class="section-header-title section-header-left">{{ collection.title }}</h1>
+      {% include 'collection-views' %}
+      <div class="section-header-right">
+        {% include 'collection-filtering' %}
+        {% include 'collection-sorting' %}        
       </div>
     </header>
 
