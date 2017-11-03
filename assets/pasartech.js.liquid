@@ -25,4 +25,13 @@ jQuery(document).ready(function() {
       });
     });    
     observer.observe(target, { attributes: true });
+
+    // Fix issue of clicking prev/next datepicker buttons closes the cart
+    $(".ui-datepicker-prev").live('click', function(e) {
+      e.stopPropagation();
+    });
+
+    $(".ui-datepicker-next").live('click', function(e) {
+      e.stopPropagation();
+    });
 });
