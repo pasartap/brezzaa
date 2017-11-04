@@ -12,11 +12,11 @@ jQuery(document).ready(function() {
           var displayStyle = mutation.target.style.display;
           if (displayStyle === 'none') {          
             $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-	        $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+	          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
           } else {
             if (totalPrice < 20.00) {
-               $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-	           $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+              $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+	            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
 	        } else {
 	            $("#dropdown-cart").find('.btn').removeAttr('disabled');
 	            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
