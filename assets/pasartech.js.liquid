@@ -6,10 +6,12 @@ jQuery(document).ready(function() {
 
     // Cart validation based on whether time slot is selected
     var target = document.querySelector('#timeDiv');
-    var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
+    
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach( function(mutation) {
+          var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
           var displayStyle = mutation.target.style.display;
+
           if (displayStyle === 'none') {          
             $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
 	          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
@@ -17,10 +19,10 @@ jQuery(document).ready(function() {
             if (totalPrice < 20.00) {
               $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
 	            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
-	        } else {
-	            $("#dropdown-cart").find('.btn').removeAttr('disabled');
-	            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
-	        }
+  	        } else {
+  	            $("#dropdown-cart").find('.btn').removeAttr('disabled');
+  	            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+  	        }
           }
       });
     });    
