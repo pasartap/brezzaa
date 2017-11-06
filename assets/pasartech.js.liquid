@@ -1,32 +1,108 @@
 jQuery(document).ready(function() {
 	// Disable quick view button
-    $("product-grid-image").hover(function() {
-        $('.sca-qv-button').contents().remove('');
-    });
+  $("product-grid-image").hover(function() {
+      $('.sca-qv-button').contents().remove('');
+  });
+
+  // (function($){
+  //   $.each(['show','hide'],function(i,ev){
+  //       var el = $.fn[ev];              
+  //       $.fn[ev] = function(){
+  //           this.trigger(ev);
+
+  //           if ($(this).is('#timeDiv')) {              
+  //             var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
+  //             var selectedTime = $(this).find("#local_delivery").val();
+  //             alert(selectedTime);
+  //             if (totalPrice > 20.00 && selectedTime != null) {
+  //               alert(selectedTime);
+  //               $("#dropdown-cart").find('.btn').removeAttr('disabled');
+  //               $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');         
+  //             } else {
+  //               $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+  //               $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');   
+  //             }
+  //           }
+
+  //           return el.apply(this,arguments);
+  //       };
+  //   });
+  // })(jQuery);  
+
+    // jQuery(function($) {
+    //   var _oldShow = $.fn.show;
+    //   $.fn.show = function(speed, oldCallback) {
+    //     return $(this).each(function() {
+    //       var obj = $(this),
+    //           newCallback = function() {
+    //             // if ($.isFunction(oldCallback)) {
+    //             //   oldCallback.apply(obj);
+    //             // }
+    //             obj.trigger('afterShow');
+    //           };
+
+    //       // you can trigger a before show if you want
+    //       obj.trigger('beforeShow');
+
+    //       // now use the old function to show the element passing the new callback
+    //       _oldShow.apply(obj, [speed, newCallback]);
+    //     });
+    //   }
+    // });
+
+    // jQuery(function($) {
+    //   $('#loading')
+    //     .bind('beforeShow', function() {
+    //       alert('beforeShow');
+    //       var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
+    //       var selectedTime = $("#local_delivery").val()
+    //       if (totalPrice > 20.00 && selectedTime != null) {
+    //         alert(selectedTime);
+    //         $("#dropdown-cart").find('.btn').removeAttr('disabled');
+    //         $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');         
+    //       } else {
+    //         $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+    //         $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');   
+    //       }
+    //     }) 
+    //     .bind('afterShow', function() {
+    //       alert('afterShow');
+    //     })
+    //     .show(1000, function() {
+    //       alert('in show callback');
+    //     })
+    //     .show();
+    // });
 
     // Cart validation based on whether time slot is selected
-    var target = document.querySelector('#timeDiv');
-    
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach( function(mutation) {
-          var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
-          var displayStyle = mutation.target.style.display;
+    // var target = document.querySelector('#loading');
 
-          if (displayStyle === 'none') {          
-            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-	          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
-          } else {
-            if (totalPrice < 20.00) {
-              $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-	            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
-  	        } else {
-  	            $("#dropdown-cart").find('.btn').removeAttr('disabled');
-  	            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
-  	        }
-          }
-      });
-    });    
-    observer.observe(target, { attributes: true });
+    // if (target != null) {
+    //   alert('target not null');
+    // }
+
+    // var observer = new MutationObserver(function(mutations) {
+    //   mutations.forEach( function(mutation) {
+    //     alert(mutation.type);
+    //       var totalPrice  = document.querySelector('.money').innerHTML.replace('RM', '');
+    //       var displayStyle = mutation.target.style.display;
+    //       alert(displayStyle + ' / ' + totalPrice);
+    //       if (displayStyle == 'none' || displayStyle == null) {   
+    //         alert('displayStyle is null');       
+    //         $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+	   //        $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+    //       } else {           
+    //         if (totalPrice < 20.00) {
+    //           $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+	   //          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+  	 //        } else {
+  	 //            $("#dropdown-cart").find('.btn').removeAttr('disabled');
+  	 //            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+  	 //        }
+    //       }
+    //   });
+    // });    
+    // observer.observe(target, { attributes: true });
 
     // Fix issue of clicking prev/next datepicker buttons closes the cart
     $(".ui-datepicker-prev").live('click', function(e) {

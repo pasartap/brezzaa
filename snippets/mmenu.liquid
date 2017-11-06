@@ -143,20 +143,23 @@
 </nav>
 <script type="text/javascript">
 $(document).ready(function(){
-
-    // fix to set only one local delivery instance 
-    var isMobile = navigator.userAgent.match(/Mobile/i) != null;
-    if (isMobile) {
-        var order_delivery = $("#dropdown-cart").find("#order-delivery");
-        if (order_delivery.length > 0) {
-            order_delivery[0].remove();
-        }
-    } else {
-        var order_delivery = $("#mobile-cart").find("#order-delivery");
-        if (order_delivery.length > 0) {
-            order_delivery[0].remove();
-        }
+    var order_delivery = $("#dropdown-cart").find("#order-delivery");
+    if (order_delivery.length > 0) {
+        order_delivery[0].remove();
     }
+    // fix to set only one local delivery instance 
+    // var isMobile = navigator.userAgent.match(/Mobile/i) != null;
+    // if (isMobile) {
+    //     var order_delivery = $("#dropdown-cart").find("#order-delivery");
+    //     if (order_delivery.length > 0) {
+    //         order_delivery[0].remove();
+    //     }
+    // } else {
+    //     var order_delivery = $("#mobile-cart").find("#order-delivery");
+    //     if (order_delivery.length > 0) {
+    //         order_delivery[0].remove();
+    //     }
+    // }
 
     $('#sticky-cart-button').click(function(){
         if ($("#toTop").is(':visible')) {
