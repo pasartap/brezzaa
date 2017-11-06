@@ -39,22 +39,24 @@
         <li><span>Products</span>
             <ul>
                 {% for link in linklists.main-menu-mehhhhh.links %}
-                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a>
-                        <ul>
-                            {% for childlink in linklists[link.handle].links %}
-                                <li><a href="{{ childlink.url }}"><span>{{ childlink.title }}</span></a>
-                                    {% comment %}
-                                    <ul>
-                                        {% for childlink2 in linklists.[childlink.handle].links %}
-                                            <li>
-                                                <a href="{{ childlink2.url }}" ><span>{{ childlink2.title }}</span></a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endcomment %}
-                                </li> 
-                            {% endfor %}
-                        </ul>
+                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a>                       
+                        {% if linklists[link.handle].links.size > 0 %}
+                            <ul>
+                                {% for childlink in linklists[link.handle].links %}
+                                    <li><a href="{{ childlink.url }}"><span>{{ childlink.title }}</span></a>
+                                        {% if linklists[childlink.handle].links.size > 0 %}
+                                            <ul>
+                                                {% for childlink2 in linklists.[childlink.handle].links %}
+                                                    <li>
+                                                        <a href="{{ childlink2.url }}" ><span>{{ childlink2.title }}</span></a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li> 
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
@@ -143,23 +145,19 @@
 </nav>
 <script type="text/javascript">
 $(document).ready(function(){
-    var order_delivery = $("#dropdown-cart").find("#order-delivery");
-    if (order_delivery.length > 0) {
-        order_delivery[0].remove();
-    }
     // fix to set only one local delivery instance 
-    // var isMobile = navigator.userAgent.match(/Mobile/i) != null;
-    // if (isMobile) {
-    //     var order_delivery = $("#dropdown-cart").find("#order-delivery");
-    //     if (order_delivery.length > 0) {
-    //         order_delivery[0].remove();
-    //     }
-    // } else {
-    //     var order_delivery = $("#mobile-cart").find("#order-delivery");
-    //     if (order_delivery.length > 0) {
-    //         order_delivery[0].remove();
-    //     }
-    // }
+    var isMobile = navigator.userAgent.match(/Mobile/i) != null;
+    if (isMobile) {
+        var order_delivery = $("#dropdown-cart").find("#order-delivery");
+        if (order_delivery.length > 0) {
+            order_delivery[0].remove();
+        }
+    } else {
+        var order_delivery = $("#mobile-cart").find("#order-delivery");
+        if (order_delivery.length > 0) {
+            order_delivery[0].remove();
+        }
+    }
 
     $('#sticky-cart-button').click(function(){
         if ($("#toTop").is(':visible')) {
@@ -268,9 +266,9 @@ $(document).ready(function(){
         }
         
     // } else if (n.total_price > 2000 && n.total_price < 5000) {
- //         var remaining_amount = parseFloat(5000) - parseFloat(n.total_price);
- //         var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
- //         var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more to get free delivery!</span></p>';
+    //     var remaining_amount = parseFloat(5000) - parseFloat(n.total_price);
+    //     var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
+    //     var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more to get free delivery!</span></p>';
         
     //  e("#spend-notification").html(spend_text);
     //  e("#spend-notification").show();
