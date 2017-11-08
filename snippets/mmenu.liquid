@@ -80,6 +80,7 @@
 <nav id="sticky-cart">
     <div class="wrapper-top-cart">
         <div id="mobile-cart" style="display:block">
+          <form action="/checkout" method="POST" id="cart-form">
             <!-- shopping cart -->
             <div class="no-items">
                 <img class="empty-cart-icon" src="{{ 'empty_cart_icon.png' | asset_img_url: '4612x4644' }}" />
@@ -140,6 +141,7 @@
                     {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
                 </div>          
             </div>
+          </form>
         </div>
     </div>
 </nav>
