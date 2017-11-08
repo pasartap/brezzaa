@@ -108,6 +108,7 @@
                   <!-- shopping cart --> 
                   <a href="javascript:void(0);" id="cartToggle" style="float:right;"> <i class="fa fa-shopping-cart"></i> <span class="carttop"> <span class="cart-total-items"><span id="cart-count" class="count">{{ cart.item_count }}</span> </span> / <span class="money amount" data-total-price="{{cart.total_price | money }}"> {{cart.total_price | money }}</span> </span> </a>
                   <div id="dropdown-cart" style="display:none">
+                    <form action="/checkout" method="POST" id="cart-form">
                   	 <!-- Spend notification --> 
                   	 <div class="spend-notification" {% if cart.total_price == 0 or cart.total_price > 2000 %} style="display:none" {% endif %} >
              			    {% if cart.total_price > 0 and cart.total_price < 2000 %}
@@ -141,14 +142,14 @@
                           	</div>
                           </div>
                           <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ item.product_id }}" class="addToCartForm product-actions-{{ item.product_id }}">
-						  	<div class="cart-buttons-in-cart">
-						      <input type="hidden" name="id" value="{{ item.id }}" />
-						      <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button><input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity-cart" readonly><button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
-						      <div class="cart-collateral cart-line-item-price">
-						          <span class="money">{{ item.line_price | money }}</span>
-						      </div>
-						  	</div>
-						  </form>
+            						  	<div class="cart-buttons-in-cart">
+            						      <input type="hidden" name="id" value="{{ item.id }}" />
+            						      <button type="submit" name="minus" class="btn-remove-cart" {% if item.quantity == 1 %} disabled {% endif %}><i class="fa fa-minus" aria-hidden="true"></i></button><input type="text" id="quantity" name="quantity" value="{{ item.quantity }}" class="add-to-cart-quantity-cart" readonly><button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            						      <div class="cart-collateral cart-line-item-price">
+            						          <span class="money">{{ item.line_price | money }}</span>
+            						      </div>
+            						  	</div>
+            						  </form>
                         </li>
                         {% endfor %}
                       </ol>
@@ -159,20 +160,21 @@
                       <p class="cart-info">{{ settings.cart_information }}</p>
                       
                       {% include 'local-delivery-cart' %}
-				      {% comment %}
-				      For the special instructions to be submitted with order,
-				      they need to use a name attribute set to 'note'. That's case-sensitive.
-				      {% endcomment %}
-				      <div class="cart_instructions" style="padding:0 10px">
-					      <h3>Add instructions</h3>
-					      <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
-				      </div>
-				      
+        				      {% comment %}
+        				      For the special instructions to be submitted with order,
+        				      they need to use a name attribute set to 'note'. That's case-sensitive.
+        				      {% endcomment %}
+        				      <div class="cart_instructions" style="padding:0 10px">
+        					      <h3>Add instructions</h3>
+        					      <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
+        				      </div>
+			      
                       <div class="actions" style="padding:0 10px">
-                        <button class="btn" style="width:100%;margin-bottom:10px;" onclick="window.location='/checkout'" disabled="disabled">Checkout</button>
+                        <button class="btn" style="width:100%;margin-bottom:10px;" type="submit" id="checkout" disabled="disabled">Checkout</button>
                         {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
                       </div>              		  
                     </div>
+                   </form>
                   </div>
                 </div>
               </div>
