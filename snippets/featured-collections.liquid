@@ -1,36 +1,38 @@
 {% assign listing_cols = '1' %}
 {% assign image_size = 'original' %}
 
-<!-- Featured Collections Slider -->
-{% for coll_num in (1..10) %}
-  {% capture current_collection %}homepage_featured_collection_{{ coll_num }}{% endcapture %}
-  {% assign coll = settings[current_collection] %}
-  {% assign coll_relative_link = '/collections/' | append: collections[coll].handle %}
-  
-  {% if collections[coll].all_products_count | times: 1 > 1 %}  
-  <section class="bestsell-pro">
-    <div class="container"> 
-      <div class="block-title">
-        <h2><a href= "{{ coll_relative_link }}">{{ collections[coll].title }} </a></h2>
-      </div>
-      <div class="slider-items-products">
-        <div class="bestsell-block">
-          <div id="featured-slider_{{ coll_num }}" class="product-flexslider hidden-buttons">
-            <div class="slider-items slider-width-col4 products-grid block-content"> 
-              <!-- Item --> 
+{% if settings.display_featured_collections != blank %}
+  <!-- Featured Collections Slider -->
+  {% for coll_num in (1..10) %}
+    {% capture current_collection %}homepage_featured_collection_{{ coll_num }}{% endcapture %}
+    {% assign coll = settings[current_collection] %}
+    {% assign coll_relative_link = '/collections/' | append: collections[coll].handle %}
+    
+    {% if coll != blank and collections[coll].all_products_count | times: 1 > 1 %}  
+      <section class="bestsell-pro">
+        <div class="container"> 
+          <div class="block-title">
+            <h2><a href= "{{ coll_relative_link }}">{{ collections[coll].title }} </a></h2>
+          </div>
+          <div class="slider-items-products">
+            <div class="bestsell-block">
+              <div id="featured-slider_{{ coll_num }}" class="product-flexslider hidden-buttons">
+                <div class="slider-items slider-width-col4 products-grid block-content"> 
+                  <!-- Item --> 
 
-              {% for product in collections[coll].products limit:15 %}
-                <div class="item"> {% include 'product-grid-item' with 'listing_cols' with 'image_size' %} </div>
-              {% endfor %} 
+                  {% for product in collections[coll].products limit:15 %}
+                    <div class="item"> {% include 'product-grid-item' with 'listing_cols' with 'image_size' %} </div>
+                  {% endfor %} 
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  {% endif %}
-{% endfor %}
-<!-- End Featured Collections Slider --> 
+      </section>
+    {% endif %}
+  {% endfor %}
+  <!-- End Featured Collections Slider --> 
+{% endif %}
 
 <script type="text/javascript">
 //<![CDATA[

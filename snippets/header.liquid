@@ -11,7 +11,7 @@
               {% include 'snippet-currencies-switcher' %}
               {% endif %} </div>
             <div class="phone hidden-xs"> {% if settings.header_msg %}
-              {% if settings.header_msg != blank %} <span>{{ settings.header_msg}} </span> {% endif %}
+              {% if settings.display_header_msg == true and settings.header_msg != blank %} <span>{{ settings.header_msg}} </span> {% endif %}
               {% endif %}</div>
           </div>
           <div class="col-xs-4 col-sm-4">

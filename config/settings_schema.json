@@ -26,6 +26,21 @@
     },
     {
         "type": "header",
+        "content": "Header Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "display_header_msg",
+        "label": "Display header message?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "header_msg",
+        "label": "Text"
+    },
+    {
+        "type": "header",
         "content": "Logo Options"
     },
     {
@@ -396,7 +411,7 @@
         "label": "Image",
         "max-width": 600,
         "max-height": 500,
-        "info": "Maximum slide image dimensions are 915px wide by 490px high. Your uploaded file will be resized to fit within those constraints."
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -480,7 +495,7 @@
         "label": "Image",
         "max-width": 600,
         "max-height": 500,
-        "info": "Maximum slide image dimensions are 915px wide by 490px high. Your uploaded file will be resized to fit within those constraints."
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -549,18 +564,106 @@
         "label": "Button Link"
     },
     {
+        "type": "header",
+        "content": "Slide 4"
+    },
+    {
         "type": "checkbox",
-        "id": "display_middle_banner",
-        "label": "Display Middle Banner",
+        "id": "display_home_slider4",
+        "label": "Enable slide:",
         "default": true
+    },
+    {
+        "type": "image",
+        "id": "slide_4_image.jpg",
+        "label": "Image",
+        "max-width": 600,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "slide_4_caption_line2",
+        "label": "Caption small"
+    },
+    {
+        "type": "color",
+        "id": "slide4_small_caption_color",
+        "label": "Caption small text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_4_caption_line1",
+        "label": "Caption large"
+    },
+    {
+        "type": "color",
+        "id": "slide4_large_caption_color",
+        "label": "Caption large text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_4_caption_text",
+        "label": "Caption normal text"
+    },
+    {
+        "type": "color",
+        "id": "slide4_normal_text_color",
+        "label": "Caption normal text color"
+    },
+    {
+        "type": "checkbox",
+        "id": "slide4_button_display",
+        "label": "Display buttons?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "slide4_button_text",
+        "label": "Button 4"
+    },
+    {
+        "type": "color",
+        "id": "slide4_button_border",
+        "label": "Button 4 border color"
+    },
+    {
+        "type": "color",
+        "id": "slide4_button_text_color",
+        "label": "Button 4 text color"
+    },
+    {
+        "type": "color",
+        "id": "slide4_button_bgcolor",
+        "label": "Button 4 background color"
+    },
+    {
+        "type": "color",
+        "id": "slide4_button_bghover",
+        "label": "Button 4 background hover"
+    },
+    {
+        "type": "text",
+        "id": "slide4_button_link",
+        "label": "Button Link"
     },
     {
         "type": "header",
         "content": "Middle Banner 1"
     },
     {
+        "type": "checkbox",
+        "id": "display_middle_banner",
+        "label": "Display Middle Banner",
+        "default": true
+    },
+    {
         "type": "image",
-        "id": "mid-banner1.jpg"
+        "id": "mid-banner1.jpg",
+        "label": "Image",
+        "max-width": 285,
+        "max-height": 237,
+        "info": "Maximum slide image dimensions are 285px wide by 237px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -593,7 +696,11 @@
     },
     {
         "type": "image",
-        "id": "mid-banner2.jpg"
+        "id": "mid-banner2.jpg",
+        "label": "Image",
+        "max-width": 285,
+        "max-height": 237,
+        "info": "Maximum slide image dimensions are 285px wide by 237px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -621,18 +728,22 @@
         "label": "Middle banner2 link"
     },
     {
+        "type": "header",
+        "content": "Home Right Banner"
+    },
+    {
         "type": "checkbox",
         "id": "display_home_right_banner",
         "label": "Display Home Right Banner",
         "default": true
     },
     {
-        "type": "header",
-        "content": "Home Right Banner"
-    },
-    {
         "type": "image",
-        "id": "right-banner.jpg"
+        "id": "right-banner.jpg",
+        "label": "Image",
+        "max-width": 285,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 285px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -897,6 +1008,66 @@
         "type": "collection",
         "id": "bestsellers_cat",
         "label": "Please select collection that will be displayed in Best Sellers block"
+    }]
+},
+{
+    "name": "Featured Collections",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "display_featured_collections",
+        "label": "Display?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_1",
+        "label": "Featured Collection 1"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_2",
+        "label": "Featured Collection 2"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_3",
+        "label": "Featured Collection 3"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_4",
+        "label": "Featured Collection 4"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_5",
+        "label": "Featured Collection 5"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_6",
+        "label": "Featured Collection 6"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_7",
+        "label": "Featured Collection 7"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_8",
+        "label": "Featured Collection 8"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_9",
+        "label": "Featured Collection 9"
+    },
+    {
+        "type": "text",
+        "id": "homepage_featured_collection_10",
+        "label": "Featured Collection 10"
     }]
 },
 {

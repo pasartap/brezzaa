@@ -836,6 +836,7 @@
         "display_banner1": true,
         "sizechart-desc ": "",
         "content_for_index": [],
+        "display_featured_collections": true,
         "homepage_featured_collection_1": "deals",
         "homepage_featured_collection_2": "meat",
         "homepage_featured_collection_3": "poultry",
