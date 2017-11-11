@@ -849,7 +849,10 @@
         "homepage_featured_collection_10": "fruit-vegetables-juices",
         "header_msg": "Opening hours: Tuesday - Sunday, 9am - 7pm | Order before <strong>3pm<\/strong> for same day delivery",
         "cart_information": "Price excludes <strong>10%<\/strong> handling fee and <strong>RM3<\/strong> delivery fee, which is applied at checkout.",
-        "enable_spend_rules": true
+        "enable_spend_rules": false,
+        "order_minimum": "20",
+        "spend_target_amount": "40",
+        "free_product_text": "to get a <strong>FREE LadangKu chicken!</strong>"
     },
     "presets":
     {}

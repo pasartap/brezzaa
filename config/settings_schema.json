@@ -16,6 +16,31 @@
     }]
 },
 {
+    "name": "Spend Rules",
+    "settings": [
+    {
+        "type": "header",
+        "content": "Spend Rules"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_spend_rules",
+        "label": "Enable spend rules?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "spend_target_amount",
+        "label": "Spend Target Amount"
+    },
+    {
+        "type": "textarea",
+        "id": "free_product_text",
+        "label": "Free Product Text",
+        "info": "Spend RMX.XX more <free_product_text>"
+    }]
+},
+{
     "name": "Header and Logo",
     "settings": [
     {
