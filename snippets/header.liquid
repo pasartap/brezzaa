@@ -270,7 +270,7 @@ jQuery(document).ready(function() {
 				}, 5e3)
 			},
       checkSpentAmount: function(n) {
-        // set checkout button enablement 
+        // hide spend notification/disable checkout button
         if ($('#timeDiv').css('display') === 'none') {
             $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
             $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
@@ -294,8 +294,8 @@ jQuery(document).ready(function() {
           return;
         }
 
+        // show spend notification
 				if (n.total_price < 2000) {
-					// set checkout button enablement 
 					$("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
           $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
 
@@ -320,16 +320,18 @@ jQuery(document).ready(function() {
        		}
   	    }
 
-        {% if settings.enable_spend_rules == true and settings.order_minimum != blank and settings.spend_target_amount != blank and settings.free_product_text != blank %}
-
-          {% assign linklist = linklists['free-product'] %} 
+        // spend rules
+        {% assign linklist = linklists['free-product'] %} 
+        {% if linklist.links.size > 0 and settings.enable_spend_rules == true and settings.order_minimum != blank and settings.spend_target_amount != blank and settings.free_product_text != blank %}
+          
           var order_minimum = parseFloat({{ settings.order_minimum }}).toFixed(2);
           var spend_target_amount = parseFloat({{ settings.spend_target_amount }}).toFixed(2);
           var total_price = parseFloat(n.total_price / 100).toFixed(2);
           
+          // show spend notification
           if (total_price > order_minimum && total_price < spend_target_amount) {
             var remaining_amount = (spend_target_amount - total_price) * 100;
-            var amount = Shopify.formatMoney(remaining_amount, window.formatMoney);
+            var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
             
             var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more {{ settings.free_product_text }}</span></p>';
                   
@@ -349,6 +351,50 @@ jQuery(document).ready(function() {
               $("#sticky-cart").find('.mm-panels').removeClass("no-spend-notification");
             }
           }
+
+          // add/remove free product
+          var toAdd = {{ linklist.links.first.object.variants.first.id }};
+          var pleaseAdd = false;
+          var pleaseRemove = false;
+          var idsInCart = [];
+
+          for (var i = 0; i < n.items.length; i++) {
+            idsInCart.push(n.items[i].id);
+            if (n.items[i].id !== toAdd) {
+              if (n.total_price >= {{ settings.spend_target_amount | times: 100 }}) {
+                  pleaseAdd = true;
+              }
+            } else { // Bonus item is in cart
+              if (n.total_price < {{ settings.spend_target_amount | times: 100 }}) {
+                  pleaseRemove = true;
+              }
+            }
+          }
+
+          if (pleaseAdd && (jQuery.inArray(toAdd, n) === -1) && (jQuery.inArray(toAdd, idsInCart) === -1)) {
+            var params = {
+                type: 'POST',
+                url: '/cart/add.js',
+                data: 'quantity=1&id=' + toAdd,
+                dataType: 'json',
+                success: function(line_item) {
+                  t.updateDropdownCart();
+                }
+            };
+            jQuery.ajax(params);
+          } else if (pleaseRemove) {
+            var params = {
+                type: 'POST',
+                url: '/cart/update.js',
+                data: 'updates[' + toAdd + ']=0',
+                dataType: 'json',
+                success: function(line_item) {
+                  t.updateDropdownCart();
+                }
+            };
+            jQuery.ajax(params);
+          }
+
         {% endif %}
 			},
 			checkItemsInDropdownCart: function() {
