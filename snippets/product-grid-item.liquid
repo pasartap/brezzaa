@@ -48,10 +48,10 @@
     </div>
     
     <span style="color:grey">
-      {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' %}
+      {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' and product.first_available_variant.option1 != 'Normal Price' %}
         {{ product.first_available_variant.option1 }}
       {% else %}
-        {% for variant in product.variants %}{{ variant.weight | weight_with_unit }}{% endfor %}
+        {{ product.first_available_variant.weight | weight_with_unit }}
       {% endif %}
     </span>
           
@@ -61,7 +61,7 @@
         <del><span class="money"> {{ product.compare_at_price_min | money }}</span></del> 
         <span class="sale-badge">Save {{ product.compare_at_price | minus: product.price | money }}!</span>
       {% else %}
-        <span class="money">{{ product.price | money }}</span>
+        <span class="money">{{ product.first_available_variant.price | money }}</span>
       {% endif %}
   	</div>
     

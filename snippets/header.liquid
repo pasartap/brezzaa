@@ -143,9 +143,9 @@
                         <span class="money amount" style="float:right;margin-right:10px">{{cart.total_price | money}}</span>
                       </div>
                       <p class="cart-info">{{ settings.cart_information }}</p>
-                      
+                      {% comment %}
                       {% include 'local-delivery-cart' %}
-        				      {% comment %}
+        				      
         				      For the special instructions to be submitted with order,
         				      they need to use a name attribute set to 'note'. That's case-sensitive.
         				      {% endcomment %}
@@ -295,13 +295,14 @@ jQuery(document).ready(function() {
         }
 
         // show spend notification
-				if (n.total_price < 2000) {
+        var order_minimum = {{ settings.order_minimum | times: 100 }};
+				if (n.total_price < order_minimum) {
 					$("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
           $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
 
-        	var remaining_amount = parseFloat(2000) - parseFloat(n.total_price);
-        	var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
-        	var order_minimum = Shopify.formatMoney(2000,window.formatMoney);
+        	var remaining_amount = parseFloat(order_minimum) - parseFloat(n.total_price);
+        	var amount = Shopify.formatMoney(remaining_amount, window.formatMoney);
+        	var order_minimum = Shopify.formatMoney(order_minimum ,window.formatMoney);
         	var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more to reach the order minimum of <span class ="order-minimum money">' +  order_minimum + '</span></p>';
         	e(".spend-notification").html(spend_text);
         	e(".spend-notification").show();
@@ -320,6 +321,9 @@ jQuery(document).ready(function() {
        		}
   	    }
 
+        t.applySpendRules(n);
+			},
+      applySpendRules: function(n) {
         // spend rules
         {% assign linklist = linklists['free-product'] %} 
         {% if linklist.links.size > 0 and settings.enable_spend_rules == true and settings.order_minimum != blank and settings.spend_target_amount != blank and settings.free_product_text != blank %}
@@ -329,7 +333,7 @@ jQuery(document).ready(function() {
           var total_price = parseFloat(n.total_price / 100).toFixed(2);
           
           // show spend notification
-          if (total_price > order_minimum && total_price < spend_target_amount) {
+          if (total_price >= order_minimum && total_price < spend_target_amount) {
             var remaining_amount = (spend_target_amount - total_price) * 100;
             var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
             
@@ -352,8 +356,15 @@ jQuery(document).ready(function() {
             }
           }
 
+          // get free product variant id
+          {% for variant in linklist.links.first.object.variants %}
+            {% if variant.title == 'Free' %}
+              var toAdd = {{ variant.id }};
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
           // add/remove free product
-          var toAdd = {{ linklist.links.first.object.variants.first.id }};
           var pleaseAdd = false;
           var pleaseRemove = false;
           var idsInCart = [];
@@ -374,8 +385,8 @@ jQuery(document).ready(function() {
           if (pleaseAdd && (jQuery.inArray(toAdd, n) === -1) && (jQuery.inArray(toAdd, idsInCart) === -1)) {
             var params = {
                 type: 'POST',
-                url: '/cart/add.js',
-                data: 'quantity=1&id=' + toAdd,
+                url: '/cart/update.js',
+                data: 'updates[' + toAdd + ']=1',
                 dataType: 'json',
                 success: function(line_item) {
                   t.updateDropdownCart();
@@ -394,9 +405,8 @@ jQuery(document).ready(function() {
             };
             jQuery.ajax(params);
           }
-
         {% endif %}
-			},
+      },
 			checkItemsInDropdownCart: function() {
 				if (e("#dropdown-cart .mini-products-list").children().length > 0) {		
 					e("#dropdown-cart .no-items").hide();
@@ -515,7 +525,7 @@ jQuery(document).ready(function() {
 											o = 1
 										}
 		                               
-		                                var quantity = parseFloat(o) + parseFloat(1);
+		                var quantity = parseFloat(o) + parseFloat(1);
 										var u = e(r).find(".product-title").text();
 										var a = e(r).find(".product-grid-image img").attr("src");
 										t.doAjaxUpdateCart(s, quantity, u, a)
@@ -977,9 +987,9 @@ jQuery(document).ready(function() {
 						s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
 						s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
 
-						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
+						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title' && n.items[i].variant_options[0] != 'Normal Price' && n.items[i].variant_options[0] != 'Free') {
 							price =  n.items[i].variant_options[0]  + ' | ' + price;
-						}
+						} 
 
 						s = s.replace(/\{PRICE\}/g, price);
 
@@ -1122,9 +1132,9 @@ jQuery(document).ready(function() {
 						s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
 						s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
 
-						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
+						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title' && n.items[i].variant_options[0] != 'Normal Price' && n.items[i].variant_options[0] != 'Free') {
 							price =  n.items[i].variant_options[0]  + ' | ' + price;
-						}
+						} 
 
 						s = s.replace(/\{PRICE\}/g, price);
 

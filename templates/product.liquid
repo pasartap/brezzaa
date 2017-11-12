@@ -28,10 +28,13 @@
             {% if collection.previous_product or collection.next_product %}
               <div class="pagination pagination__product">
                   <ul>
-                      {% if collection.previous_product %} {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
-                      <li class="left-arrow"><span class="left">{{ '' | link_to: prev_url }}</span></li>
-                      {% endif %} {% if collection.next_product %} {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
-                      <li class="right-arrow"><span class="right">{{ '' | link_to: next_url }}</span></li>
+                      {% if collection.previous_product %} 
+                        {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
+                        <li class="left-arrow"><span class="left">{{ '' | link_to: prev_url }}</span></li>
+                      {% endif %} 
+                      {% if collection.next_product %} 
+                        {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
+                        <li class="right-arrow"><span class="right">{{ '' | link_to: next_url }}</span></li>
                       {% endif %}
                   </ul>
               </div>
@@ -90,10 +93,13 @@
               {% endif %}
               {% comment %}<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>{% endcomment %}
               <span style="font-size:16px;color:grey">
-                {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' %}
+                {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' and product.first_available_variant.option1 != 'Normal Price' %}
                   {{ product.first_available_variant.option1 }}
                 {% else %}
-                  {% for variant in product.variants %}{{ variant.weight | weight_with_unit }}{% endfor %}
+                  {% for variant in product.variants %}
+                    {{ variant.weight | weight_with_unit }}
+                    {% break %}
+                  {% endfor %}
                 {% endif %} 
               </span>
               <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ product.id }}" class="addToCartForm product-actions-{{ product.id }}">
@@ -125,7 +131,9 @@
 
                   {% if product.available and product.variants.size > 1 %} 
                     {% for option in product.options %} 
-                      {% include 'swatch' with option %} 
+                      {% unless option == 'Price Type' %}
+                        {% include 'swatch' with option %} 
+                      {% endunless %}
                     {% endfor %} 
                   {% endif %}
 
@@ -269,7 +277,7 @@
 </div>
 {% comment %}
 {% include 'snippet-related-products' %}
-{% endcomment %}
+
 {{ 'jquery.elevatezoom.js' | asset_url | script_tag }}
 <script>
 var imgWidth = $("#productPhotoImg").width();
@@ -281,6 +289,7 @@ var imgWidth = $("#productPhotoImg").width();
   });
  }
 </script>
+{% endcomment %}
 <script>
   $(document).ready(function() {
     $('ul.tabs').each(function(){
@@ -515,7 +524,7 @@ Place this in your product.liquid template, at the bottom.
     });
   </script>
 
-
+{% comment %}
  <script type="text/javascript">
    
       //product image zoom
@@ -584,4 +593,5 @@ Place this in your product.liquid template, at the bottom.
 
    
 </script>
+{% endcomment %}
   {% endif %}

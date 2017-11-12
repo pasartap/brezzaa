@@ -27,14 +27,10 @@
       {% if sold_out %}
         <input class="btn btn-primary addToCart add-to-cart-btn" type="submit" value="Unavailable" disabled="disabled" /> 
       {% else %} 
-        {% if variantCount > 1 %}
-          <input class="btn btn-primary addToCart add-to-cart-btn" type="button" onclick="window.location.href='{{product.url}}'" value="Select options" /> 
-        {% else %}
-          <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
-          <button type="submit" name="add" class="btn btn-primary addToCart add-to-cart-btn">
-              <span class="addToCartText">Add to cart</span>
-          </button>
-        {% endif %} 
+        <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+        <button type="submit" name="add" class="btn btn-primary addToCart add-to-cart-btn">
+            <span class="addToCartText">Add to cart</span>
+        </button>
       {% endif %}
     </div>
   {% else %}
@@ -48,14 +44,10 @@
       {% if sold_out %}
         <input class="btn btn-primary addToCart add-to-cart-btn" type="submit" value="Unavailable" disabled="disabled" /> 
       {% else %} 
-        {% if variantCount > 1 %}
-          <input class="btn btn-primary addToCart add-to-cart-btn" type="button" onclick="window.location.href='{{product.url}}'" value="Select options" /> 
-        {% else %}
-          <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
-          <button type="submit" name="add" class="btn btn-primary addToCart add-to-cart-btn">
-              <span class="addToCartText">Add to cart</span>
-          </button>
-        {% endif %} 
+        <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+        <button type="submit" name="add" class="btn btn-primary addToCart add-to-cart-btn">
+            <span class="addToCartText">Add to cart</span>
+        </button>
       {% endif %}
     </div>
   {% endif %}
