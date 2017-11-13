@@ -325,86 +325,83 @@ jQuery(document).ready(function() {
 			},
       applySpendRules: function(n) {
         // spend rules
-        {% assign linklist = linklists['free-product'] %} 
-        {% if linklist.links.size > 0 and settings.enable_spend_rules == true and settings.order_minimum != blank and settings.spend_target_amount != blank and settings.free_product_text != blank %}
+        {% assign tier_1_linklist = linklists['free-product'] %} 
+
+        {% if settings.enable_spend_rules == true and settings.order_minimum != blank %}
           
           var order_minimum = parseFloat({{ settings.order_minimum }}).toFixed(2);
-          var spend_target_amount = parseFloat({{ settings.spend_target_amount }}).toFixed(2);
-          var total_price = parseFloat(n.total_price / 100).toFixed(2);
           
-          // show spend notification
-          if (total_price >= order_minimum && total_price < spend_target_amount) {
-            var remaining_amount = (spend_target_amount - total_price) * 100;
-            var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
+          {% if tier_1_linklist.links.size > 0  and settings.tier_1_target_amount != blank and settings.tier_1_text != blank %}
+            var tier_1_target_amount = parseFloat({{ settings.tier_1_target_amount }}).toFixed(2);
+            var total_price = parseFloat(n.total_price / 100).toFixed(2);
             
-            var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more {{ settings.free_product_text }}</span></p>';
-                  
-            e(".spend-notification").html(spend_text);
-            e(".spend-notification").show();
+            // show spend notification
+            if (total_price >= order_minimum && total_price < tier_1_target_amount) {
+              var remaining_amount = (tier_1_target_amount - total_price) * 100;
+              var amount = Shopify.formatMoney(remaining_amount,window.formatMoney);
+              
+              var spend_text = '<p class="spend-notification-text">Spend <span class="remaining-amount money">' +  amount + '</span> more {{ settings.tier_1_text }}</span></p>';
+                    
+              e(".spend-notification").html(spend_text);
+              e(".spend-notification").show();
 
-            if ($("#sticky-cart").find('.spend-notification').length == 0 ) {
-              $("#sticky-cart").find('.mm-navbar').after('<div class="spend-notification">' + spend_text + '</div>');
-            }     
+              if ($("#sticky-cart").find('.spend-notification').length == 0 ) {
+                $("#sticky-cart").find('.mm-navbar').after('<div class="spend-notification">' + spend_text + '</div>');
+              }     
 
-            if ($("#sticky-cart").find('.mm-panels').hasClass("has-spend-notification")) {
-            } else {
-              $("#sticky-cart").find('.mm-panels').addClass("has-spend-notification");
-            }
-
-            if ($("#sticky-cart").find('.mm-panels').hasClass("no-spend-notification")) {
-              $("#sticky-cart").find('.mm-panels').removeClass("no-spend-notification");
-            }
-          }
-
-          // get free product variant id
-          {% for variant in linklist.links.first.object.variants %}
-            {% if variant.title == 'Free' %}
-              var toAdd = {{ variant.id }};
-              {% break %}
-            {% endif %}
-          {% endfor %}
-
-          // add/remove free product
-          var pleaseAdd = false;
-          var pleaseRemove = false;
-          var idsInCart = [];
-
-          for (var i = 0; i < n.items.length; i++) {
-            idsInCart.push(n.items[i].id);
-            if (n.items[i].id !== toAdd) {
-              if (n.total_price >= {{ settings.spend_target_amount | times: 100 }}) {
-                  pleaseAdd = true;
+              if ($("#sticky-cart").find('.mm-panels').hasClass("has-spend-notification")) {
+              } else {
+                $("#sticky-cart").find('.mm-panels').addClass("has-spend-notification");
               }
-            } else { // Bonus item is in cart
-              if (n.total_price < {{ settings.spend_target_amount | times: 100 }}) {
-                  pleaseRemove = true;
+
+              if ($("#sticky-cart").find('.mm-panels').hasClass("no-spend-notification")) {
+                $("#sticky-cart").find('.mm-panels').removeClass("no-spend-notification");
               }
             }
-          }
 
-          if (pleaseAdd && (jQuery.inArray(toAdd, n) === -1) && (jQuery.inArray(toAdd, idsInCart) === -1)) {
-            var params = {
-                type: 'POST',
-                url: '/cart/update.js',
-                data: 'updates[' + toAdd + ']=1',
-                dataType: 'json',
-                success: function(line_item) {
-                  t.updateDropdownCart();
+            // add/remove free product
+            var toAdd = {{ tier_1_linklist.links.first.object.variants.first.id }};
+            var pleaseAdd = false;
+            var pleaseRemove = false;
+            var idsInCart = [];
+
+            for (var i = 0; i < n.items.length; i++) {
+              idsInCart.push(n.items[i].id);
+              if (n.items[i].id !== toAdd) {
+                if (n.total_price >= {{ settings.tier_1_target_amount | times: 100 }}) {
+                    pleaseAdd = true;
                 }
-            };
-            jQuery.ajax(params);
-          } else if (pleaseRemove) {
-            var params = {
-                type: 'POST',
-                url: '/cart/update.js',
-                data: 'updates[' + toAdd + ']=0',
-                dataType: 'json',
-                success: function(line_item) {
-                  t.updateDropdownCart();
+              } else { // Bonus item is in cart
+                if (n.total_price < {{ settings.tier_1_target_amount | times: 100 }}) {
+                    pleaseRemove = true;
                 }
-            };
-            jQuery.ajax(params);
-          }
+              }
+            }
+
+            if (toAdd != -1 && pleaseAdd && (jQuery.inArray(toAdd, n) === -1) && (jQuery.inArray(toAdd, idsInCart) === -1)) {
+              var params = {
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: 'updates[' + toAdd + ']=1',
+                  dataType: 'json',
+                  success: function(line_item) {
+                    t.updateDropdownCart();
+                  }
+              };
+              jQuery.ajax(params);
+            } else if (pleaseRemove) {
+              var params = {
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: 'updates[' + toAdd + ']=0',
+                  dataType: 'json',
+                  success: function(line_item) {
+                    t.updateDropdownCart();
+                  }
+              };
+              jQuery.ajax(params);
+            }
+          {% endif %}
         {% endif %}
       },
 			checkItemsInDropdownCart: function() {
@@ -894,10 +891,10 @@ jQuery(document).ready(function() {
 						// t.showModal(".ajax-success-modal");
                        
 						t.updateDropdownCart();
-                      // e(".cart_popup").show();
-                      // e(".cart_popup").delay(40).show();
-                      // e('.cart_popup').delay(300).slideDown(300);
-  	                  // e('.cart_popup').delay(2000).slideUp(400);
+            // e(".cart_popup").show();
+            // e(".cart_popup").delay(40).show();
+            // e('.cart_popup').delay(300).slideDown(300);
+            // e('.cart_popup').delay(2000).slideUp(400);
                               
 					},
 					error: function(n, r) { 
@@ -928,10 +925,10 @@ jQuery(document).ready(function() {
 						// t.showModal(".ajax-success-modal");
                        
 						t.updateDropdownCart();
-                      // e(".cart_popup").show();
-                      // e(".cart_popup").delay(40).show();
-                      // e('.cart_popup').delay(300).slideDown(300);
-  	                  // e('.cart_popup').delay(2000).slideUp(400);
+            // e(".cart_popup").show();
+            // e(".cart_popup").delay(40).show();
+            // e('.cart_popup').delay(300).slideDown(300);
+            // e('.cart_popup').delay(2000).slideUp(400);
                 
 					},
 					error: function(n, r) { 
@@ -987,7 +984,7 @@ jQuery(document).ready(function() {
 						s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
 						s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
 
-						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title' && n.items[i].variant_options[0] != 'Normal Price' && n.items[i].variant_options[0] != 'Free') {
+						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
 							price =  n.items[i].variant_options[0]  + ' | ' + price;
 						} 
 
@@ -1016,83 +1013,6 @@ jQuery(document).ready(function() {
 
 				t.checkItemsInDropdownCart();
 				t.checkSpentAmount(n); 
-
-				/* Plus button in cart event handler */
-				// if (e(".btn-add-cart").length > 0) {
-				// 	e(".btn-add-cart").on("click", function(n) {
-				// 		n.preventDefault();
-				// 		if (e(this).attr("disabled") != "disabled") {
-				// 			var r = e(this).closest("form");
-				// 			var i = e(r).attr("data-id");
-
-				// 			i = i.match(/\d+/g);
-							
-				// 			if (window.ajax_cart) {                            
-				// 				e(".product-actions-" + i).submit();
-				// 			} else {
-				// 				var s = e(".product-actions-" + i + " select[name=id]").val();
-                             
-				// 				if (!s) {
-                                 
-				// 					s = e(".product-actions-" + i + " input[name=id]").val()
-				// 				}
-				// 				var o = e(".product-actions-" + i + " input[name=quantity]").val();
-				// 				if (!o) {
-				// 					o = 1
-				// 				}
-                               
-    //                             var quantity = parseFloat(o) + parseFloat(1);
-				// 				var u = e(r).find(".product-title").text();
-				// 				var a = e(r).find(".product-grid-image img").attr("src");
-				// 				t.doAjaxUpdateCart(s, quantity, u, a)
-
-				// 				e(".product-actions-" + i + " input[name=quantity]").val(quantity);
-				// 			}						
-				// 		}
-				// 		return false;
-				// 	})
-				// }
-
-				/* Remove button in cart event handler */
-				// if (e(".btn-remove-cart").length > 0) {
-				// 	e(".btn-remove-cart").click(function(n) {
-				// 		n.preventDefault();
-				// 		if (e(this).attr("disabled") != "disabled") {
-				// 			var r = e(this).closest("form");
-				// 			var i = e(r).attr("data-id");
-                          
-				// 			i = i.match(/\d+/g);
-				// 			if (window.ajax_cart) {
-                             
-				// 				e(".product-actions-" + i).submit();
-				// 			} else {
-				// 				var s = e(".product-actions-" + i + " select[name=id]").val();                            
-				// 				if (!s) {
-				// 					s = e(".product-actions-" + i + " input[name=id]").val()
-				// 				}
-								
-				// 				var o = e(".product-actions-" + i + " input[name=quantity]").val();
-				// 				if (!o) {
-				// 					o = 1
-				// 				}
-
-				// 				var quantity = parseFloat(o) - parseFloat(1);
-    //                             var u = e(r).find(".product-title").text();
-				// 				var a = e(r).find(".product-grid-image img").attr("src");
-
-				// 				t.doAjaxUpdateCart(s, quantity, u, a)
-
-				// 				if (quantity < 1) {
-				// 		          	e(this).parent().hide();
-				// 			  		e(this).closest('form').find('.single-add-to-cart-button').show();
-				// 		        } else {
-				// 		        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
-				// 		        }
-				// 			}						
-				// 		}
-				// 		return false;
-				// 	})
-				// }  
 			},
 			doUpdateMobileCart: function(n) {
 				var r = '<li class="item" id="cart-item-{ID}"><a href="{URL}" title="{TITLE}" class="product-image"><img src="{IMAGE}" alt="{TITLE}"></a><div id="product-details-{PRODUCT_ID}" class="product-details"><a href="javascript:void(0)" title="Remove This Item" class="btn-remove">X</a><p class="product-name"><a href="{URL}">{TITLE}</a></p><div class="cart-collateral" style="color:grey;margin-bottom:10px" >{PRICE}</div></div><form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{PRODUCT_ID}" class="addToCartForm product-actions-{PRODUCT_ID}"><div class="cart-buttons-in-cart"><input type="hidden" name="id" value="{ID}" /><button type="submit" name="minus" class="btn-remove-cart" {DISABLED}><i class="fa fa-minus" aria-hidden="true"></i></button><input type="text" id="quantity" name="quantity" value="{QUANTITY}" class="add-to-cart-quantity-cart" readonly><button type="submit" name="add" class="btn-add-cart"><i class="fa fa-plus" aria-hidden="true"></i></button></div><div class="cart-collateral cart-line-item-price"><span class="money">{LINE_PRICE}</span></div></form></li>';
@@ -1132,7 +1052,7 @@ jQuery(document).ready(function() {
 						s = s.replace(/\{IMAGE\}/g, Shopify.resizeImage(n.items[i].image, "small"));
 						s = s.replace(/\{LINE_PRICE\}/g, Shopify.formatMoney(n.items[i].line_price, window.formatMoney));
 
-						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title' && n.items[i].variant_options[0] != 'Normal Price' && n.items[i].variant_options[0] != 'Free') {
+						if (n.items[i].variant_options.length > 0 && n.items[i].variant_options[0] != null && n.items[i].variant_options[0] != 'Default Title') {
 							price =  n.items[i].variant_options[0]  + ' | ' + price;
 						} 
 
@@ -1233,8 +1153,7 @@ jQuery(document).ready(function() {
 					})
 				}  
 			},
-			checkNeedToConvertCurrency: function() {
-                                                    
+			checkNeedToConvertCurrency: function() {                                                    
 				return  window.show_multiple_currencies && Currency.currentCurrency != shopCurrency
 			},
 			convertToSlug: function(e) {

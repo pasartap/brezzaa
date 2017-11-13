@@ -93,7 +93,7 @@
               {% endif %}
               {% comment %}<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>{% endcomment %}
               <span style="font-size:16px;color:grey">
-                {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' and product.first_available_variant.option1 != 'Normal Price' %}
+                {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' %}
                   {{ product.first_available_variant.option1 }}
                 {% else %}
                   {% for variant in product.variants %}

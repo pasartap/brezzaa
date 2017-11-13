@@ -19,24 +19,29 @@
     "name": "Spend Rules",
     "settings": [
     {
-        "type": "header",
-        "content": "Spend Rules"
-    },
-    {
         "type": "checkbox",
         "id": "enable_spend_rules",
         "label": "Enable spend rules?",
-        "default": true
+        "default": false
+    },
+    {
+        "type": "header",
+        "content": "Tier 1"
     },
     {
         "type": "text",
-        "id": "spend_target_amount",
-        "label": "Spend Target Amount"
+        "id": "tier_1_target_amount",
+        "label": "Tier 1 Target Amount"
+    },
+    {
+        "type": "text",
+        "id": "tier_1_linklist_handle",
+        "label": "Tier 1 Linklist handle"
     },
     {
         "type": "textarea",
-        "id": "free_product_text",
-        "label": "Free Product Text",
+        "id": "tier_1_text",
+        "label": "Tier 1 Free Product Text",
         "info": "Spend RMX.XX more <free_product_text>"
     }]
 },
