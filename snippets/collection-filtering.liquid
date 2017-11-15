@@ -3,11 +3,13 @@
   <select name="filterBy" class="coll-filter">
     <option value="">All</option>
     {% for tag in collection.all_tags %}
-    {% if current_tags contains tag %}
-    <option value="{{ tag | handle }}" selected>{{ tag }}</option>
-    {% else %}
-    <option value="{{ tag | handle }}">{{ tag }}</option>
-    {% endif %}
+      {% unless tag == 'Freebie' or tag == 'Wholesale' %}
+        {% if current_tags contains tag %}
+          <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+        {% else %}
+          <option value="{{ tag | handle }}">{{ tag }}</option>
+      {% endif %}
+      {% endunless %}
     {% endfor %}
   </select>
 </div>
