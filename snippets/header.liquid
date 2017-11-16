@@ -1088,12 +1088,27 @@ jQuery(document).ready(function() {
 
             // Remove links & buttons if line item is a freebie
             if (n.items[i].product_type == 'Freebie') {
-              e("#cart-item-" + n.items[i].id).find("a.btn-remove").remove();
-              e("#cart-item-" + n.items[i].id).find(".btn-remove-cart").remove();
-              e("#cart-item-" + n.items[i].id).find(".add-to-cart-quantity-cart").remove();
-              e("#cart-item-" + n.items[i].id).find(".btn-add-cart").remove();
-              e("#cart-item-" + n.items[i].id).find(".product-image").removeAttr('href');
-              e("#cart-item-" + n.items[i].id).find(".product-name a").removeAttr('href');
+              var element_id = '#cart-item-' + n.items[i].id;
+              // e(element_id).find("a.btn-remove").remove();
+              // e(element_id).find(".btn-remove-cart").remove();
+              // e(element_id).find(".add-to-cart-quantity-cart").remove();
+              // e(element_id).find(".btn-add-cart").remove();
+              // e(element_id).find(".product-image").removeAttr('href');
+              // e(element_id).find(".product-name a").removeAttr('href');
+
+              sentinel.on(element_id, function(el) {
+                //el.innerHTML = 'The sentinel is always watching.';
+                //alert('The sentinel is always watching.');
+
+                if (el.children.length == 3 && el.children[1].children.length == 3) {
+                  el.children[0].removeAttribute('href');
+                  el.children[1].children[0].remove();
+
+                  // var product_name = el.children[1].children[1];
+                  // product_name.children[0].removeAttribute('href');
+                }
+              });
+
             }
 					}
 				}
