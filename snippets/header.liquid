@@ -1077,36 +1077,25 @@ jQuery(document).ready(function() {
 						e("#dropdown-cart .mini-products-list").append(s);
 
             // Update line item details in product page
-            var line_quantity = e(".product-actions-" + n.items[i].product_id).find("#line-quantity");                            
+            var line_quantity = e(".product-actions-" + n.items[i].product_id).find("#line-quantity");
             if (line_quantity.length > 0) {
               line_quantity[0].innerHTML = n.items[i].quantity;
             }
-            var line_quantity = e(".product-actions-" + n.items[i].product_id).find("#line-price");                            
-            if (line_quantity.length > 0) {
-              line_quantity[0].innerHTML = Shopify.formatMoney(n.items[i].line_price, window.formatMoney);
+            var line_price = e(".product-actions-" + n.items[i].product_id).find("#line-price");
+            if (line_price.length > 0) {
+              line_price[0].innerHTML = Shopify.formatMoney(n.items[i].line_price, window.formatMoney);
             }
 
             // Remove links & buttons if line item is a freebie
             if (n.items[i].product_type == 'Freebie') {
-              var element_id = '#cart-item-' + n.items[i].id;
-              // e(element_id).find("a.btn-remove").remove();
-              // e(element_id).find(".btn-remove-cart").remove();
-              // e(element_id).find(".add-to-cart-quantity-cart").remove();
-              // e(element_id).find(".btn-add-cart").remove();
-              // e(element_id).find(".product-image").removeAttr('href');
-              // e(element_id).find(".product-name a").removeAttr('href');
-
+              var element_id = '#cart-item-' + n.items[i].id;             
               sentinel.on(element_id, function(el) {
-                //el.innerHTML = 'The sentinel is always watching.';
-                //alert('The sentinel is always watching.');
-
-                if (el.children.length == 3 && el.children[1].children.length == 3) {
-                  el.children[0].removeAttribute('href');
-                  el.children[1].children[0].remove();
-
-                  // var product_name = el.children[1].children[1];
-                  // product_name.children[0].removeAttribute('href');
-                }
+                $(el).find("a.btn-remove").remove();
+                $(el).find(".btn-remove-cart").remove();
+                $(el).find(".add-to-cart-quantity-cart").remove();
+                $(el).find(".btn-add-cart").remove();
+                $(el).find(".product-image").removeAttr('href');
+                $(el).find(".product-name a").removeAttr('href');
               });
 
             }
