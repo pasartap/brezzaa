@@ -5,11 +5,11 @@
 {% endcomment %}
 
 {% if settings.display_megamenu %}
-{% assign items_list = settings.megamenu_items | split:"," | strip | downcase %}
+  {% assign items_list = settings.megamenu_items | split:"," | strip | downcase %}
 {% endif %}
 <div class="container top-nav">
 <ul class="site-nav">
-  {% for link in linklists.main-menu-mehhhhh.links %}
+  {% for link in linklists[settings.main_nav].links %}
     {% if linklists[link.handle] != empty %}
     {% assign cat = link.title | downcase %}
     <li class="dropdown {% if settings.display_megamenu and items_list contains cat %} mega-menu {% endif %}">
