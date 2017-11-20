@@ -1670,6 +1670,22 @@ ul.topnav em:hover {
 
 .LandingLeft {
 	float:left;
-	Width = 30%;
 	float-left: 30; 
+	position: relative;
+    padding-bottom: 74.25%; /* 4:3 ratio */
+    padding-top: 30px; 
+    height: 0;
+    overflow: hidden;
+}
+
+.LandingLeft-narrow {
+    padding-bottom: 40%;
+}
+
+iframe,object,embed,video,.LandingLeft,.video-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
