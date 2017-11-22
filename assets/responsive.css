@@ -1170,10 +1170,15 @@ body {
 	padding-top: 1px;
 	font-family: Monaco;
 	font-color: #006400;
-	font-size: 25px;
+	font-size: 15px;
 }
 .toplinks .links div {
 	padding-left: 0px;
+	float: right;
+    margin-right: 10px;
+    font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
 }
 .toplinks div.links div a {
 	padding: 0 0 0 5px;
@@ -1181,14 +1186,14 @@ body {
 .toplinks>div>div.myaccount>a:before {
 	content: '\f007';
 	font-family: Monaco;
-	font-size: 25px;
+	font-size: 15px;
 	padding-right: 6px;
 	font-color: #006400;
 }
 .toplinks>div>div.wishlist>a:before {
 	content: '\f004';
 	font-family: Monaco;
-	font-size: 25px;
+	font-size: 15px;
 	padding-right: 6px;
 	font-color: #006400;
 }
@@ -1200,7 +1205,7 @@ body {
 }
 .toplinks>div>div.login a:before {
 	font-family: Monaco;
-	font-size: 25px;
+	font-size: 15px;
 	padding-right: 6px;
 	font-color: #006400;
 }
