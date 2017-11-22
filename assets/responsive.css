@@ -2715,6 +2715,9 @@ body {
 }
 .toplinks>div>div.login span {
 	display: none;
+	font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
 }
 .search-btn-bg {
 	right: 10px;
