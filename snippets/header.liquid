@@ -27,13 +27,13 @@
                         {% if customer %} 
                           <a href="/account"><span>Account</span></a> 
                         {% else %} 
-                          <a href="/account/login"><span>Account |</span></a> 
+                          <a href="/account/login"><span>Account</span></a> 
                         {% endif %}
                       {% endif %} 
                     </div>
                   {% endif %}
                 {% endif %}
-                
+                <span> | </span>
                 {% if settings.display_wishlist_link %}
                   {% if settings.display_wishlist_link != blank %}
                     <div class="wishlist"> 
