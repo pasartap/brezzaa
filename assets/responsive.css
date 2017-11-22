@@ -2664,26 +2664,34 @@ body {
     margin-left: auto;
     padding-right: 0;
     padding-top: 2px;
+    font-family: Monaco;
+	font-size: 15px;
+	font-color: #136b0a;
+
 }
 .toplinks .links div {
 	padding-left: 0px; margin-left: 5px;
+	font-family: Monaco;
+	font-size: 15px;
+	font-color: #136b0a;
 }
 .toplinks div.links div a {
 	padding: 0 0 0 3px;
+
 }
 .toplinks>div>div.myaccount>a:before {
 	content: '\f007';
 	font-family: Monaco;
 	font-size: 25px;
 	padding-right: 6px;
-	font-color: #006400;
+	font-color: #136b0a;
 }
 .toplinks>div>div.wishlist>a:before {
 	content: '\f004';
 	font-family: Monaco;
 	font-size: 25px;
 	padding-right: 6px;
-	font-color: #006400;
+	font-color: #136b0a;
 }
 .toplinks>div>div.check>a:before {
 	content: '\f00c';
@@ -2695,13 +2703,19 @@ body {
 	font-family: Monaco;
 	font-size: 25px;
 	padding-right: 6px;
-	font-color: #006400;
+	font-color: #136b0a;
 }
 .toplinks>div>div.login a#customer_login_link:before {
 	content: '\f13e';
+	font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
 }
 .toplinks>div>div.login a#customer_register_link:before {
 	content: '\f084';
+	font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
 } 
   
 .toplinks div.links div a#customer_logout_link:before {
@@ -2712,6 +2726,9 @@ body {
 }
 .toplinks div.links div a span {
 	display: none;
+	font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
 }
 .toplinks>div>div.login span {
 	display: none;
