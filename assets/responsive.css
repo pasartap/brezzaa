@@ -1188,14 +1188,14 @@ body {
 	font-family: Monaco;
 	font-size: 15px;
 	padding-right: 6px;
-	font-color: #006400;
+	font-color: #009900;
 }
 .toplinks>div>div.wishlist>a:before {
 	content: '\f004';
 	font-family: Monaco;
 	font-size: 15px;
 	padding-right: 6px;
-	font-color: #006400;
+	font-color: #009900;
 }
 .toplinks>div>div.check>a:before {
 	content: '\f00c';
@@ -1207,7 +1207,7 @@ body {
 	font-family: Monaco;
 	font-size: 15px;
 	padding-right: 6px;
-	font-color: #006400;
+	font-color: #009900;
 }
 .toplinks>div>div.login a#customer_login_link:before {
 	content: '\f13e';
