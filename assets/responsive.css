@@ -1178,13 +1178,13 @@ body {
 .toplinks>div>div.myaccount>a:before {
 	content: '\f007';
 	font-family: FontAwesome;
-	font-size: 13px;
+	font-size: 20px;
 	padding-right: 6px
 }
 .toplinks>div>div.wishlist>a:before {
 	content: '\f004';
 	font-family: FontAwesome;
-	font-size: 13px;
+	font-size: 20px;
 	padding-right: 6px
 }
 .toplinks>div>div.check>a:before {
@@ -1195,7 +1195,7 @@ body {
 }
 .toplinks>div>div.login a:before {
 	font-family: FontAwesome;
-	font-size: 13px;
+	font-size: 20px;
 	padding-right: 6px;
 }
 .toplinks>div>div.login a#customer_login_link:before {
@@ -2660,13 +2660,13 @@ body {
 .toplinks>div>div.myaccount>a:before {
 	content: '\f007';
 	font-family: FontAwesome;
-	font-size: 13px;
+	font-size: 20px;
 	padding-right: 6px
 }
 .toplinks>div>div.wishlist>a:before {
 	content: '\f004';
 	font-family: FontAwesome;
-	font-size: 13px;
+	font-size: 20px;
 	padding-right: 6px
 }
 .toplinks>div>div.check>a:before {
@@ -2677,7 +2677,7 @@ body {
 }
 .toplinks>div>div.login a:before {
 	font-family: FontAwesome;
-	font-size: 13px;
+	font-size: 20px;
 	padding-right: 6px;
 }
 .toplinks>div>div.login a#customer_login_link:before {
