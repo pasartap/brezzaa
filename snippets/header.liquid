@@ -25,9 +25,9 @@
                     <div class="myaccount">
                       {% if shop.customer_accounts_enabled %}
                         {% if customer %} 
-                          <a href="/account"><span>Account</span></a> 
+                          <span> | </span> <a href="/account"><span>Account</span></a> 
                         {% else %} 
-                          <a href="/account/login"><span>Account</span></a> 
+                          <span> | </span> <a href="/account/login"><span>Account</span></a> 
                         {% endif %}
                       {% endif %} 
                     </div>
@@ -38,9 +38,9 @@
                   {% if settings.display_wishlist_link != blank %}
                     <div class="wishlist"> 
                       {% if customer %} 
-                        <a href="/pages/wishlist"><span>Wishlist</span></a> 
+                        <span> | </span> <a href="/pages/wishlist"><span>Wishlist</span></a> 
                       {% else %} 
-                        <a href="/account/login"><span>Wishlist</span></a> 
+                        <span> | </span> <a href="/account/login"><span>Wishlist</span></a> 
                       {% endif %} 
                     </div>
                   {% endif %}
