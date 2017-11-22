@@ -38,9 +38,9 @@
                   {% if settings.display_wishlist_link != blank %}
                     <div class="wishlist"> 
                       {% if customer %} 
-                        <a href="/pages/wishlist"><span>| Wishlist</span></a> 
+                        <a href="/pages/wishlist"><span>Wishlist</span></a> 
                       {% else %} 
-                        <a href="/account/login"><span>| Wishlist</span></a> 
+                        <a href="/account/login"><span>Wishlist</span></a> 
                       {% endif %} 
                     </div>
                   {% endif %}
@@ -61,7 +61,7 @@
                         {% if customer %}
                           {{ '<span>Log out</span>' | customer_logout_link }}
                         {% else %}
-                          <span> | </span> {{ "<span>Sign in</span>" | customer_login_link }} <span> | </span> {{ "<span>Sign up</span>" | customer_register_link }} 
+                          <span> | </span> {{ "<span>Sign in</span>" | customer_login_link }} <span> | </span> {{ "<span>Sign up |</span>" | customer_register_link }} 
                         {% endif %}
                       {% endif %}
                     </div>
