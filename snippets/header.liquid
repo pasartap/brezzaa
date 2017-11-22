@@ -33,7 +33,7 @@
                     </div>
                   {% endif %}
                 {% endif %}
-                <span> | </span>
+                
                 {% if settings.display_wishlist_link %}
                   {% if settings.display_wishlist_link != blank %}
                     <div class="wishlist"> 
@@ -61,7 +61,7 @@
                         {% if customer %}
                           {{ '<span>Log out</span>' | customer_logout_link }}
                         {% else %}
-                          {{ "<span>Sign in</span>" | customer_login_link }} <span> | </span> {{ "<span>Sign up</span>" | customer_register_link }} 
+                          <span> | </span> {{ "<span>Sign in</span>" | customer_login_link }} <span> | </span> {{ "<span>Sign up</span>" | customer_register_link }} 
                         {% endif %}
                       {% endif %}
                     </div>
