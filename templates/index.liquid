@@ -9,9 +9,9 @@ Example: the h2 element should have the same size and color in:
 - 'page' pages' content
 - blog post
 {% endcomment %}
-<div class="index-scope"> {% assign page = pages.frontpage %} 
-  
-  <!--
+<div class="index-scope"> 
+  {% assign page = pages.frontpage %} 
+<!--
 {% comment %}  
 <div class="rte">
 {{ page.content }}
@@ -21,16 +21,14 @@ Example: the h2 element should have the same size and color in:
   
   {% assign listing_cols = settings.homepage_listing_cols %}
   {% assign image_size = settings.homepage_listing_image_size %}
-  {% comment %} 
-  <div class="container">
-    <div class="row"> {% include 'hot-product' %}
-      {% include 'home-tabs' %} </div>
-  </div>
   
-  {% include 'widget-best-sellers' %}
-  {% endcomment %}
-  {% include 'featured-collections' %}
-  {% include 'meal-kits' %}  
-  {% include 'home-bottom-banner' %}
-  {% include 'widget-logo_brand' %} 
-  </div>
+  {% if customer %}
+    {% if customer.tags contains 'wholesale' %}
+      {% include 'wholesale-homepage' %}
+    {% else %}
+      {% include 'homepage' %}
+    {% endif %}
+  {% else %}
+    {% include 'homepage' %}
+  {% endif %}
+</div>

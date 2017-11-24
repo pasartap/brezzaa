@@ -9,7 +9,13 @@
 {% endif %}
 <div class="container top-nav">
 <ul class="site-nav">
-  {% for link in linklists[settings.main_nav].links %}
+  {% assign menu_handle = 'main-menu' %}
+  {% if customer %}
+    {% if customer.tags contains 'wholesale' %}
+      {% assign menu_handle = 'main-menu-wholesale' %}
+    {% endif %}
+  {% endif %}
+  {% for link in linklists[menu_handle].links %}
     {% if linklists[link.handle] != empty %}
     {% assign cat = link.title | downcase %}
     <li class="dropdown {% if settings.display_megamenu and items_list contains cat %} mega-menu {% endif %}">
