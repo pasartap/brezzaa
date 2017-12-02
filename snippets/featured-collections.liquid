@@ -19,7 +19,6 @@
               <div id="featured-slider_{{ coll_num }}" class="product-flexslider hidden-buttons">
                 <div class="slider-items slider-width-col4 products-grid block-content"> 
                   <!-- Item --> 
-
                   {% for product in collections[coll].products limit:15 %}
                     <div class="item"> {% include 'product-grid-item' with 'listing_cols' with 'image_size' %} </div>
                   {% endfor %} 

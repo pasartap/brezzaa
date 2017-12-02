@@ -22,7 +22,7 @@
     {% endif %}{% endcomment %}
     
     <header class="section-header">
-      <h1 class="section-header-title section-header-left">{{ collection.title }}</h1>
+      <h1 class="section-header-title section-header-left">{{ collection.title | replace: '(Wholesale)', '' }} </h1>
       {% include 'collection-views' %}
       <div class="section-header-right">
         {% include 'collection-filtering' %}
@@ -61,9 +61,3 @@
 </div>
 
 {% endpaginate %}
-
-<script type="text/javascript">
-  // Remove '(Wholesale)' text
-  $('.page-title').text($('.page-title').text().replace('(Wholesale)', ''));
-  $('.section-header-title').text($('.section-header-title').text().replace('(Wholesale)', ''));
-</script>

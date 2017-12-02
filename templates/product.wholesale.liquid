@@ -595,9 +595,3 @@ Place this in your product.liquid template, at the bottom.
 </script>
 {% endcomment %}
 {% endif %}
-<script type="text/javascript">
-  // Remove '(Wholesale)' text
-  if ($('.collection-link a').text().indexOf('(Wholesale)') != -1) {
-    $('.collection-link a').text($('.collection-link a').text().replace('(Wholesale)', ''));
-  }
-</script>
