@@ -147,8 +147,8 @@
                         <h3 class="heading--add-small">DELIVERY TIME</h3>      
                         <div id="order-delivery-form-wrapper" class="clearfix">
                           <p class="cart-total__info clearfix">When would you like your order delivered?</p>
-                          <input id="date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" />
-                          <select class="form-control wholesale-time" name="time" id="time" name="attributes[time]" value="{{ cart.attributes.time }}" >
+                          <input id="wholesale-date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" />
+                          <select id="wholesale-time" class="form-control wholesale-time" name="time" name="attributes[time]" value="{{ cart.attributes.time }}" >
                             <option disabled selected>Time slot</option>
                             <option>11AM - 2PM</option>
                             <option>2PM - 5PM</option>
@@ -221,8 +221,8 @@ jQuery(document).ready(function() {
 
   /* init datepicker */
   $(function() {
-    $("#date").datepicker( {
-      dateFormat: "dd/mm/yy",
+    $("#wholesale-date").datepicker( {
+      dateFormat: "D, dd/mm/yy",
       firstDay: 1,
       minDate: +1,
       maxDate: '+2M',
@@ -230,8 +230,37 @@ jQuery(document).ready(function() {
       beforeShowDay: function(date) {
         var day = date.getDay();
         return [(day != 0), ''];
+      },
+      onSelect: function(dateText) {
+        Shopify.getCart(function(n) {
+          {% if settings.order_minimum_wholesale != blank %}
+            var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
+            if (dateText == null || n.total_price < order_minimum) {
+              $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+              $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+            } else {
+              $("#dropdown-cart").find('.btn').removeAttr('disabled');
+              $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+            }
+          {% endif %}
+        })
       }
     } );
+  });
+
+  $('#wholesale-date').on("keyup change", function () {
+    Shopify.getCart(function(n) {
+      {% if settings.order_minimum_wholesale != blank %}
+        var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
+        if ($('#wholesale-date').val() != null && n.total_price >= order_minimum) {
+          $("#dropdown-cart").find('.btn').removeAttr('disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+        } else {
+          $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');        
+        }
+      {% endif %}
+    })
   });
 
   autosize(document.querySelectorAll('textarea'));
@@ -298,7 +327,7 @@ jQuery(document).ready(function() {
 			},
       checkSpentAmount: function(n) {
         // hide spend notification/disable checkout button
-        if ($('#timeDiv').css('display') === 'none') {
+        if ($('#wholesale-date').val() != null) {
             $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
             $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
         } else {
@@ -915,7 +944,7 @@ jQuery(document).ready(function() {
 								}
 
 								var quantity = parseFloat(o) - parseFloat(1);
-                var u = e(r).find(".product-title").text();
+                 var u = e(r).find(".product-title").text();
 								var a = e(r).find(".product-grid-image img").attr("src");
 
 								t.doAjaxUpdateCart(s, quantity, u, a);
@@ -1115,7 +1144,7 @@ jQuery(document).ready(function() {
                  o = 1
                }
                                
-                                var quantity = parseFloat(o) + parseFloat(1);
+               var quantity = parseFloat(o) + parseFloat(1);
                var u = e(r).find(".product-title").text();
                var a = e(r).find(".product-grid-image img").attr("src");
                t.doAjaxUpdateCart(s, quantity, u, a)
@@ -1151,7 +1180,7 @@ jQuery(document).ready(function() {
                }
 
                var quantity = parseFloat(o) - parseFloat(1);
-                                var u = e(r).find(".product-title").text();
+               var u = e(r).find(".product-title").text();
                var a = e(r).find(".product-grid-image img").attr("src");
 
                t.doAjaxUpdateCart(s, quantity, u, a)
