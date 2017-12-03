@@ -12,8 +12,8 @@
               {% endif %} 
             </div>
             <div class="phone hidden-xs"> 
-              {% if settings.header_msg != blank %} 
-                <span>{{ settings.header_msg }} </span> 
+              {% if settings.header_msg_wholesale != blank %} 
+                <span>{{ settings.header_msg_wholesale }} </span> 
               {% endif %}
             </div>
           </div>
@@ -80,7 +80,7 @@
           <!-- Header Logo --> 
           <!-- logo --> 
           {% if settings.use_logo %} 
-            <a id="logo" href="/"> {{ 'logo_189x48.png' | asset_url | img_tag: shop.name }} </a> 
+            <a id="logo" href="/"> {{ 'logo_189x48_wholesale.png' | asset_url | img_tag: shop.name }} </a> 
           {% else %} 
             <a class="logo-title" href="/">{{ settings.logo_text }}</a>
           {% endif %} 
@@ -142,10 +142,22 @@
                         <span style="float:left;margin-left:10px">SUBTOTAL</span> 
                         <span class="money amount" style="float:right;margin-right:10px">{{cart.total_price | money}}</span>
                       </div>
-                      <p class="cart-info">{{ settings.cart_information }}</p>
-                      
-                      {% include 'local-delivery-cart' %}
-        				      {% comment %}
+                      <p class="cart-info">{{ settings.cart_information_wholesale }}</p>
+                      <div id="order-delivery">  
+                        <h3 class="heading--add-small">DELIVERY TIME</h3>      
+                        <div id="order-delivery-form-wrapper" class="clearfix">
+                          <p class="cart-total__info clearfix">When would you like your order delivered?</p>
+                          <input id="date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" />
+                          <select class="form-control wholesale-time" name="time" id="time" name="attributes[time]" value="{{ cart.attributes.time }}" >
+                            <option disabled selected>Time slot</option>
+                            <option>11AM - 2PM</option>
+                            <option>2PM - 5PM</option>
+                            <option>5PM - 7PM</option>
+                          </select> 
+                        </div>  
+                        <div id="wrapper-response"></div>
+                      </div> 
+                      {% comment %}
         				      For the special instructions to be submitted with order,
         				      they need to use a name attribute set to 'note'. That's case-sensitive.
         				      {% endcomment %}
@@ -201,11 +213,26 @@
 	{% endif %} 
 
 	<!-- Sticky Top Bar -->
-	{% include 'sticky-topbar' %}
+	{% include 'sticky-topbar-wholesale' %}
 </header>
   
 <script>  
 jQuery(document).ready(function() {
+
+  /* init datepicker */
+  $(function() {
+    $("#date").datepicker( {
+      dateFormat: "dd/mm/yy",
+      firstDay: 1,
+      minDate: +1,
+      maxDate: '+2M',
+      // beforeShowDay: jQuery.datepicker.noWeekends
+      beforeShowDay: function(date) {
+        var day = date.getDay();
+        return [(day != 0), ''];
+      }
+    } );
+  });
 
   autosize(document.querySelectorAll('textarea'));
   document.getElementById("cart-note").rows = "1";
@@ -294,9 +321,9 @@ jQuery(document).ready(function() {
           return;
         }
 
-        {% if settings.order_minimum != blank %}
+        {% if settings.order_minimum_wholesale != blank %}
           // show spend notification if total price less than order minimum
-          var order_minimum = {{ settings.order_minimum | times: 100 }};
+          var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
   				if (n.total_price < order_minimum) {
   					$("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
             $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
@@ -322,7 +349,7 @@ jQuery(document).ready(function() {
          		}
     	    }
 
-          t.applySpendRules(n);
+          //t.applySpendRules(n);
 
         {% endif %}
 			},
@@ -332,12 +359,12 @@ jQuery(document).ready(function() {
         {% assign tier_2_linklist = linklists[settings.tier_2_linklist_handle] %} 
         {% assign tier_3_linklist = linklists[settings.tier_3_linklist_handle] %} 
 
-        {% if settings.enable_spend_rules == true and settings.order_minimum != blank %}
+        {% if settings.enable_spend_rules == true and settings.order_minimum_wholesale != blank %}
 
           // Tier 1
           {% if tier_1_linklist.links.size > 0  and settings.tier_1_target_amount != blank and settings.tier_1_text != blank %}
             
-            t.applyTier(1, {{ settings.order_minimum }}, {{ settings.tier_1_target_amount }}, '{{ settings.tier_1_text }}', n);
+            t.applyTier(1, {{ settings.order_minimum_wholesale }}, {{ settings.tier_1_target_amount }}, '{{ settings.tier_1_text }}', n);
 
           {% endif %}
 
@@ -775,7 +802,7 @@ jQuery(document).ready(function() {
 									o = 1
 								}
                                
-                                var quantity = parseFloat(o) + parseFloat(1);
+                var quantity = parseFloat(o) + parseFloat(1);
 								var u = e(r).find(".product-title").text();
 								var a = e(r).find(".product-grid-image img").attr("src");
 								t.doAjaxUpdateCart(s, quantity, u, a)
@@ -811,7 +838,7 @@ jQuery(document).ready(function() {
                   o = 1
                 }
                                
-                                var quantity = parseFloat(o) + parseFloat(1);
+                var quantity = parseFloat(o) + parseFloat(1);
                 var u = e(r).find(".product-title").text();
                 var a = e(r).find(".product-grid-image img").attr("src");
                 t.doAjaxUpdateCart(s, quantity, u, a)
@@ -847,7 +874,7 @@ jQuery(document).ready(function() {
 								}
 
 								var quantity = parseFloat(o) - parseFloat(1);
-                                var u = e(r).find(".product-title").text();
+                var u = e(r).find(".product-title").text();
 								var a = e(r).find(".product-grid-image img").attr("src");
 
 								t.doAjaxUpdateCart(s, quantity, u, a);
@@ -888,7 +915,7 @@ jQuery(document).ready(function() {
 								}
 
 								var quantity = parseFloat(o) - parseFloat(1);
-                                var u = e(r).find(".product-title").text();
+                var u = e(r).find(".product-title").text();
 								var a = e(r).find(".product-grid-image img").attr("src");
 
 								t.doAjaxUpdateCart(s, quantity, u, a);
