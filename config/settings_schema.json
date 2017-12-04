@@ -1,5 +1,4 @@
-    [
-{
+[{
     "name": "Welcome",
     "settings": [
     {
@@ -13,6 +12,21 @@
     {
         "type": "paragraph",
         "content": "We also offer theme customization services. You can contact our team to discuss estimate."
+    }]
+},
+{
+    "name": "PTWholesale",
+    "settings": [
+    {
+        "type": "text",
+        "id": "order_minimum_wholesale",
+        "label": "Order minimum"
+    },
+    {
+        "type": "text",
+        "id": "wholesale_time_slots",
+        "label": "Time slots",
+        "info": "Comma-separated time slots. Example: 11AM - 2PM,2PM - 5PM"
     }]
 },
 {

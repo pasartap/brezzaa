@@ -3,7 +3,7 @@
         <span class="mh-btns-left">
             <a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
         </span>
-        <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_green.png' | asset_img_url: '2048x575' }}" /> </a>
+        <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_green_wholesale.png' | asset_img_url: '2048x575' }}" /> </a>
         <span class="mh-btns-right">
             <a id="sticky-cart-button" href="#sticky-cart">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -36,10 +36,10 @@
                 {% endif %}
             </ul>
         </li>
-        {% if settings.main_nav != blank %}
+        {% if settings.main_nav_wholesale != blank %}
             <li><span>Products</span>
                 <ul>
-                    {% for link in linklists[settings.main_nav].links %}
+                    {% for link in linklists[settings.main_nav_wholesale].links %}
                         <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a>                       
                             {% if linklists[link.handle].links.size > 0 %}
                                 <ul>
@@ -96,10 +96,35 @@
                     <span class="money amount" style="float:right">{{cart.total_price | money}}</span>
                 </div>
                 <div class="cart-info">
-                    <p>{{ settings.cart_information }}</p>
+                    <p>{{ settings.cart_information_wholesale }}</p>
                 </div>  
-                
-                {% include 'local-delivery-cart' %}
+                <div id="order-delivery">  
+                    <h3 class="heading--add-small">DELIVERY TIME</h3>      
+                    <div id="order-delivery-form-wrapper" class="clearfix">
+                      <p class="cart-total__info clearfix">When would you like your order delivered?</p>
+                      <input id="wholesale-date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" readonly="readonly" />
+                      
+                      {% if settings.wholesale_time_slots != blank %}
+                        <select id="wholesale-time" class="form-control wholesale-time" name="time" name="attributes[time]" value="{{ cart.attributes.time }}" >                             
+
+                          {% assign time_slots = settings.wholesale_time_slots | split: ',' %}
+                          
+                          {% if time_slots.size > 1 %}
+                            <option disabled selected>Time slot</option>
+                            {% for time_slot in time_slots %}
+                              {% if time_slot != blank %}
+                                <option>{{ time_slot }}</option>
+                              {% endif %}
+                            {% endfor %} 
+                          {% else %}
+                            <option selected>{{ time_slots[0] }}</option>
+                          {% endif %}
+                       
+                        </select> 
+                      {% endif %}
+                    </div>  
+                    <div id="wrapper-response"></div>
+                </div> 
                 {% comment %}
                 For the special instructions to be submitted with order,
                 they need to use a name attribute set to 'note'. That's case-sensitive.

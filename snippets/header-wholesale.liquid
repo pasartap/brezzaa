@@ -147,13 +147,26 @@
                         <h3 class="heading--add-small">DELIVERY TIME</h3>      
                         <div id="order-delivery-form-wrapper" class="clearfix">
                           <p class="cart-total__info clearfix">When would you like your order delivered?</p>
-                          <input id="wholesale-date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" />
-                          <select id="wholesale-time" class="form-control wholesale-time" name="time" name="attributes[time]" value="{{ cart.attributes.time }}" >
-                            <option disabled selected>Time slot</option>
-                            <option>11AM - 2PM</option>
-                            <option>2PM - 5PM</option>
-                            <option>5PM - 7PM</option>
-                          </select> 
+                          <input id="wholesale-date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" readonly="readonly" />
+                          
+                          {% if settings.wholesale_time_slots != blank %}
+                            <select id="wholesale-time" class="form-control wholesale-time" name="time" name="attributes[time]" value="{{ cart.attributes.time }}" >                             
+
+                              {% assign time_slots = settings.wholesale_time_slots | split: ',' %}
+                              
+                              {% if time_slots.size > 1 %}
+                                <option disabled selected>Time slot</option>
+                                {% for time_slot in time_slots %}
+                                  {% if time_slot != blank %}
+                                    <option>{{ time_slot }}</option>
+                                  {% endif %}
+                                {% endfor %} 
+                              {% else %}
+                                <option selected>{{ time_slots[0] }}</option>
+                              {% endif %}
+                           
+                            </select> 
+                          {% endif %}
                         </div>  
                         <div id="wrapper-response"></div>
                       </div> 
@@ -189,7 +202,7 @@
 
 	<!-- Navigation --> 
 	{% if settings.main_nav != '' %}
-    {% include 'mmenu' %}
+    {% include 'mmenu-wholesale' %}
 	  {% if settings.show_sticky_menu %}
       <div id="navigation"> 
         <script>
@@ -221,7 +234,7 @@ jQuery(document).ready(function() {
 
   /* init datepicker */
   $(function() {
-    $("#wholesale-date").datepicker( {
+    $("#wholesale-date").datepicker({
       dateFormat: "D, dd/mm/yy",
       firstDay: 1,
       minDate: +1,
@@ -235,24 +248,25 @@ jQuery(document).ready(function() {
         Shopify.getCart(function(n) {
           {% if settings.order_minimum_wholesale != blank %}
             var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
-            if (dateText == null || n.total_price < order_minimum) {
-              $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-              $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
-            } else {
+            if (dateText != "" && $("#wholesale-time").val() != null && n.total_price >= order_minimum) {
               $("#dropdown-cart").find('.btn').removeAttr('disabled');
               $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+            } else {
+              $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+              $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');        
             }
           {% endif %}
         })
       }
-    } );
+    });
   });
-
-  $('#wholesale-date').on("keyup change", function () {
+  
+  /* OnChange event handler for time slot */
+  $("#wholesale-time").change(function(){
     Shopify.getCart(function(n) {
       {% if settings.order_minimum_wholesale != blank %}
         var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
-        if ($('#wholesale-date').val() != null && n.total_price >= order_minimum) {
+        if ($("#wholesale-date").val() != "" && $("#wholesale-time").val() != null && n.total_price >= order_minimum) {
           $("#dropdown-cart").find('.btn').removeAttr('disabled');
           $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
         } else {
@@ -327,12 +341,12 @@ jQuery(document).ready(function() {
 			},
       checkSpentAmount: function(n) {
         // hide spend notification/disable checkout button
-        if ($('#wholesale-date').val() != null) {
-            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+        if ($('#wholesale-date').val() != "") {
+          $("#dropdown-cart").find('.btn').removeAttr('disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled'); 
         } else {
-            $("#dropdown-cart").find('.btn').removeAttr('disabled');
-            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+          $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
         }
 
         e(".spend-notification").hide();
@@ -654,7 +668,7 @@ jQuery(document).ready(function() {
 										}
 
 										var quantity = parseFloat(o) - parseFloat(1);
-		                                var u = e(r).find(".product-title").text();
+		                var u = e(r).find(".product-title").text();
 										var a = e(r).find(".product-grid-image img").attr("src");
 
 										t.doAjaxUpdateCart(s, quantity, u, a)
@@ -677,14 +691,14 @@ jQuery(document).ready(function() {
 					var r = e(this).parents(".item").attr("id");
 					r = r.match(/\d+/g);
 					
-                    var prod_id = e(this).parent().attr("id");
+          var prod_id = e(this).parent().attr("id");
 					prod_id = prod_id.match(/\d+/g);
 
 					Shopify.removeItem(r, function(x) {
-						t.doUpdateMobileCart(x);	
-
+            t.updateDropdownCart();  
+            
 						var x = document.getElementsByClassName("product-actions-" + prod_id);
-					   if (x.length > 0) {
+					  if (x.length > 0) {
 					   		$(".product-actions-" + prod_id).find('#quantity').val(1);
 					   		$(".product-actions-" + prod_id).find('.cart-buttons').hide();
 					  		$(".product-actions-" + prod_id).find('.single-add-to-cart-button').show();
