@@ -121,12 +121,8 @@
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div id="wrapper"> 
     <!-- header -->
-    {% if customer %}
-      {% if customer.tags contains 'wholesale' %}
-        {% include 'header-wholesale' %}
-      {% else %}
-        {% include 'header' %}
-      {% endif %}
+    {% if customer and customer.tags contains 'wholesale' %}
+      {% include 'header-wholesale' %}
     {% else %}
       {% include 'header' %}
     {% endif %}  
@@ -136,11 +132,7 @@
     <!-- IF frontpage -->    
     {% if page == pages.frontpage %} 
       <!-- slider -->    
-      {% if customer %}
-        {% if customer.tags contains 'wholesale' %}
-        {% else %}
-          {% include 'home-slider' %} 
-        {% endif %}
+      {% if customer and customer.tags contains 'wholesale' %}
       {% else %}
         {% include 'home-slider' %} 
       {% endif %}
@@ -228,18 +220,14 @@
               {% include 'collection.list' %}
             {% else%}
               {% if template contains 'wholesale' %}
-                {% if customer %}
-                  {% if customer.tags contains 'wholesale' %}
-                    {{ content_for_layout }}
-                  {% else %}
-                    {% include 'wholesale-note' %}
-                  {% endif %}
+                {% if customer and customer.tags contains 'wholesale' %}
+                  {{ content_for_layout }}
                 {% else %}
                   {% include 'wholesale-note' %}
                 {% endif %}
               {% else%}
-                {% if customer %}
-                  {% if customer.tags contains 'wholesale' and width_sidebars == true %}
+                {% if customer and customer.tags contains 'wholesale' %}
+                  {% if template contains 'collection' or template contains 'product' %}
                     {% include 'regular-customer-note' %}           
                   {% else %}
                     {{ content_for_layout }}
@@ -288,12 +276,8 @@
   {% endif %}
 
   <!-- service block --> 
-  {% if customer %}
-    {% if customer.tags contains 'wholesale' %}
-      {% include 'footer' %}
-    {% else %}
-      {% include 'footer' %}
-    {% endif %}
+  {% if customer and customer.tags contains 'wholesale' %}
+    {% include 'footer' %}
   {% else %}
     {% include 'footer' %}
   {% endif %}  

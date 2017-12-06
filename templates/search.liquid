@@ -47,7 +47,25 @@ selectors inside search.css.
         <ul class="search-results grid-uniform">
         {% assign listing_cols = settings.collection_listing_cols %}
         {% for product in search.results %} 
-          {% include 'product-grid-item' %}
+          {% assign is_wholesale_product = false %}
+          {% for tag in product.tags %}
+            {% assign downcase_tag = tag | downcase %}
+            {% if downcase_tag contains 'wholesale' %}
+              {% assign is_wholesale_product = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if customer and customer.tags contains 'wholesale' %}
+            {% if is_wholesale_product == true %}
+              {% include 'product-grid-item' %}
+            {% endif %}
+          {% else %}
+            {% if is_wholesale_product == false %}
+              {% include 'product-grid-item' %}
+            {% endif %}
+          {% endif %}        
+          
       {% endfor %}
         </ul>
       {% endif %}    
