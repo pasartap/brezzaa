@@ -48,15 +48,14 @@ selectors inside search.css.
         {% assign listing_cols = settings.collection_listing_cols %}
         {% for product in search.results %} 
           {% assign is_wholesale_product = false %}
-          {% for tag in product.tags %}
-            {% assign downcase_tag = tag | downcase %}
-            {% if downcase_tag contains 'wholesale' %}
-              {% assign is_wholesale_product = true %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
+          {% assign product_tags = product.tags | downcase %}
+        
+          {% if product_tags contains 'wholesale' %}
+            {% assign is_wholesale_product = true %}
+          {% endif %}
 
-          {% if customer and customer.tags contains 'wholesale' %}
+          {% assign customer_tags = customer.tags | downcase %}
+          {% if customer and customer_tags contains 'wholesale' %}
             {% if is_wholesale_product == true %}
               {% include 'product-grid-item' %}
             {% endif %}

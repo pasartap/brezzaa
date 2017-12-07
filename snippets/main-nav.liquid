@@ -12,11 +12,12 @@
   <div class="container top-nav">
   <ul class="site-nav">
     {% assign menu_handle = settings.main_nav %}
-    {% if customer %}
-      {% if customer.tags contains 'wholesale' and settings.main_nav_wholesale != blank %}
-        {% assign menu_handle = settings.main_nav_wholesale %}
-      {% endif %}
+    {% assign customer_tags = customer.tags | downcase %}
+
+    {% if customer and customer_tags contains 'wholesale' and settings.main_nav_wholesale != blank %}
+      {% assign menu_handle = settings.main_nav_wholesale %}
     {% endif %}
+
     {% for link in linklists[menu_handle].links %}
       {% if linklists[link.handle] != empty %}
       {% assign cat = link.title | downcase %}

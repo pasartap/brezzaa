@@ -21,14 +21,14 @@
     </header>
     <div class="grid-uniform">
       {% for product in collection.products %}
-        {% assign is_wholesale = false %}
-        {% for tag in product.tags %}
-          {% if tag contains 'wholesale' %}
-            {% assign is_wholesale = true %}
-            {% break %}
-          {% endif %}
-        {% endfor %}
-        {% if is_wholesale == false %}
+        {% assign is_wholesale_product = false %}
+        {% assign product_tags = product.tags | downcase %}
+        
+        {% if product_tags contains 'wholesale' %}
+          {% assign is_wholesale_product = true %}
+        {% endif %}
+
+        {% if is_wholesale_product == false %}
           {% include 'product-list-item' %}
         {% endif %}
         {% comment %}{% include 'product-list-item' %}{% endcomment %}

@@ -120,8 +120,9 @@
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div id="wrapper"> 
+    {% assign customer_tags = customer.tags | downcase %}
     <!-- header -->
-    {% if customer and customer.tags contains 'wholesale' %}
+    {% if customer and customer_tags contains 'wholesale' %}
       {% include 'header-wholesale' %}
     {% else %}
       {% include 'header' %}
@@ -132,7 +133,7 @@
     <!-- IF frontpage -->    
     {% if page == pages.frontpage %} 
       <!-- slider -->    
-      {% if customer and customer.tags contains 'wholesale' %}
+      {% if customer and customer_tags contains 'wholesale' %}
       {% else %}
         {% include 'home-slider' %} 
       {% endif %}
@@ -220,13 +221,13 @@
               {% include 'collection.list' %}
             {% else%}
               {% if template contains 'wholesale' %}
-                {% if customer and customer.tags contains 'wholesale' %}
+                {% if customer and customer_tags contains 'wholesale' %}
                   {{ content_for_layout }}
                 {% else %}
                   {% include 'wholesale-note' %}
                 {% endif %}
               {% else%}
-                {% if customer and customer.tags contains 'wholesale' %}
+                {% if customer and customer_tags contains 'wholesale' %}
                   {% if template contains 'collection' or template contains 'product' %}
                     {% include 'regular-customer-note' %}           
                   {% else %}
@@ -276,7 +277,7 @@
   {% endif %}
 
   <!-- service block --> 
-  {% if customer and customer.tags contains 'wholesale' %}
+  {% if customer and customer_tags contains 'wholesale' %}
     {% include 'footer' %}
   {% else %}
     {% include 'footer' %}

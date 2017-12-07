@@ -21,13 +21,10 @@ Example: the h2 element should have the same size and color in:
   
   {% assign listing_cols = settings.homepage_listing_cols %}
   {% assign image_size = settings.homepage_listing_image_size %}
+  {% assign tags = customer.tags | downcase %}
   
-  {% if customer %}
-    {% if customer.tags contains 'wholesale' %}
+  {% if customer and tags contains 'wholesale' %}
       {% include 'wholesale-homepage' %}
-    {% else %}
-      {% include 'homepage' %}
-    {% endif %}
   {% else %}
     {% include 'homepage' %}
   {% endif %}
