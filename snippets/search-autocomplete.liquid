@@ -43,11 +43,28 @@ $(function() {
                     } else {
                         // If we have results.
                         $.each(data.results, function(index, item) {
-                            var link = $('<a></a>').attr('href', item.url);
-                            link.append('<span class="thumbnail"><img src="' + item.thumbnail + '" /></span>');
-                            link.append('<span class="title">' + item.title + '</span>');
-                            link.wrap('<li></li>');
-                            resultsList.append(link.parent());
+
+                            var show = false;
+
+                            {% assign tags = customer.tags | downcase %}
+                            {% if customer and tags contains 'wholesale' %}
+                                if (item.tags.indexOf('wholesale') !== -1) {
+                                    show = true;
+                                }
+                            {% else %}
+                                if (item.tags.indexOf('wholesale') !== -1) {
+                                } else {
+                                    show = true;
+                                }
+                            {% endif %}
+
+                            if (show) {
+                                var link = $('<a></a>').attr('href', item.url);
+                                link.append('<span class="thumbnail"><img src="' + item.thumbnail + '" /></span>');
+                                link.append('<span class="title">' + item.title + '</span>');
+                                link.wrap('<li></li>');
+                                resultsList.append(link.parent());
+                            }                           
                         });
                         // The Ajax request will return at the most 10 results.
                         // If there are more than 10, let's link to the search results page.
