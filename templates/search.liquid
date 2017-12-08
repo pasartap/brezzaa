@@ -13,7 +13,10 @@ selectors inside search.css.
 {% endcomment %}
 
 <div id="searchresults" class="search-scope grid-uniform">
-  <h1 class="page_title">Results for "<span class="search-result-highlight">{{ search.terms }}</span>"<span style="float:right;"><span class="search-result-highlight" >{{ search.results_count }}</span> item{% if search.results_count > 1 %}s{% endif %}</span></h1>
+  <h1 class="page_title">
+    <div class="search-result-title">Results for "<span class="search-result-highlight">{{ search.terms }}</span>"</div>
+    <div class="search-result-count"><span class="search-result-highlight" >{{ search.results_count }}</span> item{% if search.results_count > 1 %}s{% endif %}</div>
+  </h1>
   {% comment %}
   <form action="/search" method="get" class="search-form form-inline">
     
@@ -82,3 +85,34 @@ selectors inside search.css.
   {% endif %}  
 
 </div>
+<script type="text/javascript">
+$('.product_title').each(function() {
+  var product_title = $(this).html();
+  var term = $('.search-result-highlight').html();
+
+  if (term.indexOf(',') !== -1) {
+      var terms = term.split(',');
+      for (var i = 0; i < terms.length; i++) {
+          var trimmed_term = terms[i].trim();
+          if (trimmed_term != '') {
+              var reg = new RegExp('('+ trimmed_term + ')', 'gi');
+              product_title = product_title.replace(reg, '<span class="search-highlight">$1</span>');
+          }
+      }
+  } else if (term.indexOf(' ') !== -1) {
+      var terms = term.split(' ');
+      for (var i = 0; i < terms.length; i++) {
+          var trimmed_term = terms[i].trim();
+          if (trimmed_term != '') {
+              var reg = new RegExp('('+ trimmed_term + ')', 'gi');
+              product_title = product_title.replace(reg, '<span class="search-highlight">$1</span>');
+          }
+      }
+  } else {
+      var reg = new RegExp('('+ term + ')', 'gi');
+      product_title = product_title.replace(reg, '<span class="search-highlight">$1</span>');
+  }
+
+  $(this).html(product_title);
+});
+</script>

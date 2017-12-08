@@ -64,9 +64,30 @@ $(function() {
                             if (show && index < 5) {
                                 var price = Shopify.formatMoney(item.price, window.formatMoney);
                                 var link = $('<a></a>').attr('href', item.url);
-                                var reg = new RegExp('('+ term + ')', 'gi');
-                                item.title = item.title.replace(reg, '<span class="search-highlight">$1</span>');
-
+                                
+                                if (term.indexOf(',') !== -1) {
+                                    var terms = term.split(',');
+                                    for (var i = 0; i < terms.length; i++) {
+                                        var trimmed_term = terms[i].trim();
+                                        if (trimmed_term != '') {
+                                            var reg = new RegExp('('+ trimmed_term + ')', 'gi');
+                                            item.title = item.title.replace(reg, '<span class="search-highlight">$1</span>');
+                                        }
+                                    }
+                                } else if (term.indexOf(' ') !== -1) {
+                                    var terms = term.split(' ');
+                                    for (var i = 0; i < terms.length; i++) {
+                                        var trimmed_term = terms[i].trim();
+                                        if (trimmed_term != '') {
+                                            var reg = new RegExp('('+ trimmed_term + ')', 'gi');
+                                            item.title = item.title.replace(reg, '<span class="search-highlight">$1</span>');
+                                        }
+                                    }
+                                } else {
+                                    var reg = new RegExp('('+ term + ')', 'gi');
+                                    item.title = item.title.replace(reg, '<span class="search-highlight">$1</span>');
+                                }
+                                
                                 link.append('<span class="thumbnail"><img src="' + item.thumbnail + '" /></span>');
                                 link.append('<span class="title">' + item.title + '</span>');
                                 link.append('<span style="width:auto;float:right;padding-right:5px;font-weight:bold">' + price + '</span>');
