@@ -220,7 +220,7 @@
             {% if template == 'list-collections' %}
               {% include 'collection.list' %}
             {% else%}
-              {% if template contains 'wholesale' %}
+              {% if template == 'wholesale' %}
                 {% if customer and customer_tags contains 'wholesale' %}
                   {{ content_for_layout }}
                 {% else %}
