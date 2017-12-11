@@ -133,7 +133,7 @@ Example: the h2 element should have the same size and color in:
   					<div class="item-inner">
     					<div class="product_image-wrap item-img">    
       						<a class="product-grid-image" style="height: 208px;">
-        						<img src="//cdn.shopify.com/s/files/1/2168/1709/files/ptwholesale_6.png?6448542473246858682" title="Receive delivery" alt="Receive delivery" width="128" height="128">  
+        						<img src="//cdn.shopify.com/s/files/1/2168/1709/files/ptwholesale_6.png?6448542473246858682" title="Receive delivery!" alt="Receive delivery!" width="128" height="128">  
       						</a>
     					</div>
  						<div class="box-hover"></div>  
@@ -151,6 +151,53 @@ Example: the h2 element should have the same size and color in:
 		<div id="inquiry-form" class="brand-header">
             <h1>Inquiry Form</h1>
         </div>
+        <div style="padding:20px"></div>
+        <div>
+        	{% form 'contact' %}
+
+			    {% if form.posted_successfully? %}
+			    	<div class="alert alert-success feedback">
+			        	<p>Thanks for contacting us! We'll get back to you as soon as possible.</p>
+			      	</div>
+		      	{% endif %}
+
+		      	{% if form.errors %}
+		      		<div class="alert alert-warning feedback">
+			        	<!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+			        	<p>Oops, sorry. We were unable to submit your inquiry because it contained {{ form.errors | size | pluralize: 'an error', 'a few errors' }}. Please correct the following and submit again:</p>
+			        	{% for field in form.errors %}
+			          		<p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+			        	{% endfor %}
+			      	</div>
+		      	{% endif %}
+		   
+		      	<div id="contactFormWrapper">
+			    	<div class="row">
+			          <div class="col-sm-4">
+			            <label>Your Name:</label>
+			            <input class="form-control" type="text" id="contactFormName" name="contact[name]" placeholder="Your name..." />
+			          </div>
+			          <div class="col-sm-4">
+			            <label>Email:</label>
+			            <input class="form-control" type="email" id="contactFormEmail" name="contact[email]" placeholder="Your email..." />
+			          </div>
+			          <div class="col-sm-4">
+			            <label>Phone Number:</label>
+			            <input class="form-control" type="telephone" id="contactFormTelephone" name="contact[phone]" placeholder="Your phone number..." />
+			          </div>
+			        </div>
+
+			        <label>Message:</label>
+			        <textarea class="form-control" rows="10" cols="75" id="contactFormMessage" name="contact[body]" placeholder="Your Message..."></textarea>
+
+			        <div class="btn-toolbar">
+			          <input type="reset" value="Clear" class="btn btn-info">
+			          <input type="submit" id="contactFormSubmit" value="Send" class="btn btn-primary" />          
+			        </div>
+		    	</div><!-- contactWrapper -->
+
+		  	{% endform %}
+        </div>
         <br /><br />
     </div>	
     <div>
@@ -161,6 +208,11 @@ Example: the h2 element should have the same size and color in:
         <div>
 			<p>Click the button below to browse through our current collection of wholesale products.</p>
 		</div>
+		<div>
+			<button type="submit" name="add" class="btn btn-primary">
+            	<span class="addToCartText">Browse Collection</span>
+        	</button>
+    	</div>
         <br /><br />
     </div>	
 </div>
