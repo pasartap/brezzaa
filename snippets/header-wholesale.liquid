@@ -80,7 +80,7 @@
           <!-- Header Logo --> 
           <!-- logo --> 
           {% if settings.use_logo %} 
-            <a id="logo" href="/"> {{ 'logo_189x48_wholesale.png' | asset_url | img_tag: shop.name }} </a> 
+            <a id="logo" href="/"> <img style="width:189px;height:41px;margin-top:8px" src="{{ 'logo_ptwholesale.png' | asset_img_url: '3508x763' }}" /> </a>
           {% else %} 
             <a class="logo-title" href="/">{{ settings.logo_text }}</a>
           {% endif %} 
