@@ -771,10 +771,21 @@ button[disabled] {
     height: 80px;
 }
 
-.ptwholesale-step {
-    background: #50a746;
-    height: 120px;
-    color: #ffffff;
+.ptwholesale-step img {
+    transition-duration: 500ms;
+    transition-property: transform;
+    transform: translateZ(0);
+    width: 128px;
+    height: 128px;
+}
+
+.ptwholesale-step img:hover {
+    transform: scale(1.2) !important;
+}
+
+.ptwholesale-step span {
+    display: block;
+    margin: 15px 0;
 }
 
 
