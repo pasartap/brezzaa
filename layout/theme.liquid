@@ -228,7 +228,7 @@
                 {% endif %}
               {% else%}
                 {% if customer and customer_tags contains 'wholesale' %}
-                  {% if template contains 'collection' or template contains 'product' %}
+                  {% if template == 'collection' %}
                     {% include 'regular-customer-note' %}           
                   {% else %}
                     {{ content_for_layout }}

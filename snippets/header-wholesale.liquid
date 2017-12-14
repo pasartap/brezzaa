@@ -277,6 +277,25 @@ jQuery(document).ready(function() {
     })
   });
 
+  // clear cart on logout
+  function delete_cookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
+  $('a[href^="/account/logout"]').on('click', function(event){
+    event.preventDefault();
+    var href = $(this).attr("href"),
+        target = '';
+
+    delete_cookie('cart');
+
+    // wait for data to push and then open link
+    setTimeout(function() { // now wait 150 milliseconds...
+        window.open(href,(!target?"_self":target)); // ...and open the link as usual
+    },150);
+
+  });
+
   autosize(document.querySelectorAll('textarea'));
   document.getElementById("cart-note").rows = "1";
 
