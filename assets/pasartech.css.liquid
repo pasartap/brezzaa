@@ -771,6 +771,11 @@ button[disabled] {
     height: 80px;
 }
 
+.ptwholesale-steps-container-fluid::after,
+.ptwholesale-steps-row::after {
+    clear: none;
+}
+
 .ptwholesale-step img {
     transition-duration: 500ms;
     transition-property: transform;
@@ -786,7 +791,7 @@ button[disabled] {
 .ptwholesale-step span {
     display: block;
     margin: 15px 0;
-}
+}   
 
 
 /* Responsive CSS */
@@ -888,6 +893,11 @@ button[disabled] {
     .order_status {
         display: table-cell;
     }
+
+    .ptwholesale-steps-container-fluid::after,
+    .ptwholesale-steps-row::after {
+        clear: both;
+    }
 }
 
 @media only screen and (max-width: 600px)  {
@@ -897,6 +907,11 @@ button[disabled] {
 
     #searchresults h1.page_title {
         font-size: 16px !important;
+    }
+
+    .ptwholesale-steps-container-fluid::after,
+    .ptwholesale-steps-row::after {
+        clear: both;
     }
 }
 
@@ -940,6 +955,11 @@ button[disabled] {
 
     .order_status {
         display: none;
+    }
+
+    .ptwholesale-steps-container-fluid::after,
+    .ptwholesale-steps-row::after {
+        clear: both;
     }
 }
 
@@ -1132,5 +1152,10 @@ button[disabled] {
 
     #customer_orders table td, #customer_orders table th {
         font-size: 12px !important;
+    }
+
+    .ptwholesale-steps-container-fluid::after,
+    .ptwholesale-steps-row::after {
+        clear: both;
     }
 }
