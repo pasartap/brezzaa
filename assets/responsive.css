@@ -1209,10 +1209,16 @@ body {
 	padding-right: 6px;
 	font-color: #009900;
 }
+.toplinks>div>div.logout a:before {
+	font-family: Monaco;
+	font-size: 15px;
+	padding-right: 6px;
+	font-color: #009900;
+}
 .toplinks>div>div.login a#customer_login_link:before {
 	content: '\f13e';
 }
-.toplinks>div>div.login a#customer_register_link:before {
+.toplinks>div>div.logout a#customer_register_link:before {
 	content: '\f084';
 } 
   
@@ -1226,6 +1232,12 @@ body {
 	display: none;
 }
 .toplinks>div>div.login span {
+	display: none;
+	font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
+}
+.toplinks>div>div.logout span {
 	display: none;
 	font-family: Monaco;
     font-color: #009900;
@@ -2705,13 +2717,19 @@ body {
 	padding-right: 6px;
 	font-color: #136b0a;
 }
+.toplinks>div>div.logout a:before {
+	font-family: Monaco;
+	font-size: 25px;
+	padding-right: 6px;
+	font-color: #136b0a;
+}
 .toplinks>div>div.login a#customer_login_link:before {
 	content: '\f13e';
 	font-family: Monaco;
     font-color: #009900;
     font-size: 15px;
 }
-.toplinks>div>div.login a#customer_register_link:before {
+.toplinks>div>div.logout a#customer_register_link:before {
 	content: '\f084';
 	font-family: Monaco;
     font-color: #009900;
@@ -2731,6 +2749,12 @@ body {
     font-size: 15px;
 }
 .toplinks>div>div.login span {
+	display: none;
+	font-family: Monaco;
+    font-color: #009900;
+    font-size: 15px;
+}
+.toplinks>div>div.logout span {
 	display: none;
 	font-family: Monaco;
     font-color: #009900;
