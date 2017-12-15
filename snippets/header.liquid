@@ -56,21 +56,22 @@
 
                 {% if settings.display_login_link %}
                   {% if settings.display_login_link != blank %}
-                    <div class="login"> 
                       {% if shop.customer_accounts_enabled %}
                         {% if customer %}
+                        <div class="login"> 
                           {{ '<span>Log out</span>' | customer_logout_link }}
+                          </div>
                         {% else %}
-                          {{ "<span>Sign in</span>" | customer_login_link }}  
+                        <div class="login"> 
+                          {{ "<span>Sign in</span>" | customer_login_link }}
+                          </div>
+
+                          <div class="logout">
+                          {{ "<span>Sign up</span>" | customer_register_link }} 
+                          </div>
                         {% endif %}
                       {% endif %}
-                    </div>
-                    <div class="logout">
-                    {% if shop.customer_accounts_enabled %}
-                        {{ "<span>Sign up</span>" | customer_register_link }} 
-                        
-                    {% endif %}
-                    </div>
+    
                   {% endif %}
                 {% endif %}
               </div>
