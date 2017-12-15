@@ -25,9 +25,9 @@
                     <div class="myaccount">
                       {% if shop.customer_accounts_enabled %}
                         {% if customer %} 
-                          <span>|  </span> <a href="/account"><span>Account</span></a> 
+                          <a href="/account"><span>Account</span></a> 
                         {% else %} 
-                          <span>|  </span> <a href="/account/login"><span>Account</span></a> 
+                          <a href="/account/login"><span>Account</span></a> 
                         {% endif %}
                       {% endif %} 
                     </div>
@@ -61,7 +61,7 @@
                         {% if customer %}
                           {{ '<span>Log out</span>' | customer_logout_link }}
                         {% else %}
-                          {{ "<span>Sign in</span>" | customer_login_link }} <span>  |</span> {{ "<span>Sign up</span>" | customer_register_link }}  <span>  |</span>
+                          {{ "<span>Sign in</span>" | customer_login_link }} <span>  |</span> {{ "<span>Sign up</span>" | customer_register_link }}
                         {% endif %}
                       {% endif %}
                     </div>
