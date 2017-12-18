@@ -260,6 +260,7 @@ jQuery(document).ready(function() {
       }
     });
   });
+  /* ------------------------------ */
   
   /* OnChange event handler for time slot */
   $("#wholesale-time").change(function(){
@@ -276,6 +277,7 @@ jQuery(document).ready(function() {
       {% endif %}
     })
   });
+  /* ------------------------------ */
 
   // clear cart on logout
   function delete_cookie(name) {
@@ -295,6 +297,7 @@ jQuery(document).ready(function() {
     },150);
 
   });
+  /* ------------------------------ */
 
   autosize(document.querySelectorAll('textarea'));
   document.getElementById("cart-note").rows = "1";
@@ -1248,3 +1251,8 @@ jQuery(document).ready(function() {
   }
   
 </script>
+<style type="text/css">
+.site-nav > li:first-child > a > span {
+    color: white !important;
+}
+</style>
