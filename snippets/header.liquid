@@ -290,14 +290,10 @@ jQuery(document).ready(function() {
           $("#sticky-cart").find('.mm-panels').removeClass("has-spend-notification");
         }
 
-        if (n.total_price == 0) {
-          return;
-        }
-
         {% if settings.order_minimum != blank %}
           // show spend notification if total price less than order minimum
           var order_minimum = {{ settings.order_minimum | times: 100 }};
-  				if (n.total_price < order_minimum) {
+  				if (n.total_price > 0 && n.total_price < order_minimum) {
   					$("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
             $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
 
