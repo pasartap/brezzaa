@@ -168,9 +168,9 @@
                     </div>{% endcomment %}
                     <input type="number" min=1 id="quantity" name="quantity" value="1" style="">                   
                     <button title="Add to Cart" type="submit" name="add" id="add-to-cart" value="Add to Cart"><span>Add to Cart</span></button>
-                    {% comment %}
+                    
                     {% include 'wishlist-product' %} 
-                    {% endcomment %}
+                    
                   </div>
                   <div id="product_description"> {{ product.description | truncatewords: 65 }} </div>     
                 </div>

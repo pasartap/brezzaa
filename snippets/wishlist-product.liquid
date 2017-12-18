@@ -16,14 +16,16 @@
 	{% endunless %}
 
 	{% if display %}
+		
+		<a class="wishlist link-wishlist" href="/pages/wishlist" title="Already in your wishlist, Go to wishlist"><span>wishlist</span></a>	
+		
+	{% else %}
+
 		{% form 'customer' %}
-			<input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+	<input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
 			<input type="hidden" name="contact[tags]" value="{{ value }}" />
             <button name="wishlistform" class="wishlist"><a><span>Add to Wishlist</span></a></button>
-		{% endform %}
-	{% else %}
-       <a class="wishlist link-wishlist" href="/pages/wishlist" title="Already in your wishlist, Go to wishlist"><span>wishlist</span></a>
-		
+       {% endform %}
 	{% endif %}
 {% else %}
 	<a class="wishlist link-wishlist" href="/account/login"><span>wishlist</span></a>
