@@ -1,6 +1,18 @@
 {{ '//cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.6/footable.bootstrap.min.css' | stylesheet_tag }} 
 {{ '//cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.6/footable.min.js' | script_tag }}
 
+{% comment %}
+Get all wholesale products
+{% endcomment %}
+{% comment %}{% layout none %}
+{% paginate collections['meat'].products by 1000 %}
+
+{%- capture 'wholesale_products' -%}
+  {{ collections['meat'].products | json }}
+{%- endcapture -%}
+
+{% endpaginate %}{% endcomment %}
+
 <div class="page-scope" style="text-align:center;">
 	<div class="ptwholesale-logo"></div>
 	<div class="brand-header">
@@ -106,10 +118,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">PTWholesale Catalog</h4>
       </div>
       <div class="modal-body">
-        <table id="modal-example-1" class="table" data-paging="true" data-filtering="true" data-sorting="true"></table>
+        <table id="modal-catalog" class="table" data-paging="true" data-filtering="true" data-sorting="true"></table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -118,11 +130,12 @@
   </div>
 </div>
 <script type="text/javascript">
+var wholesale_products = "json";
 jQuery(function($){
-  $('#modal-example-1').footable({
+  $('#modal-catalog').footable({
     "useParentWidth": true,
-    "columns": $.get('columns.json'),
-    "rows": $.get('rows.json')
+    "columns": $.ajax('{{ 'columns.json' | asset_url }}', {dataType: 'json'}),
+    "rows": $.ajax('{{ 'rows.json' | asset_url }}', {dataType: 'json'})
   });
 });
 </script>
