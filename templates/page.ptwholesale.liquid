@@ -4,14 +4,9 @@
 {% comment %}
 Get all wholesale products
 {% endcomment %}
-{% comment %}{% layout none %}
-{% paginate collections['meat'].products by 1000 %}
-
 {%- capture 'wholesale_products' -%}
   {{ collections['meat'].products | json }}
 {%- endcapture -%}
-
-{% endpaginate %}{% endcomment %}
 
 <div class="page-scope" style="text-align:center;">
 	<div class="ptwholesale-logo"></div>
@@ -130,12 +125,11 @@ Get all wholesale products
   </div>
 </div>
 <script type="text/javascript">
-var wholesale_products = "json";
 jQuery(function($){
   $('#modal-catalog').footable({
     "useParentWidth": true,
     "columns": $.ajax('{{ 'columns.json' | asset_url }}', {dataType: 'json'}),
-    "rows": $.ajax('{{ 'rows.json' | asset_url }}', {dataType: 'json'})
+    "rows": {{ wholesale_products }}
   });
 });
 </script>
