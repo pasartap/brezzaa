@@ -5,7 +5,9 @@
 Get all wholesale products
 {% endcomment %}
 {%- capture 'wholesale_products' -%}
-  {{ collections['meat'].products | json }}
+{% paginate collections['ptwholesale'].products by collections['ptwholesale'].all_products_count %}
+  {{ collections['ptwholesale'].products | json }}
+{% endpaginate %}
 {%- endcapture -%}
 
 <div class="page-scope" style="text-align:center;">
