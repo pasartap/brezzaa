@@ -1,3 +1,4 @@
+{{ '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' | stylesheet_tag }}
 {{ '//cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.6/footable.bootstrap.min.css' | stylesheet_tag }} 
 {{ '//cdnjs.cloudflare.com/ajax/libs/jquery-footable/3.1.6/footable.min.js' | script_tag }}
 
@@ -9,6 +10,40 @@ Get all wholesale products
   {{ collections['ptwholesale'].products | json }}
 {% endpaginate %}
 {%- endcapture -%}
+
+{% paginate collections['ptwholesale'].products by collections['ptwholesale'].all_products_count %}
+  {% for product in collections['ptwholesale'].products %}
+    {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' and product.first_available_variant.option1 != 'Normal Price' %}
+      {% assign weight_with_unit = product.first_available_variant.option1 %}
+      <input type=hidden id='{{ product.id }}' name='{{ product.id }}' value='{{ weight_with_unit }}'>
+    {% else %}
+      {% assign weight_with_unit = product.first_available_variant.weight | weight_with_unit %}
+      <input type=hidden id='{{ product.id }}' name='{{ product.id }}' value='{{ weight_with_unit }}'>
+    {% endif %}    
+  {% endfor %}
+{% endpaginate %}
+
+<style type="text/css">
+body {
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    line-height: 1;
+    color: #333333;
+}
+
+/* Apply CSS to iOS affected versions only */
+body.iosBugFixCaret.modal-open { position: fixed; width: 100%; }
+
+/* disable search column selection */
+.footable-filtering-search .btn.dropdown-toggle {
+    display: none;
+}
+
+@media only screen and (max-width:767px) {
+  .modal-dialog {
+    top: 80px;
+  }
+}
+</style>
 
 <div class="page-scope" style="text-align:center;">
 	<div class="ptwholesale-logo"></div>
@@ -127,11 +162,84 @@ Get all wholesale products
   </div>
 </div>
 <script type="text/javascript">
-jQuery(function($){
+jQuery(document).ready(function() {
+  /* Set product weight */
+  var json = {{ wholesale_products }};
+  $(json).each(function(i,elem) {
+    var id = '#' + elem.id;
+    var weight = $(id).val();
+    elem.weight_with_unit = weight;
+  });
+
+  /* Init FooTable */
+  // FooTable.MyFiltering = FooTable.Filtering.extend({
+  //   construct: function(instance){
+  //     this._super(instance);
+  //     this.types = ['Grocery','Fish & Seafood','Meat & Poultry'];
+  //     this.def = 'All';
+  //     this.$type = null;
+  //   },
+  //   $create: function(){
+  //     this._super();
+  //     var self = this,
+  //       $form_grp = $('<div/>', {'class': 'form-group'})
+  //         .append($('<label/>', {'class': 'sr-only', text: 'type'}))
+  //         .prependTo(self.$form);
+
+  //     self.$type = $('<select/>', { 'class': 'form-control' })
+  //       .on('change', {self: self}, self._ontypeDropdownChanged)
+  //       .append($('<option/>', {text: self.def}))
+  //       .appendTo($form_grp);
+
+  //     $.each(self.types, function(i, type){
+  //       self.$type.append($('<option/>').text(type));
+  //     });
+  //   },
+  //   _ontypeDropdownChanged: function(e){
+  //     var self = e.data.self,
+  //       selected = $(this).val();
+  //     if (selected !== self.def){
+  //       self.addFilter('type', selected, ['type']);
+  //     } else {
+  //       self.removeFilter('type');
+  //     }
+  //     self.filter();
+  //   },
+  //   draw: function(){
+  //     this._super();
+  //     var type = this.find('type');
+  //     if (type instanceof FooTable.Filter){
+  //       this.$type.val(type.query.val());
+  //     } else {
+  //       this.$type.val(this.def);
+  //     }
+  //   }
+  // });
+
+  // FooTable.components.register('filtering', FooTable.MyFiltering)
+
   $('#modal-catalog').footable({
     "useParentWidth": true,
     "columns": $.ajax('{{ 'columns.json' | asset_url }}', {dataType: 'json'}),
-    "rows": {{ wholesale_products }}
+    "rows": json
   });
+
+  // Detect ios 11_0_x affected 
+  // NEED TO BE UPDATED if new versions are affected
+  var ua = navigator.userAgent,
+  iOS = /iPad|iPhone|iPod/.test(ua),
+  iOS11 = /OS 11_0_1|OS 11_0_2|OS 11_0_3|OS 11_1|OS 11_1_1|OS 11_1_2|OS 11_2|OS 11_2_1/.test(ua);
+
+  // ios 11 bug caret position
+  if ( iOS && iOS11 ) {
+      // Add CSS class to body
+      $("body").addClass("iosBugFixCaret");
+  }
 });
+</script>
+<script type="text/javascript">
+    function currency_format(value){
+      var price = Shopify.formatMoney(value, window.formatMoney);
+      return price;
+    }
 </script>

@@ -773,15 +773,15 @@ button[disabled] {
 
 .ptwholesale-steps-container-fluid::after,
 .ptwholesale-steps-row::after {
-    clear: none;
+    clear: none !important;
 }
 
 .ptwholesale-step img {
-    transition-duration: 500ms;
-    transition-property: transform;
-    transform: translateZ(0);
-    width: 128px;
-    height: 128px;
+    transition-duration: 500ms !important;
+    transition-property: transform !important;
+    transform: translateZ(0) !important;
+    width: 128px !important;
+    height: 128px !important;
 }
 
 .ptwholesale-step img:hover {
@@ -789,9 +789,13 @@ button[disabled] {
 }
 
 .ptwholesale-step span {
-    display: block;
-    margin: 15px 0;
+    display: block !important;
+    margin: 15px 0 !important;
 }   
+
+.modal-backdrop {
+    z-index: 0 !important;
+}
 
 
 /* Responsive CSS */
@@ -896,7 +900,7 @@ button[disabled] {
 
     .ptwholesale-steps-container-fluid::after,
     .ptwholesale-steps-row::after {
-        clear: both;
+        clear: both !important;
     }
 }
 
@@ -911,7 +915,7 @@ button[disabled] {
 
     .ptwholesale-steps-container-fluid::after,
     .ptwholesale-steps-row::after {
-        clear: both;
+        clear: both !important;
     }
 }
 
@@ -959,7 +963,7 @@ button[disabled] {
 
     .ptwholesale-steps-container-fluid::after,
     .ptwholesale-steps-row::after {
-        clear: both;
+        clear: both !important;
     }
 }
 
@@ -1156,6 +1160,6 @@ button[disabled] {
 
     .ptwholesale-steps-container-fluid::after,
     .ptwholesale-steps-row::after {
-        clear: both;
+        clear: both !important;
     }
 }

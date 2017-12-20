@@ -1,4 +1,6 @@
 [
-  {"name":"title","title":"Title"},
-  {"name":"price","title":"Price"}
+  {"name":"title", "title":"Title"},
+  {"name":"type", "title":"Category"},
+  {"name":"weight_with_unit", "title":"Unit"},
+  {"name":"price", "title":"Price", "type":"number", "formatter":"currency_format"}
 ]
