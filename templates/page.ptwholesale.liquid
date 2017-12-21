@@ -12,14 +12,28 @@ Get all wholesale products
 {%- endcapture -%}
 
 {% paginate collections['ptwholesale'].products by collections['ptwholesale'].all_products_count %}
+  {% assign categories = "" %}
   {% for product in collections['ptwholesale'].products %}
+
+    {% comment %}
+    Get weight of all products
+    {% endcomment %}
     {% if product.first_available_variant.option1 != nil and product.first_available_variant.option1 != 'Default Title' and product.first_available_variant.option1 != 'Normal Price' %}
       {% assign weight_with_unit = product.first_available_variant.option1 %}
       <input type=hidden id='{{ product.id }}' name='{{ product.id }}' value='{{ weight_with_unit }}'>
     {% else %}
       {% assign weight_with_unit = product.first_available_variant.weight | weight_with_unit %}
       <input type=hidden id='{{ product.id }}' name='{{ product.id }}' value='{{ weight_with_unit }}'>
-    {% endif %}    
+    {% endif %} 
+
+    {% comment %}
+    Get unique product type of all products
+    {% endcomment %}
+    {% comment %}{% unless categories contains product.type %}
+      {{ categories | append: product.type }}
+      {{ categories | append: '|' }}
+    {% endunless %}{% endcomment %}
+
   {% endfor %}
 {% endpaginate %}
 
@@ -163,60 +177,66 @@ body.iosBugFixCaret.modal-open { position: fixed; width: 100%; }
 </div>
 <script type="text/javascript">
 jQuery(document).ready(function() {
-  /* Set product weight */
+  /* Assign product weight & type */
+  var product_types = [];
   var json = {{ wholesale_products }};
+
   $(json).each(function(i,elem) {
     var id = '#' + elem.id;
     var weight = $(id).val();
     elem.weight_with_unit = weight;
+
+    if ($.inArray(elem.type, product_types) == -1) {
+      product_types.push(elem.type);
+    }
   });
 
   /* Init FooTable */
-  // FooTable.MyFiltering = FooTable.Filtering.extend({
-  //   construct: function(instance){
-  //     this._super(instance);
-  //     this.types = ['Grocery','Fish & Seafood','Meat & Poultry'];
-  //     this.def = 'All';
-  //     this.$type = null;
-  //   },
-  //   $create: function(){
-  //     this._super();
-  //     var self = this,
-  //       $form_grp = $('<div/>', {'class': 'form-group'})
-  //         .append($('<label/>', {'class': 'sr-only', text: 'type'}))
-  //         .prependTo(self.$form);
+  FooTable.MyFiltering = FooTable.Filtering.extend({
+    construct: function(instance){
+      this._super(instance);
+      this.types = product_types.sort();
+      this.def = 'All';
+      this.$type = null;
+    },
+    $create: function(){
+      this._super();
+      var self = this,
+        $form_grp = $('<div/>', {'class': 'form-group'})
+          .append($('<label/>', {'class': 'sr-only', text: 'type'}))
+          .prependTo(self.$form);
 
-  //     self.$type = $('<select/>', { 'class': 'form-control' })
-  //       .on('change', {self: self}, self._ontypeDropdownChanged)
-  //       .append($('<option/>', {text: self.def}))
-  //       .appendTo($form_grp);
+      self.$type = $('<select/>', { 'class': 'form-control' })
+        .on('change', {self: self}, self._ontypeDropdownChanged)
+        .append($('<option/>', {text: self.def}))
+        .appendTo($form_grp);
 
-  //     $.each(self.types, function(i, type){
-  //       self.$type.append($('<option/>').text(type));
-  //     });
-  //   },
-  //   _ontypeDropdownChanged: function(e){
-  //     var self = e.data.self,
-  //       selected = $(this).val();
-  //     if (selected !== self.def){
-  //       self.addFilter('type', selected, ['type']);
-  //     } else {
-  //       self.removeFilter('type');
-  //     }
-  //     self.filter();
-  //   },
-  //   draw: function(){
-  //     this._super();
-  //     var type = this.find('type');
-  //     if (type instanceof FooTable.Filter){
-  //       this.$type.val(type.query.val());
-  //     } else {
-  //       this.$type.val(this.def);
-  //     }
-  //   }
-  // });
+      $.each(self.types, function(i, type){
+        self.$type.append($('<option/>').text(type));
+      });
+    },
+    _ontypeDropdownChanged: function(e){
+      var self = e.data.self,
+        selected = $(this).val();
+      if (selected !== self.def){
+        self.addFilter('type', selected, ['type']);
+      } else {
+        self.removeFilter('type');
+      }
+      self.filter();
+    },
+    draw: function(){
+      this._super();
+      var type = this.find('type');
+      if (type instanceof FooTable.Filter){
+        this.$type.val(type.query.val());
+      } else {
+        this.$type.val(this.def);
+      }
+    }
+  });
 
-  // FooTable.components.register('filtering', FooTable.MyFiltering)
+  FooTable.components.register('filtering', FooTable.MyFiltering)
 
   $('#modal-catalog').footable({
     "useParentWidth": true,
@@ -240,6 +260,7 @@ jQuery(document).ready(function() {
 <script type="text/javascript">
     function currency_format(value){
       var price = Shopify.formatMoney(value, window.formatMoney);
+      price = price.replace('$', 'RM');
       return price;
     }
 </script>
