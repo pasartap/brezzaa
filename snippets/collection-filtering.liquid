@@ -3,7 +3,7 @@
   <select name="filterBy" class="coll-filter">
     <option value="">All</option>
     {% for tag in collection.all_tags %}
-      {% unless tag == 'Freebie' or tag == 'Wholesale' %}
+      {% unless tag == 'Freebie' or tag == 'Max-1' or tag == 'Wholesale' %}
         {% if current_tags contains tag %}
           <option value="{{ tag | handle }}" selected>{{ tag }}</option>
         {% else %}

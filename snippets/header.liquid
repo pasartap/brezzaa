@@ -1052,7 +1052,26 @@ jQuery(document).ready(function() {
                 $(el).find(".product-image").removeAttr('href');
                 $(el).find(".product-name a").removeAttr('href');
               });
+            }
 
+            // Get the product ids of max-1 products in the cart
+            var max_1_product_ids = [];
+            {% for item in cart.items %}
+              {% if item.product.tags contains "Max-1" %}
+                max_1_product_ids.push({{ item.id }});
+              {% endif %}
+            {% endfor %}
+
+            // Remove links & buttons if line item is a max-1 product
+            if (max_1_product_ids.length > 0 && $.inArray(n.items[i].id, max_1_product_ids) != -1) {
+              var element_id = '#cart-item-' + n.items[i].id;             
+              sentinel.on(element_id, function(el) {
+                $(el).find(".btn-remove-cart").remove();
+                $(el).find(".add-to-cart-quantity-cart").remove();
+                $(el).find(".btn-add-cart").remove();
+                $(el).find(".product-image").removeAttr('href');
+                $(el).find(".product-name a").removeAttr('href');
+              });
             }
 					}
 				}
