@@ -315,46 +315,40 @@ var imgWidth = $("#productPhotoImg").width();
 {% if product.available %}
   <script>
     var selectCallback = function(variant, selector) { 
- if (variant) { $("#sku").html(variant.sku); }
-      
+      if (variant) { $("#sku").html(variant.sku); }
       
       if (variant) {
-  if (variant.inventory_management == "shopify" && variant.inventory_policy != "continue") {
-    if (variant.inventory_quantity > 0) {
-      jQuery('#variant-inventory').text('We have ' + variant.inventory_quantity + ' in stock.');
-    } else {
-      jQuery('#variant-inventory').text("This product is sold out");
-    }
-  } else {
-    jQuery('#variant-inventory').text("This product is available");
-  }
-} else {
-    jQuery('#variant-inventory').text("");
-}
-
+        if (variant.inventory_management == "shopify" && variant.inventory_policy != "continue") {
+          if (variant.inventory_quantity > 0) {
+            jQuery('#variant-inventory').text('We have ' + variant.inventory_quantity + ' in stock.');
+          } else {
+            jQuery('#variant-inventory').text("This product is sold out");
+          }
+        } else {
+          jQuery('#variant-inventory').text("This product is available");
+        }
+      } else {
+          jQuery('#variant-inventory').text("");
+      }
     
       // BEGIN SWATCHES
-if (variant) {
-  var form = jQuery('#' + selector.domIdPrefix).closest('form');
-  for (var i=0,length=variant.options.length; i<length; i++) {
-    var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
-    if (radioButton.size()) {
-      radioButton.get(0).checked = true;
-    }
-  }
-}
-// END SWATCHES
-
-      
+      if (variant) {
+        var form = jQuery('#' + selector.domIdPrefix).closest('form');
+        for (var i=0,length=variant.options.length; i<length; i++) {
+          var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+          if (radioButton.size()) {
+            radioButton.get(0).checked = true;
+          }
+        }
+      }
+      // END SWATCHES
+     
       if (variant && variant.available) {
         // selected a valid variant
         $('#add-to-cart').removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
         if(variant.compare_at_price == null){
-          $('#product_price .price').html('<span class="money"><strong>'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}")+'</strong></span>');
-                                                                                             
-                                                                                             
+          $('#product_price .price').html('<span class="money"><strong>'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}")+'</strong></span>');                                                    
         } else {
-                                                                                             
           $('#product_price .price').html('<span class="money"><strong>'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}") + '</strong></span> <span class="money compare_at_price">(was <del>' + Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}") + '</del>)</span>');
         }
       } else {
@@ -383,75 +377,65 @@ if (variant) {
           {% endfor %}
         {% endif %}
       {% endfor %}
-      
-    });
-         
-          
+    });                  
   </script>
-  {% endif %}
+{% endif %}
 
 {% comment %}
 Place this in your product.liquid template, at the bottom.
 {% endcomment %}
-
 {% if product.variants.size > 1 %}
-
-<script>
-(function($) { 
-  var variantImages = {},
-    thumbnails,
-    variant,
-    variantImage,
-    optionValue;
-    {% for variant in product.variants %}
-       variant = {{ variant | json }};
-       if ( typeof variant.featured_image !== 'undefined' && variant.featured_image !== null ) {
-         variantImage =  variant.featured_image.src.split('?')[0].replace(/http(s)?:/,'');
-         variantImages[variantImage] = variantImages[variantImage] || {};
-         {% for option in product.options %}
-           {% assign option_value = variant.options[forloop.index0] %}
-           {% assign option_key = 'option-' | append: forloop.index0 %}
-           if (typeof variantImages[variantImage][{{ option_key | json }}] === 'undefined') {
-             variantImages[variantImage][{{ option_key | json }}] = {{ option_value | json }};
-           }
-           else {
-             var oldValue = variantImages[variantImage][{{ option_key | json }}];
-             if ( oldValue !== null && oldValue !== {{ option_value | json }} )  {
-               variantImages[variantImage][{{ option_key | json }}] = null;
+  <script>
+  (function($) { 
+    var variantImages = {},
+      thumbnails,
+      variant,
+      variantImage,
+      optionValue;
+      {% for variant in product.variants %}
+         variant = {{ variant | json }};
+         if ( typeof variant.featured_image !== 'undefined' && variant.featured_image !== null ) {
+           variantImage =  variant.featured_image.src.split('?')[0].replace(/http(s)?:/,'');
+           variantImages[variantImage] = variantImages[variantImage] || {};
+           {% for option in product.options %}
+             {% assign option_value = variant.options[forloop.index0] %}
+             {% assign option_key = 'option-' | append: forloop.index0 %}
+             if (typeof variantImages[variantImage][{{ option_key | json }}] === 'undefined') {
+               variantImages[variantImage][{{ option_key | json }}] = {{ option_value | json }};
              }
-           }
-         {% endfor %}
-       }
-    {% endfor %}
-    $(function() {
-      thumbnails = $('img[src*="/products/"]').not(':first');
-      if (thumbnails.size()) {
-        thumbnails.bind('click', function() {
-          var image = $(this).attr('src').split('?')[0].replace(/(_thumb\.)|(_small\.)|(_compact\.)|(_medium\.)|(_large\.)|(_grande\.)/,'.');
-          if (typeof variantImages[image] !== 'undefined') {
-            {% for option in product.options %}
-            optionValue = variantImages[image]['option-{{ forloop.index0 }}'];
-            if (optionValue !== null && $('.single-option-selector:eq({{ forloop.index0 }}) option').filter(function() { return $(this).text() === optionValue }).length) {
-              $('.single-option-selector:eq({{ forloop.index0 }})').val(optionValue).trigger('change');
+             else {
+               var oldValue = variantImages[variantImage][{{ option_key | json }}];
+               if ( oldValue !== null && oldValue !== {{ option_value | json }} )  {
+                 variantImages[variantImage][{{ option_key | json }}] = null;
+               }
+             }
+           {% endfor %}
+         }
+      {% endfor %}
+      $(function() {
+        thumbnails = $('img[src*="/products/"]').not(':first');
+        if (thumbnails.size()) {
+          thumbnails.bind('click', function() {
+            var image = $(this).attr('src').split('?')[0].replace(/(_thumb\.)|(_small\.)|(_compact\.)|(_medium\.)|(_large\.)|(_grande\.)/,'.');
+            if (typeof variantImages[image] !== 'undefined') {
+              {% for option in product.options %}
+              optionValue = variantImages[image]['option-{{ forloop.index0 }}'];
+              if (optionValue !== null && $('.single-option-selector:eq({{ forloop.index0 }}) option').filter(function() { return $(this).text() === optionValue }).length) {
+                $('.single-option-selector:eq({{ forloop.index0 }})').val(optionValue).trigger('change');
+              }
+              {% endfor %}
             }
-            {% endfor %}
-          }
-        });
-      }
-    });
-})(jQuery);
-</script> 
-
+          });
+        }
+      });
+    })(jQuery);
+  </script> 
 {% endif %}
 
 {% if product.available %}
   <script>
-    var selectCallback = function(variant, selector) { 
-                                                      
-      
-      if (variant && variant.available) {
-       
-        
+    var selectCallback = function(variant, selector) {                                                          
+      if (variant && variant.available) {           
         // selected a valid variant
         $('#add-to-cart').removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
         if(variant.compare_at_price == null || variant.compare_at_price == 0){
@@ -459,15 +443,12 @@ Place this in your product.liquid template, at the bottom.
         } else {
           $('#product_price .price').html('<span class="money"><strong>'+Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}") + '</strong></span> <span class="money compare_at_price"><del>' + Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}") + '</del></span>');
         }
-      } else {
-                                                                                             
+      } else {                                                                                           
         $('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
-        var message = variant ? "" : "Unavailable";
-                                      
+        var message = variant ? "" : "Unavailable";                                    
        }
                                           
-         if (variant && variant.featured_image) {
-           
+      if (variant && variant.featured_image) {
         var originalImage = jQuery("#product-featured-image");
         var newImage = variant.featured_image;
         var element = originalImage[0];
@@ -481,33 +462,28 @@ Place this in your product.liquid template, at the bottom.
             }
           });
         });        
-    }
-          
+      }         
           
       $featuredImage = $('#productPhotoImg');
 
-    if (variant) {
-      // Update variant image, if one is set
-      // Call timber.switchImage function in shop.js
-      if (variant.featured_image) {
-        
-        var newImg = variant.featured_image,
-            el = $featuredImage[0];
-        Shopify.Image.switchImage(newImg, el, timber.switchImage);
-       var galimg=jQuery(".swatch-element img").attr('src');
-         jQuery(".zoomWindow").css('background-image','url('+galimg +')'); 
-      } 
-    }
-          
+      if (variant) {
+        // Update variant image, if one is set
+        // Call timber.switchImage function in shop.js
+        if (variant.featured_image) {        
+          var newImg = variant.featured_image,
+              el = $featuredImage[0];
+          Shopify.Image.switchImage(newImg, el, timber.switchImage);
+          var galimg=jQuery(".swatch-element img").attr('src');
+          jQuery(".zoomWindow").css('background-image','url('+galimg +')'); 
+        } 
+      }         
     };
 
     // initialize multi selector for product
     $(function() {
-      new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
-      
-      // Add label if only one product option and it isn't 'Title'.
+      new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });// Add label if only one product option and it isn't 'Title'.
       {% if product.options.size == 1 and product.options.first != 'Title' %}
-      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+        $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
       {% endif %}
   
       // Auto-select first available variant on page load.
@@ -519,11 +495,9 @@ Place this in your product.liquid template, at the bottom.
             $('.single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
           {% endfor %}
         {% endif %}
-      {% endfor %}
-      
+      {% endfor %}      
     });
   </script>
-
 {% comment %}
  <script type="text/javascript">
    
@@ -588,10 +562,7 @@ Place this in your product.liquid template, at the bottom.
 
         clearInterval(myVar);
     }, 100);
-  });
-   
-
-   
+  });  
 </script>
 {% endcomment %}
-  {% endif %}
+{% endif %}

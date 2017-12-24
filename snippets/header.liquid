@@ -1069,9 +1069,14 @@ jQuery(document).ready(function() {
                 $(el).find(".btn-remove-cart").remove();
                 $(el).find(".add-to-cart-quantity-cart").remove();
                 $(el).find(".btn-add-cart").remove();
-                $(el).find(".product-image").removeAttr('href');
-                $(el).find(".product-name a").removeAttr('href');
               });
+
+              // Set controls to disabled in product page
+              var product_page_class = '.product-actions-' + n.items[i].product_id;             
+              if ($(product_page_class).length > 0) {
+                $(product_page_class + ' #quantity').addClass('disabled').attr('disabled', 'disabled');
+                $(product_page_class + ' #add-to-cart').addClass('disabled').attr('disabled', 'disabled');
+              }
             }
 					}
 				}
@@ -1103,7 +1108,7 @@ jQuery(document).ready(function() {
                  o = 1
                }
                                
-                                var quantity = parseFloat(o) + parseFloat(1);
+               var quantity = parseFloat(o) + parseFloat(1);
                var u = e(r).find(".product-title").text();
                var a = e(r).find(".product-grid-image img").attr("src");
                t.doAjaxUpdateCart(s, quantity, u, a)
@@ -1139,13 +1144,13 @@ jQuery(document).ready(function() {
                }
 
                var quantity = parseFloat(o) - parseFloat(1);
-                                var u = e(r).find(".product-title").text();
+               var u = e(r).find(".product-title").text();
                var a = e(r).find(".product-grid-image img").attr("src");
 
                t.doAjaxUpdateCart(s, quantity, u, a)
 
                if (quantity < 1) {
-                       e(this).parent().hide();
+                   e(this).parent().hide();
                    e(this).closest('form').find('.single-add-to-cart-button').show();
                    } else {
                      e(".product-actions-" + i + " input[name=quantity]").val(quantity);
