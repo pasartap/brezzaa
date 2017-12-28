@@ -534,7 +534,24 @@ jQuery(document).ready(function() {
               line_quantity[0].innerHTML = Shopify.formatMoney(0, window.formatMoney);
             }       
 
-					    /* Plus button in cart event handler */
+            // Get the product ids of max-1 products in the cart
+            var max_1_product_ids = [];
+            {% for item in cart.items %}
+              {% if item.product.tags contains "Max-1" %}
+                max_1_product_ids.push({{ item.id }});
+              {% endif %}
+            {% endfor %}
+
+            if (max_1_product_ids.length == 0 || !$.inArray(prod_id, max_1_product_ids) != -1) {
+              // Re-enable in product page
+              var product_page_class = '.product-actions-' + prod_id;             
+              if ($(product_page_class).length > 0) {
+                $(product_page_class + ' #purchase #quantity').removeClass('disabled').removeAttr('disabled', 'disabled');
+                $(product_page_class + ' #purchase #add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled');
+              }
+            }
+
+					  /* Plus button in cart event handler */
 						if (e(".btn-add-cart").length > 0) {
 							e(".btn-add-cart").click(function(n) {
 								n.preventDefault();
@@ -639,7 +656,24 @@ jQuery(document).ready(function() {
             var line_quantity = e(".product-actions-" + prod_id).find("#line-price");                            
             if (line_quantity.length > 0) {
               line_quantity[0].innerHTML = Shopify.formatMoney(0, window.formatMoney);;
-            } 					
+            } 	
+
+            // Get the product ids of max-1 products in the cart
+            var max_1_product_ids = [];
+            {% for item in cart.items %}
+              {% if item.product.tags contains "Max-1" %}
+                max_1_product_ids.push({{ item.id }});
+              {% endif %}
+            {% endfor %}
+
+            if (max_1_product_ids.length == 0 || !$.inArray(prod_id, max_1_product_ids) != -1) {
+              // Re-enable in product page
+              var product_page_class = '.product-actions-' + prod_id;             
+              if ($(product_page_class).length > 0) {
+                $(product_page_class + ' #purchase #quantity').removeClass('disabled').removeAttr('disabled', 'disabled');
+                $(product_page_class + ' #purchase #add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled');
+              }
+            }				
 					})
 				})
 			},
@@ -1072,10 +1106,16 @@ jQuery(document).ready(function() {
               });
 
               // Set controls to disabled in product page
-              var product_page_class = '.product-actions-' + n.items[i].product_id;             
-              if ($(product_page_class).length > 0) {
-                $(product_page_class + ' #quantity').addClass('disabled').attr('disabled', 'disabled');
-                $(product_page_class + ' #add-to-cart').addClass('disabled').attr('disabled', 'disabled');
+              var product_action_class = '.product-actions-' + n.items[i].product_id;             
+              if ($(product_action_class).length > 0) {
+                $(product_action_class + ' #purchase #quantity').addClass('disabled').attr('disabled', 'disabled');
+                $(product_action_class + ' #purchase #add-to-cart').addClass('disabled').attr('disabled', 'disabled');
+              }
+
+              // Set controls to disabled in collection page
+              if ($(product_action_class).length > 0) {
+                $(product_action_class + ' .cart-buttons #quantity').attr('disabled', 'disabled');
+                $(product_action_class + ' .cart-buttons .btn-add-to-cart').attr('disabled', 'disabled');
               }
             }
 					}
