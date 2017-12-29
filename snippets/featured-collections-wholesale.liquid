@@ -12,8 +12,9 @@
   {% for featured_collection in featured_collections %}
     {% assign coll = featured_collection | strip %}
     {% assign coll_relative_link = '/collections/' | append: collections[featured_collection].handle %}
-    
-    {% if coll != blank and collections[coll].all_products_count | times: 1 > 1 %}  
+    {% assign collection_count = collections[coll].all_products_count | times: 1 %}
+
+    {% if coll != blank and collection_count != nil and collection_count > 0 %}  
       <section class="bestsell-pro">
         <div class="container"> 
           <div class="block-title">
