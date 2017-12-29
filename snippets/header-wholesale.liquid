@@ -1150,23 +1150,25 @@ jQuery(document).ready(function() {
               });
             }
 
-            // Get the product ids of max-1 products in the cart
-            var max_1_product_ids = [];
-            {% for item in cart.items %}
-              {% if item.product.tags contains "Max-1" %}
-                max_1_product_ids.push({{ item.id }});
-              {% endif %}
-            {% endfor %}
-
             // Remove links & buttons if line item is a max-1 product
-            if (max_1_product_ids.length > 0 && $.inArray(n.items[i].id, max_1_product_ids) != -1) {
-              var element_id = '#cart-item-' + n.items[i].id;             
-              sentinel.on(element_id, function(el) {
-                $(el).find(".btn-remove-cart").remove();
-                $(el).find(".add-to-cart-quantity-cart").remove();
-                $(el).find(".btn-add-cart").remove();
-              });
-            }
+            Shopify.getProduct(n.items[i].handle, function(product) {
+              if (product.tags.indexOf("Max-1") != -1) {
+                var product_action_class = '.product-actions-' + product.id;              
+                
+                // Remove buttons in cart
+                $(product_action_class + ' .cart-buttons-in-cart .btn-remove-cart').remove();
+                $(product_action_class + ' .cart-buttons-in-cart .add-to-cart-quantity-cart').remove();
+                $(product_action_class + ' .cart-buttons-in-cart .btn-add-cart').remove();
+
+                // Set controls to disabled in product page
+                $(product_action_class + ' #purchase #quantity').addClass('disabled').attr('disabled', 'disabled');
+                $(product_action_class + ' #purchase #add-to-cart').addClass('disabled').attr('disabled', 'disabled');
+
+                // Set controls to disabled in collection page
+                $(product_action_class + ' .cart-buttons #quantity').attr('disabled', 'disabled');
+                $(product_action_class + ' .cart-buttons .btn-add-to-cart').attr('disabled', 'disabled');
+              }
+            })
 					}
 				}
 

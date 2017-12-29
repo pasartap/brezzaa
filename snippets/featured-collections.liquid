@@ -1,12 +1,17 @@
 {% assign listing_cols = '1' %}
 {% assign image_size = 'original' %}
+{% assign featured_collections = 'all' %}
+{% assign coll_num = 1 %}
 
-{% if settings.display_featured_collections != blank %}
+{% if settings.homepage_featured_collections != blank %}
+  {% assign featured_collections = settings.homepage_featured_collections | split:"," %}
+{% endif %}
+
+{% if settings.display_featured_collections == true and featured_collections.size > 0 %}
   <!-- Featured Collections Slider -->
-  {% for coll_num in (1..10) %}
-    {% capture current_collection %}homepage_featured_collection_{{ coll_num }}{% endcapture %}
-    {% assign coll = settings[current_collection] %}
-    {% assign coll_relative_link = '/collections/' | append: collections[coll].handle %}
+  {% for featured_collection in featured_collections %}
+    {% assign coll = featured_collection | strip %}
+    {% assign coll_relative_link = '/collections/' | append: collections[featured_collection].handle %}
     
     {% if coll != blank and collections[coll].all_products_count | times: 1 > 1 %}  
       <section class="bestsell-pro">
@@ -28,63 +33,65 @@
           </div>
         </div>
       </section>
+      {% assign coll_num = coll_num | plus: 1 %}
     {% endif %}
   {% endfor %}
   <!-- End Featured Collections Slider --> 
+
+  <script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function(cash) {
+
+    for (i = 1; i <= {{ coll_num }}; i++) { 
+      index = "#featured-slider_" + i;
+      jQuery(index + " .slider-items").owlCarousel({
+      items: 5, //10 items above 1000px browser width
+      itemsDesktop: [1024, 4], //4 items between 1024px and 901px
+      itemsDesktopSmall: [900, 3], // 4 items betweem 900px and 601px
+      itemsTablet: [640, 2], //3 items between 600 and 0;
+      itemsMobile: [375, 2],
+      navigation : true,
+      navigationText : ["<a class=\"flex-prev\"></a>","<a class=\"flex-next\"></a>"],
+      slideSpeed : 500,
+      pagination : true,
+      autoPlay: false,
+      responsive: {
+            0: {
+              items: 2,
+              navigation: true,
+              nav: true,
+              slideBy: 1 // <!-- HERE
+            },
+            640: {
+              items: 2,
+              navigation: true,
+              nav: true,
+              slideBy: 2 // <!-- HERE
+            },
+            900: {
+              items: 4,
+              navigation: true,
+              nav: true,
+              slideBy: 4 // <!-- HERE
+            },
+            1024: {
+              items: 4,
+              navigation: true,
+              nav: true,
+              slideBy: 4 // <!-- HERE
+            },
+            1600: {
+              items: 5,
+              navigation: true,
+              nav: true,
+              slideBy: 5 // <!-- HERE
+            }
+          },
+      });
+    }
+
+    }); 
+    //]]>
+  </script>  
+
 {% endif %}
-
-<script type="text/javascript">
-//<![CDATA[
-jQuery(document).ready(function(cash) {
-
-for (i = 1; i <= 10; i++) { 
-  index = "#featured-slider_" + i;
-  jQuery(index + " .slider-items").owlCarousel({
-  items: 5, //10 items above 1000px browser width
-  itemsDesktop: [1024, 4], //4 items between 1024px and 901px
-  itemsDesktopSmall: [900, 3], // 4 items betweem 900px and 601px
-  itemsTablet: [640, 2], //3 items between 600 and 0;
-  itemsMobile: [375, 2],
-  navigation : true,
-  navigationText : ["<a class=\"flex-prev\"></a>","<a class=\"flex-next\"></a>"],
-  slideSpeed : 500,
-  pagination : true,
-  autoPlay: false,
-  responsive: {
-        0: {
-          items: 2,
-          navigation: true,
-          nav: true,
-          slideBy: 1 // <!-- HERE
-        },
-        640: {
-          items: 2,
-          navigation: true,
-          nav: true,
-          slideBy: 2 // <!-- HERE
-        },
-        900: {
-          items: 4,
-          navigation: true,
-          nav: true,
-          slideBy: 4 // <!-- HERE
-        },
-        1024: {
-          items: 4,
-          navigation: true,
-          nav: true,
-          slideBy: 4 // <!-- HERE
-        },
-        1600: {
-          items: 5,
-          navigation: true,
-          nav: true,
-          slideBy: 5 // <!-- HERE
-        }
-      },
-  });
-}
-
-}); 
-//]]>
-</script> 

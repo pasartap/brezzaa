@@ -23,7 +23,7 @@
       {% assign cat = link.title | downcase %}
       <li class="dropdown {% if settings.display_megamenu and items_list contains cat %} mega-menu {% endif %}">
         
-        <a href="{{ link.url }}" class="{% if link.active %} current{% endif %}"><span>{{ link.title }}</span></a> 	    
+        <a href="{{ link.url }}" class="{% if link.active %} current{% endif %}"><span>{{ link.title | downcase | replace: '(wholesale)', '' }}</span></a> 	    
         {% comment %}
         Check if menu item is Mega menu
         {% endcomment %}

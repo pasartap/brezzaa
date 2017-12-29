@@ -18,6 +18,12 @@
     "name": "PTWholesale",
     "settings": [
     {
+        "type": "textarea",
+        "id": "wholesale_homepage_featured_collections",
+        "label": "Featured collections",
+        "info": "Comma-separated collections using handle. Example: meat,poultry,chicken,fish-seafood"
+    },
+    {
         "type": "text",
         "id": "order_minimum_wholesale",
         "label": "Order minimum"
@@ -1104,54 +1110,10 @@
         "default": true
     },
     {
-        "type": "text",
-        "id": "homepage_featured_collection_1",
-        "label": "Featured Collection 1"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_2",
-        "label": "Featured Collection 2"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_3",
-        "label": "Featured Collection 3"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_4",
-        "label": "Featured Collection 4"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_5",
-        "label": "Featured Collection 5"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_6",
-        "label": "Featured Collection 6"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_7",
-        "label": "Featured Collection 7"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_8",
-        "label": "Featured Collection 8"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_9",
-        "label": "Featured Collection 9"
-    },
-    {
-        "type": "text",
-        "id": "homepage_featured_collection_10",
-        "label": "Featured Collection 10"
+        "type": "textarea",
+        "id": "homepage_featured_collections",
+        "label": "Featured collections",
+        "info": "Comma-separated collections using handle. Example: meat,poultry,chicken,fish-seafood"
     }]
 },
 {
