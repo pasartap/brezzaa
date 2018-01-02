@@ -39,6 +39,44 @@
         "id": "logo_white_custom.png",
         "label": "White Logo",
         "info": "Image size must be 2048 x 575 px."
+    },
+    {
+        "type": "header",
+        "content": "Navigation Colors"
+    },
+    {
+        "type": "paragraph",
+        "content": "Note: Default green color code is #50a746."
+    },
+    {
+        "type": "color",
+        "id": "nav_bg_color",
+        "label": "Background color"
+    },
+    {
+        "type": "color",
+        "id": "nav_active_bg_color",
+        "label": "Active background color"
+    },
+    {
+        "type": "color",
+        "id": "nav_item_color",
+        "label": "Navigation item color"
+    },
+    {
+        "type": "color",
+        "id": "nav_item_active_text_color",
+        "label": "Navigation active text color"
+    },
+    {
+        "type": "color",
+        "id": "nav_item_text_hover_color",
+        "label": "Navigation item text hover"
+    },
+    {
+        "type": "color",
+        "id": "deals_highlight_color",
+        "label": "'Deals' highlight color"
     }]
 },
 {
@@ -363,31 +401,31 @@
 {
     "name": "Navigation",
     "settings": [
-    {
-        "type": "color",
-        "id": "nav_bg_color",
-        "label": "Navigation BG color"
-    },
-    {
-        "type": "color",
-        "id": "nav_item_color",
-        "label": "Navigation item color"
-    },
-    {
-        "type": "color",
-        "id": "nav_item_active_text_color",
-        "label": "Navigation active text color"
-    },
-    {
-        "type": "color",
-        "id": "nav_item_text_hover_color",
-        "label": "Navigation item text hover"
-    },
-    {
-        "type": "color",
-        "id": "nav_active_bg_color",
-        "label": "Navigation active bg color"
-    },
+    // {
+    //     "type": "color",
+    //     "id": "nav_bg_color",
+    //     "label": "Navigation BG color"
+    // },
+    // {
+    //     "type": "color",
+    //     "id": "nav_item_color",
+    //     "label": "Navigation item color"
+    // },
+    // {
+    //     "type": "color",
+    //     "id": "nav_item_active_text_color",
+    //     "label": "Navigation active text color"
+    // },
+    // {
+    //     "type": "color",
+    //     "id": "nav_item_text_hover_color",
+    //     "label": "Navigation item text hover"
+    // },
+    // {
+    //     "type": "color",
+    //     "id": "nav_active_bg_color",
+    //     "label": "Navigation active bg color"
+    // },
     {
         "type": "header",
         "content": "Mega Menu"

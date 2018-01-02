@@ -30,11 +30,11 @@
         "cart_icon_bgcolor": "#ffffff",
         "cart_text": "",
         "cart_label_color": "#333333",
-        "nav_bg_color": "#50a746",
+        "nav_bg_color": "#800000",
+        "nav_active_bg_color": "#800000",
         "nav_item_color": "#ffffff",
         "nav_item_active_text_color": "#ffffff",
-        "nav_item_text_hover_color": "#ffffff",
-        "nav_active_bg_color": "#50a746",
+        "nav_item_text_hover_color": "#ffffff",  
         "display_megamenu": true,
         "megamenu_items": "Fresh Food,Frozen Food,Grocery,Beverages,Dairy Products,Household,Health & Beauty,Babies,Grocery (Wholesale)",
         "menu_link_image": "",
@@ -857,7 +857,8 @@
         "tier_3_target_amount": "",
         "tier_3_linklist_handle": "",
         "tier_3_text": "",
-        "use_custom_logo": false
+        "use_custom_logo": false,
+        "deals_highlight_color": "#FFFF00"
     },
     "presets":
     {}

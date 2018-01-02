@@ -153,10 +153,10 @@ nav#sticky-cart:not( .mm-menu) {
     z-index: 1000;
     display: block;
     top: 0px;
-    background: #50a746;
+    background: {{ settings.nav_bg_color }};
     width: 100%;
     transition: all 0.5s;
-    border-bottom: 3px solid #50a746;
+    border-bottom: 3px solid {{ settings.nav_bg_color }};
 }
 
 .sticky-user {
@@ -179,7 +179,7 @@ nav#sticky-cart:not( .mm-menu) {
 }
 
 .site-nav>li:first-child>a>span {
-    color: yellow;
+    color: {{ settings.deals_highlight_color }};
 }
 
 .site-nav-dropdown .col-1 {
@@ -338,11 +338,11 @@ textarea {
 }
 
 .mh-head {
-    background-color: #50a746 !important;
+    background-color: {{ settings.nav_bg_color }} !important;
 }
 
 .mobile-shadow {
-    background-color: #50a746 !important;
+    background-color: {{ settings.nav_bg_color }} !important;
     box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.16);
 }
 
