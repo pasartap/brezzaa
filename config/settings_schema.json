@@ -1,4 +1,5 @@
-[{
+[
+{
     "name": "Welcome",
     "settings": [
     {
@@ -12,6 +13,32 @@
     {
         "type": "paragraph",
         "content": "We also offer theme customization services. You can contact our team to discuss estimate."
+    }]
+},
+{
+    "name": "Campaign Customization",
+    "settings": [
+    {
+        "type": "header",
+        "content": "Logo"
+    },
+    {
+        "type": "checkbox",
+        "id": "use_custom_logo",
+        "label": "Use Custom Logo?",
+        "info": "Note: Duplicate logo_green.png and logo_white.png in the /assets folder and customize accordingly."
+    },
+    {
+        "type": "image",
+        "id": "logo_green_custom.png",
+        "label": "Green Logo",
+        "info": "Image size must be 4739 x 1032 px."
+    },
+    {
+        "type": "image",
+        "id": "logo_white_custom.png",
+        "label": "White Logo",
+        "info": "Image size must be 2048 x 575 px."
     }]
 },
 {

@@ -79,10 +79,10 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block"> 
           <!-- Header Logo --> 
           <!-- logo --> 
-          {% if settings.use_logo %} 
-            <a id="logo" href="/"> {{ 'logo_189x48.png' | asset_url | img_tag: shop.name }} </a> 
+          {% if settings.use_custom_logo %} 
+            <a id="logo" href="/"> <img style='width:189px;height:41px' src='{{ 'logo_green_custom.png' | asset_img_url: '4739x1032' }}' /> </a> 
           {% else %} 
-            <a class="logo-title" href="/">{{ settings.logo_text }}</a>
+            <a id="logo" href="/"> <img style='width:189px;height:41px' src='{{ 'logo_green.png' | asset_img_url: '4739x1032' }}' /> </a> 
           {% endif %} 
           <!-- End Header Logo --> 
         </div>

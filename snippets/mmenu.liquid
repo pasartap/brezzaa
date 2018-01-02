@@ -3,7 +3,13 @@
         <span class="mh-btns-left">
             <a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
         </span>
-        <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_green.png' | asset_img_url: '2048x575' }}" /> </a>
+        <!-- Main Logo --> 
+        {% if settings.use_custom_logo %} 
+            <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_white_custom.png' | asset_img_url: '2048x575' }}" /> </a>
+        {% else %} 
+            <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_white.png' | asset_img_url: '2048x575' }}" /> </a>
+        {% endif %} 
+        <!-- End Main Logo --> 
         <span class="mh-btns-right">
             <a id="sticky-cart-button" href="#sticky-cart">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -159,7 +165,7 @@ $(document).ready(function(){
                 height: 2,
                 position: "top",
                 content: [
-                  "<a href='/'> <img style='width:142px;height:31px' src='{{ 'logo_transparent.png' | asset_img_url: '4739x1032' }}' /> </a>"
+                  "{% if settings.use_custom_logo %} <a href='/'> <img style='width:142px;height:31px' src='{{ 'logo_green_custom.png' | asset_img_url: '4739x1032' }}' /> </a> {% else %} <a href='/'> <img style='width:142px;height:31px' src='{{ 'logo_green.png' | asset_img_url: '4739x1032' }}' /> </a> {% endif %}"
                ]
             },
             {

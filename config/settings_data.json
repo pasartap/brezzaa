@@ -856,7 +856,8 @@
         "tier_2_text": "",
         "tier_3_target_amount": "",
         "tier_3_linklist_handle": "",
-        "tier_3_text": ""
+        "tier_3_text": "",
+        "use_custom_logo": false
     },
     "presets":
     {}
