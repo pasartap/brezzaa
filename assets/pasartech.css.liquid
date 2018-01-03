@@ -543,10 +543,6 @@ button[disabled] {
     padding: 7px 20px;
 }
 
-.brand-logo {
-    background-color: white;
-}
-
 .brand-header {
     margin-top: 30px;
     font-family: 'Raleway', sans-serif;
@@ -764,7 +760,7 @@ button[disabled] {
 }
 
 .ptwholesale-logo {
-    background: url("{{ 'logo_ptwholesale.png' | asset_url }}");
+    background: url("{{ 'logo_green_ptwholesale.png' | asset_url }}");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -797,9 +793,53 @@ button[disabled] {
     z-index: 0 !important;
 }
 
-.cart-buttons input[type="text"] {
+.section-header-right select {
     background-color: white !important;
 }
+
+.brand-logo,
+.cart-buttons input[type="text"],
+.product_wrap #purchase,
+#ptwholesale-new,
+.breadcrumb {
+    background-color: {{ settings.body_bg_color }} !important;
+}
+
+.site-nav-dropdown {
+    background-color: {{ settings.mega_menu_bg_color }} !important;
+}
+
+.site-nav-dropdown .col-1 .inner > a:after {
+    background: none repeat scroll 0 0 {{ settings.nav_bg_color }} !important;
+}
+
+.bestsell-pro .block-title {
+    background: {{ settings.feat_coll_header_bg_color }} !important;
+}
+
+.bestsell-pro .block-title h2 {
+    border-bottom-color: {{ settings.nav_bg_color }} !important;
+}
+
+.bestsell-pro .block-title a {
+    color: {{ settings.feat_coll_header_text_color }} !important;
+}
+
+.bestsell-pro .block-title a:hover {
+    color: {{ settings.feat_coll_header_text_hover_color }} !important;
+}
+
+.bestsell-pro .slider-items-products .owl-buttons .owl-prev a,
+.bestsell-pro .slider-items-products .owl-buttons .owl-next a {
+    background-color: {{ settings.feat_coll_header_button_color }} !important;
+}
+
+.bestsell-pro .slider-items-products .owl-buttons .owl-prev a:hover,
+.bestsell-pro .slider-items-products .owl-buttons .owl-next a:hover {
+    background-color: {{ settings.feat_coll_header_button_hover_color }} !important;
+    border: 1px solid {{ settings.feat_coll_header_button_hover_color }} !important;
+}
+
 
 
 /* Responsive CSS */

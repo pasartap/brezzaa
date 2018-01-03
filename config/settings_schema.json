@@ -42,16 +42,25 @@
     },
     {
         "type": "header",
-        "content": "Navigation Colors"
+        "content": "Default Color"
     },
     {
         "type": "paragraph",
-        "content": "Note: Default green color code is #50a746."
+        "content": "The default green color code is #50a746."
+    },
+    {
+        "type": "header",
+        "content": "Navigation Colors"
     },
     {
         "type": "color",
         "id": "nav_bg_color",
         "label": "Background color"
+    },
+    {
+        "type": "color",
+        "id": "mega_menu_bg_color",
+        "label": "Mega Menu background color"
     },
     {
         "type": "color",
@@ -77,6 +86,44 @@
         "type": "color",
         "id": "deals_highlight_color",
         "label": "'Deals' highlight color"
+    },
+    {
+        "type": "header",
+        "content": "Page background color"
+    },
+    {
+        "type": "color",
+        "id": "body_bg_color",
+        "label": "Page background color"
+    },
+    {
+        "type": "header",
+        "content": "Featured Collection Header Colors"
+    },
+    {
+        "type": "color",
+        "id": "feat_coll_header_bg_color",
+        "label": "Header background color"
+    },
+    {
+        "type": "color",
+        "id": "feat_coll_header_text_color",
+        "label": "Header text color"
+    },
+    {
+        "type": "color",
+        "id": "feat_coll_header_text_hover_color",
+        "label": "Header text hover"
+    },
+    {
+        "type": "color",
+        "id": "feat_coll_header_button_color",
+        "label": "Button color"
+    },
+    {
+        "type": "color",
+        "id": "feat_coll_header_button_hover_color",
+        "label": "Button hover color"
     }]
 },
 {
@@ -2770,11 +2817,11 @@
         "id": "totop_bg",
         "label": "scroll box background"
     },
-    {
-        "type": "color",
-        "id": "body_bg_color",
-        "label": "Body background color"
-    },
+    // {
+    //     "type": "color",
+    //     "id": "body_bg_color",
+    //     "label": "Body background color"
+    // },
     {
         "type": "color",
         "id": "html_bg_color",

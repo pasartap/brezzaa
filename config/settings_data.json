@@ -30,8 +30,9 @@
         "cart_icon_bgcolor": "#ffffff",
         "cart_text": "",
         "cart_label_color": "#333333",
-        "nav_bg_color": "#50a746",
-        "nav_active_bg_color": "#50a746",
+        "nav_bg_color": "#800000",
+        "nav_active_bg_color": "#800000",
+        "mega_menu_bg_color": "#DCDCDC",
         "nav_item_color": "#ffffff",
         "nav_item_active_text_color": "#ffffff",
         "nav_item_text_hover_color": "#ffffff",  
@@ -327,7 +328,7 @@
         "right_sidebar_width": "2",
         "content_width": "12",
         "totop_bg": "#50a746",
-        "body_bg_color": "#ffffff",
+        "body_bg_color": "#DCDCDC",
         "html_bg_color": "#ffffff",
         "font_color": "#333333",
         "headings_color": "#000000",
@@ -857,8 +858,13 @@
         "tier_3_target_amount": "",
         "tier_3_linklist_handle": "",
         "tier_3_text": "",
-        "use_custom_logo": false,
-        "deals_highlight_color": "#FFFF00"
+        "use_custom_logo": true,
+        "deals_highlight_color": "#FFFF00",
+        "feat_coll_header_bg_color": "#C0C0C0",
+        "feat_coll_header_text_color": "#ffffff",
+        "feat_coll_header_text_hover_color": "#800000",
+        "feat_coll_header_button_color": "#ffffff",
+        "feat_coll_header_button_hover_color": "#800000"
     },
     "presets":
     {}

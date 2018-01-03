@@ -1,4 +1,4 @@
-{% paginate collection.products by 12 %}
+{% paginate collection.products by settings.pagination_limit %}
 
 {% assign has_sidebar = false %}
 {% if collection.all_tags.size > 0 %}
@@ -7,16 +7,17 @@
 
 <div class="grid grid-border">
   <div class="grid-item{% if has_sidebar %} large--four-fifths grid-border--left{% endif %}">
-    {% if collection.description.size > 0 %}
+    {% comment %}{% if collection.description.size > 0 %}
       <div class="rte desc-section">
         {{ collection.description }}
       </div>
-    {% endif %}
+    {% endif %}{% endcomment %}
     <header class="section-header">
-      <h1 class="section-header-left">{{ collection.title }}</h1>
-      <div class="section-header-right">       
-         {% include 'collection-sorting' %}
-         {% include 'collection-views' %}
+      <h1 class="section-header-title section-header-left">{{ collection.title }}</h1>
+      {% include 'collection-views' %}
+      <div class="section-header-right">
+        {% include 'collection-filtering' %}
+        {% include 'collection-sorting' %}
       </div>
     </header>
     <div class="grid-uniform">
