@@ -59,11 +59,6 @@
     },
     {
         "type": "color",
-        "id": "mega_menu_bg_color",
-        "label": "Mega Menu background color"
-    },
-    {
-        "type": "color",
         "id": "nav_active_bg_color",
         "label": "Active background color"
     },
@@ -86,6 +81,25 @@
         "type": "color",
         "id": "deals_highlight_color",
         "label": "'Deals' highlight color"
+    },
+     {
+        "type": "header",
+        "content": "Mega Menu Colors"
+    },
+    {
+        "type": "color",
+        "id": "mega_menu_bg_color",
+        "label": "Mega Menu background color"
+    },
+    {
+        "type": "color",
+        "id": "mega_menu_header_color",
+        "label": "Mega Menu header color"
+    },
+    {
+        "type": "color",
+        "id": "mega_menu_item_color",
+        "label": "Mega Menu item color"
     },
     {
         "type": "header",
@@ -122,8 +136,13 @@
     },
     {
         "type": "color",
+        "id": "feat_coll_header_button_icon_color",
+        "label": "Button icon color"
+    },
+    {
+        "type": "color",
         "id": "feat_coll_header_button_hover_color",
-        "label": "Button hover color"
+        "label": "Button hover"
     }]
 },
 {
@@ -678,7 +697,7 @@
     },
     {
         "type": "text",
-        "id": "slide1_button2_link",
+        "id": "slide2_button2_link",
         "label": "Button Link"
     },
     {
@@ -762,7 +781,7 @@
     },
     {
         "type": "text",
-        "id": "slide1_button3_link",
+        "id": "slide3_button3_link",
         "label": "Button Link"
     },
     {
