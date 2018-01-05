@@ -237,6 +237,188 @@
     }]
 },
 {
+    "name": "Hot Product / Tab Section",
+    "settings": [
+    {
+        "type": "checkbox",
+        "id": "display_hot_products_with_tabs",
+        "label": "Display?",
+        "default": true
+    },
+    {
+        "type": "header",
+        "content": "Hot Product"
+    },
+    {
+        "type": "product",
+        "id": "hot-product_cat",
+        "label": "Please select the hot product."
+    },
+    {
+        "type": "text",
+        "id": "start_date",
+        "label": "Start date in Y\/M\/D format"
+    },
+    {
+        "type": "text",
+        "id": "end_date",
+        "label": "End date in Y\/M\/D format"
+    },
+    {
+        "type": "checkbox",
+        "id": "display_discount_box",
+        "label": "Display discount box?",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "hot_product_discount",
+        "label": "Discount in percentage"
+    },
+    {
+        "type": "header",
+        "content": "Hot Product Colors"
+    },
+    {
+        "type": "color",
+        "id": "discount-box-text-color",
+        "label": "Discount box text color"
+    },
+    {
+        "type": "color",
+        "id": "discount-box-bg-color",
+        "label": "Discount box bg color"
+    },
+    {
+        "type": "color",
+        "id": "discount-box-border-color",
+        "label": "Discount box border color"
+    },
+    {
+        "type": "color",
+        "id": "date-box-text-color",
+        "label": "Date box text color"
+    },
+    {
+        "type": "color",
+        "id": "date-box-bg-color",
+        "label": "Date box bg color"
+    },
+    {
+        "type": "color",
+        "id": "date-box-border-color",
+        "label": "Date box border color"
+    },
+    {
+        "type": "color",
+        "id": "timer-box-text-color",
+        "label": "Timer box text color"
+    },
+    {
+        "type": "color",
+        "id": "timer-box-bg-color",
+        "label": "Timer box bg color"
+    },
+    {
+        "type": "color",
+        "id": "timer-box-border-color",
+        "label": "Timer box border color"
+    },
+    {
+        "type": "header",
+        "content": "Tab Section"
+    },
+    {
+        "type": "text",
+        "id": "home-tabs-title",
+        "label": "Tab Section Title"
+    },
+    {
+        "type": "header",
+        "content": "Tab Section Colors"
+    },
+    {
+        "type": "color",
+        "id": "tab-text-color",
+        "label": "Tab text color"
+    },
+    {
+        "type": "color",
+        "id": "tab-bg-color",
+        "label": "Tab background color"
+    },
+    {
+        "type": "color",
+        "id": "tab-active-text-color",
+        "label": "Tab active text color"
+    },
+    {
+        "type": "color",
+        "id": "tab-active-bg-color",
+        "label": "Tab active bg color"
+    },
+    {
+        "type": "header",
+        "content": "Tab 1"
+    },
+    {
+        "type": "text",
+        "id": "tab-1-header",
+        "label": "Tab 1 Header"
+    },
+    {
+        "type": "collection",
+        "id": "home-tab-1-category",
+        "label": "Tab 1 Collection",
+        "info": "Max 4 items only in a collection"
+    },
+    {
+        "type": "header",
+        "content": "Tab 2"
+    },
+    {
+        "type": "text",
+        "id": "tab-2-header",
+        "label": "Tab 2 Header"
+    },
+    {
+        "type": "collection",
+        "id": "home-tab-2-category",
+        "label": "Tab 2 Collection",
+        "info": "Max 4 items only in a collection"
+    },
+    {
+        "type": "header",
+        "content": "Tab 3"
+    },
+    {
+        "type": "text",
+        "id": "tab-3-header",
+        "label": "Tab 3 Header"
+    },
+    {
+        "type": "collection",
+        "id": "home-tab-3-category",
+        "label": "Tab 3 Collection",
+        "info": "Max 4 items only in a collection"
+    },
+    {
+        "type": "header",
+        "content": "Tab 4"
+    },
+    {
+        "type": "text",
+        "id": "tab-4-header",
+        "label": "Tab 4 Header"
+    },
+    {
+        "type": "collection",
+        "id": "home-tab-4-category",
+        "label": "Tab 4 Collection",
+        "info": "Max 4 items only in a collection"
+    }]
+},
+{
     "name": "Header and Logo",
     "settings": [
     {
@@ -997,205 +1179,205 @@
         "label": "Home Right banner1 link"
     }]
 },
-{
-    "name": "Hot Product",
-    "settings": [
-    {
-        "type": "checkbox",
-        "id": "display_hot-product",
-        "label": "Display?",
-        "default": true
-    },
-    {
-        "type": "product",
-        "id": "hot-product_cat",
-        "label": "Please select collection that will be displayed in Hot product block"
-    },
-    {
-        "type": "text",
-        "id": "start_date",
-        "label": "Start date in Y\/M\/D format"
-    },
-    {
-        "type": "text",
-        "id": "end_date",
-        "label": "End date in Y\/M\/D format"
-    },
-    {
-        "type": "header",
-        "content": "Timer"
-    },
-    {
-        "type": "color",
-        "id": "date-box-text-color",
-        "label": "Date box text color"
-    },
-    {
-        "type": "color",
-        "id": "date-box-bg-color",
-        "label": "Date box bg color"
-    },
-    {
-        "type": "color",
-        "id": "date-box-border-color",
-        "label": "Date box border color"
-    },
-    {
-        "type": "color",
-        "id": "timer-box-text-color",
-        "label": "Timer box text color"
-    },
-    {
-        "type": "color",
-        "id": "timer-box-bg-color",
-        "label": "Timer box bg color"
-    },
-    {
-        "type": "color",
-        "id": "timer-box-border-color",
-        "label": "Timer box border color"
-    },
-    {
-        "type": "color",
-        "id": "timer-cart-btn-text-color",
-        "label": "Timer cart btn text color"
-    },
-    {
-        "type": "color",
-        "id": "timer-cart-btn-bg-color",
-        "label": "Timer cart btn bg color"
-    },
-    {
-        "type": "color",
-        "id": "timer-cart-btn-border-color",
-        "label": "Timer cart btn border color"
-    }]
-},
-{
-    "name": "Home Tab Section",
-    "settings": [
-    {
-        "type": "checkbox",
-        "id": "enable_home-tabs",
-        "label": "Enable Home Tabs"
-    },
-    {
-        "type": "color",
-        "id": "tab-text-color",
-        "label": "Tab text color"
-    },
-    {
-        "type": "color",
-        "id": "tab-bg-color",
-        "label": "Tab BG color"
-    },
-    {
-        "type": "color",
-        "id": "tab-active-text-color",
-        "label": "Tab active text color"
-    },
-    {
-        "type": "color",
-        "id": "tab-active-bg-color",
-        "label": "Tab active BG color"
-    },
-    {
-        "type": "text",
-        "id": "home-tabs-title",
-        "label": "Home Tab Title"
-    },
-    {
-        "type": "text",
-        "id": "tab-1-header",
-        "label": "Home Tab 1 Header"
-    },
-    {
-        "type": "collection",
-        "id": "home-tab-1-category",
-        "label": "Please select collection that will be displayed in Tab 1 Category block"
-    },
-    {
-        "type": "text",
-        "id": "tab-2-header",
-        "label": "Home Tab 2 Header"
-    },
-    {
-        "type": "collection",
-        "id": "home-tab-2-category",
-        "label": "Please select collection that will be displayed in Tab 2 Category block"
-    },
-    {
-        "type": "text",
-        "id": "tab-3-header",
-        "label": "Home Tab 3 Header"
-    },
-    {
-        "type": "collection",
-        "id": "home-tab-3-category",
-        "label": "Please select collection that will be displayed in Tab 3 Category block"
-    },
-    {
-        "type": "text",
-        "id": "tab-4-header",
-        "label": "Home Tab 4 Header"
-    },
-    {
-        "type": "collection",
-        "id": "home-tab-4-category",
-        "label": "Please select collection that will be displayed in Tab 4 Category block"
-    },
-    {
-        "type": "select",
-        "id": "home_tab_cols",
-        "label": "Collection listing columns",
-        "options": [
-        {
-            "value": "1",
-            "label": "1"
-        },
-        {
-            "value": "2",
-            "label": "2"
-        },
-        {
-            "value": "3",
-            "label": "3"
-        },
-        {
-            "value": "4",
-            "label": "4"
-        },
-        {
-            "value": "6",
-            "label": "6"
-        },
-        {
-            "value": "7",
-            "label": "7"
-        },
-        {
-            "value": "8",
-            "label": "8"
-        },
-        {
-            "value": "9",
-            "label": "9"
-        },
-        {
-            "value": "10",
-            "label": "10"
-        },
-        {
-            "value": "11",
-            "label": "11"
-        },
-        {
-            "value": "12",
-            "label": "12"
-        }],
-        "default": "9"
-    }]
-},
+// {
+//     "name": "Hot Product",
+//     "settings": [
+//     {
+//         "type": "checkbox",
+//         "id": "display_hot-product",
+//         "label": "Display?",
+//         "default": true
+//     },
+//     {
+//         "type": "product",
+//         "id": "hot-product_cat",
+//         "label": "Please select collection that will be displayed in Hot product block"
+//     },
+//     {
+//         "type": "text",
+//         "id": "start_date",
+//         "label": "Start date in Y\/M\/D format"
+//     },
+//     {
+//         "type": "text",
+//         "id": "end_date",
+//         "label": "End date in Y\/M\/D format"
+//     },
+//     {
+//         "type": "header",
+//         "content": "Timer"
+//     },
+//     {
+//         "type": "color",
+//         "id": "date-box-text-color",
+//         "label": "Date box text color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "date-box-bg-color",
+//         "label": "Date box bg color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "date-box-border-color",
+//         "label": "Date box border color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "timer-box-text-color",
+//         "label": "Timer box text color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "timer-box-bg-color",
+//         "label": "Timer box bg color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "timer-box-border-color",
+//         "label": "Timer box border color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "timer-cart-btn-text-color",
+//         "label": "Timer cart btn text color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "timer-cart-btn-bg-color",
+//         "label": "Timer cart btn bg color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "timer-cart-btn-border-color",
+//         "label": "Timer cart btn border color"
+//     }]
+// },
+// {
+//     "name": "Home Tab Section",
+//     "settings": [
+//     {
+//         "type": "checkbox",
+//         "id": "enable_home-tabs",
+//         "label": "Enable Home Tabs"
+//     },
+//     {
+//         "type": "color",
+//         "id": "tab-text-color",
+//         "label": "Tab text color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "tab-bg-color",
+//         "label": "Tab BG color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "tab-active-text-color",
+//         "label": "Tab active text color"
+//     },
+//     {
+//         "type": "color",
+//         "id": "tab-active-bg-color",
+//         "label": "Tab active BG color"
+//     },
+//     {
+//         "type": "text",
+//         "id": "home-tabs-title",
+//         "label": "Home Tab Title"
+//     },
+//     {
+//         "type": "text",
+//         "id": "tab-1-header",
+//         "label": "Home Tab 1 Header"
+//     },
+//     {
+//         "type": "collection",
+//         "id": "home-tab-1-category",
+//         "label": "Please select collection that will be displayed in Tab 1 Category block"
+//     },
+//     {
+//         "type": "text",
+//         "id": "tab-2-header",
+//         "label": "Home Tab 2 Header"
+//     },
+//     {
+//         "type": "collection",
+//         "id": "home-tab-2-category",
+//         "label": "Please select collection that will be displayed in Tab 2 Category block"
+//     },
+//     {
+//         "type": "text",
+//         "id": "tab-3-header",
+//         "label": "Home Tab 3 Header"
+//     },
+//     {
+//         "type": "collection",
+//         "id": "home-tab-3-category",
+//         "label": "Please select collection that will be displayed in Tab 3 Category block"
+//     },
+//     {
+//         "type": "text",
+//         "id": "tab-4-header",
+//         "label": "Home Tab 4 Header"
+//     },
+//     {
+//         "type": "collection",
+//         "id": "home-tab-4-category",
+//         "label": "Please select collection that will be displayed in Tab 4 Category block"
+//     },
+//     {
+//         "type": "select",
+//         "id": "home_tab_cols",
+//         "label": "Collection listing columns",
+//         "options": [
+//         {
+//             "value": "1",
+//             "label": "1"
+//         },
+//         {
+//             "value": "2",
+//             "label": "2"
+//         },
+//         {
+//             "value": "3",
+//             "label": "3"
+//         },
+//         {
+//             "value": "4",
+//             "label": "4"
+//         },
+//         {
+//             "value": "6",
+//             "label": "6"
+//         },
+//         {
+//             "value": "7",
+//             "label": "7"
+//         },
+//         {
+//             "value": "8",
+//             "label": "8"
+//         },
+//         {
+//             "value": "9",
+//             "label": "9"
+//         },
+//         {
+//             "value": "10",
+//             "label": "10"
+//         },
+//         {
+//             "value": "11",
+//             "label": "11"
+//         },
+//         {
+//             "value": "12",
+//             "label": "12"
+//         }],
+//         "default": "9"
+//     }]
+// },
 {
     "name": "Best Sellers",
     "settings": [

@@ -1,23 +1,14 @@
-{% assign listing_cols = '1' %}
-{% assign image_size = 'original' %}
-   {% if settings.display_featured-products %}
-        {% if settings.display_featured-products != blank %}
-
-
-
-<ul class="pdt-list products-grid">
-
+{% if settings.home-tab-3-category != blank %}
+  <ul class="pdt-list products-grid">
     {% for product in collections[settings.home-tab-3-category].products limit:4 %}
-                 <li class="item">
-    
+      {% if collections[settings.home-tab-3-category].all_products_count == 1 %}
+        <li class="item" style="width: 50% !important;">
+      {% else %}
+        <li class="item">
+      {% endif %}     
         {% include 'product-grid-item' with 'listing_cols' with 'image_size' %}
-                   </li>
-                
-      {% endfor %}
-    <!--item-inner-->
+        </li>         
+    {% endfor %}
+  </ul>
+{% endif %}
 
-</ul>
-
- 
-  {% endif %}
-  {% endif %}

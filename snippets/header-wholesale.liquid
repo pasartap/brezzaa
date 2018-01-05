@@ -783,12 +783,12 @@ jQuery(document).ready(function() {
                              
 								e(".product-actions-" + i).submit();
 							} else {
-								var s = e(".product-actions-" + i + " select[name=id]").val();
-                             
+								var s = e(".product-actions-" + i + " select[name=id]").val();                            
 								if (!s) {
                                  
 									s = e(".product-actions-" + i + " input[name=id]").val()
 								}
+
 								var o = e(".product-actions-" + i + " input[name=quantity]").val();
 								if (!o) {
 									o = 1
@@ -798,8 +798,10 @@ jQuery(document).ready(function() {
 								var a = e(r).find(".product-grid-image img").attr("src");
 								t.doAjaxAddToCart(s, o, u, a)
 
-								e(this).parent().hide();
-								e(this).closest('form').find('.cart-buttons').show();
+								$(".product-actions-" + i).each(function(){
+                  $(this).find('.single-add-to-cart-button').hide();
+                  $(this).find('.cart-buttons').show();
+                });
 							}						
 						}
 						return false;
@@ -851,12 +853,11 @@ jQuery(document).ready(function() {
                              
 								e(".product-actions-" + i).submit();
 							} else {
-								var s = e(".product-actions-" + i + " select[name=id]").val();
-                             
-								if (!s) {
-                                 
+								var s = e(".product-actions-" + i + " select[name=id]").val();                           
+								if (!s) {                      
 									s = e(".product-actions-" + i + " input[name=id]").val()
 								}
+
 								var o = e(".product-actions-" + i + " input[name=quantity]").val();
 								if (!o) {
 									o = 1
@@ -887,12 +888,12 @@ jQuery(document).ready(function() {
               if (window.ajax_cart) {                            
                 e(".product-actions-" + i).submit();
               } else {
-                var s = e(".product-actions-" + i + " select[name=id]").val();
-                             
+                var s = e(".product-actions-" + i + " select[name=id]").val();                           
                 if (!s) {
                                  
                   s = e(".product-actions-" + i + " input[name=id]").val()
                 }
+
                 var o = e(".product-actions-" + i + " input[name=quantity]").val();
                 if (!o) {
                   o = 1
@@ -919,8 +920,7 @@ jQuery(document).ready(function() {
 							var i = e(r).attr("data-id");
                           
 							i = i.match(/\d+/g);
-							if (window.ajax_cart) {
-                             
+							if (window.ajax_cart) {                           
 								e(".product-actions-" + i).submit();
 							} else {
 								var s = e(".product-actions-" + i + " select[name=id]").val();                            
@@ -940,11 +940,13 @@ jQuery(document).ready(function() {
 								t.doAjaxUpdateCart(s, quantity, u, a);
 								
 								if (quantity < 1) {
-						          	e(this).parent().hide();
-							  		e(this).closest('form').find('.single-add-to-cart-button').show();
-						        } else {
-						        	e(".product-actions-" + i + " input[name=quantity]").val(quantity);
-						        }
+                  $(".product-actions-" + i).each(function(){
+                    $(this).find('.cart-buttons').hide();
+                    $(this).find('.single-add-to-cart-button').show();
+                  });
+                } else {
+                  $(".product-actions-" + i + " input[name=quantity]").val(quantity);
+                }
 							}						
 						}
 						return false;
