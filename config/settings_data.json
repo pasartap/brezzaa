@@ -887,8 +887,14 @@
         "hot_product_discount": "50",
         "discount-box-bg-color": "#FF0000",
         "discount-box-text-color": "#ffffff",
-        "discount-box-border-color": "#ffffff"
-        "custom_seetings": false,:
+        "discount-box-border-color": "#ffffff",
+        "custom_seetings": false,
+        "popup-bg-color": "#50a746",
+        "popup-title": "CNY",
+        "popup-title-text-color": "#50a746",
+        "popup-desc": "Happy chinees new year",
+        "popup-desc-color": "#50a746",
+        "popup-msg": "message",
     },
     "presets":
     {}

@@ -21,7 +21,7 @@
     "settings": [
         {
            "type": "header",
-           "content": "logo" 
+           "content": "Customize the popup?" 
         },
 
         {
@@ -33,6 +33,46 @@
         {
         "type": "paragraph",
         "content": "test para"
+    },
+
+    {
+        "type": "header",
+        "content": "Popup content"
+    },
+    {
+        "type": "image",
+        "id": "popup-bg.jpg"
+    },
+    {
+        "type": "color",
+        "id": "popup-bg-color",
+        "label": "Popup background color"
+    },
+    {
+        "type": "text",
+        "id": "popup-title",
+        "label": "Popup title"
+    },
+    {
+        "type": "color",
+        "id": "popup-title-text-color",
+        "label": "Popup Text color"
+    },
+    {
+        "type": "text",
+        "id": "popup-desc",
+        "label": "Description"
+    },
+    {
+        "type": "color",
+        "id": "popup-desc-color",
+        "label": "Popup desc color"
+    },
+    
+    {
+        "type": "text",
+        "id": "popup-msg",
+        "label": "Description"
     }
 
     ]
