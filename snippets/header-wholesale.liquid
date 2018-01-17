@@ -12,8 +12,8 @@
               {% endif %} 
             </div>
             <div class="phone hidden-xs"> 
-              {% if settings.header_msg != blank %} 
-                <span>{{ settings.header_msg }} </span> 
+              {% if settings.header_msg_wholesale != blank %} 
+                <span>{{ settings.header_msg_wholesale }} </span> 
               {% endif %}
             </div>
           </div>
@@ -38,40 +38,31 @@
                   {% if settings.display_wishlist_link != blank %}
                     <div class="wishlist"> 
                       {% if customer %} 
-                         <a href="/pages/wishlist"><span>Wishlist</span></a> 
+                        <a href="/pages/wishlist"><span>Wishlist</span></a> 
                       {% else %} 
-                         <a href="/account/login"><span>Wishlist</span></a> 
+                        <a href="/account/login"><span>Wishlist</span></a> 
                       {% endif %} 
                     </div>
                   {% endif %}
                 {% endif %}
                 
-                {% comment %}
                 {% if settings.display_checkout_link %}
                   {% if settings.display_checkout_link != blank %}
                     <div class="check"><a href="/checkout" title="Checkout"><span>Checkout</span></a></div>
                   {% endif %} 
                 {% endif %} 
-                {% endcomment %}
-
+                
                 {% if settings.display_login_link %}
                   {% if settings.display_login_link != blank %}
+                    <div class="login"> 
                       {% if shop.customer_accounts_enabled %}
                         {% if customer %}
-                        <div class="login"> 
                           {{ '<span>Log out</span>' | customer_logout_link }}
-                          </div>
                         {% else %}
-                        <div class="login"> 
-                          {{ "<span>Sign in</span>" | customer_login_link }}
-                          </div>
-
-                          <div class="logout">
-                          {{ "<span>Sign up</span>" | customer_register_link }} 
-                          </div>
+                          {{ "<span>Login</span>" | customer_login_link }} <span>or</span> {{ "<span>Register</span>" | customer_register_link }} 
                         {% endif %}
                       {% endif %}
-    
+                    </div>
                   {% endif %}
                 {% endif %}
               </div>
@@ -87,12 +78,7 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block"> 
           <!-- Header Logo --> 
-          <!-- logo --> 
-          {% if settings.use_custom_logo %} 
-            <a id="logo" href="/"> <img style='width:189px;height:41px' src='{{ 'logo_green_custom.png' | asset_img_url: '4739x1032' }}' /> </a> 
-          {% else %} 
-            <a id="logo" href="/"> <img style='width:189px;height:41px' src='{{ 'logo_green.png' | asset_img_url: '4739x1032' }}' /> </a> 
-          {% endif %} 
+          <a id="logo" href="/"> <img style="width:220px;height:47px;margin-left:-22px;" src="{{ 'logo_green_ptwholesale.png' | asset_img_url: '3508x763' }}" /> </a>
           <!-- End Header Logo --> 
         </div>
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 search-block">
@@ -151,10 +137,35 @@
                         <span style="float:left;margin-left:10px">SUBTOTAL</span> 
                         <span class="money amount" style="float:right;margin-right:10px">{{cart.total_price | money}}</span>
                       </div>
-                      <p class="cart-info">{{ settings.cart_information }}</p>
-                      
-                      {% include 'local-delivery-cart' %}
-        				      {% comment %}
+                      <p class="cart-info">{{ settings.cart_information_wholesale }}</p>
+                      <div id="order-delivery">  
+                        <h3 class="heading--add-small">DELIVERY TIME</h3>      
+                        <div id="order-delivery-form-wrapper" class="clearfix">
+                          <p class="cart-total__info clearfix">When would you like your order delivered?</p>
+                          <input id="wholesale-date" class="form-control wholesale-date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" placeholder="Date" readonly="readonly" />
+                          
+                          {% if settings.wholesale_time_slots != blank %}
+                            <select id="wholesale-time" class="form-control wholesale-time" name="time" name="attributes[time]" value="{{ cart.attributes.time }}" >                             
+
+                              {% assign time_slots = settings.wholesale_time_slots | split: ',' %}
+                              
+                              {% if time_slots.size > 1 %}
+                                <option disabled selected>Time slot</option>
+                                {% for time_slot in time_slots %}
+                                  {% if time_slot != blank %}
+                                    <option>{{ time_slot }}</option>
+                                  {% endif %}
+                                {% endfor %} 
+                              {% else %}
+                                <option selected>{{ time_slots[0] }}</option>
+                              {% endif %}
+                           
+                            </select> 
+                          {% endif %}
+                        </div>  
+                        <div id="wrapper-response"></div>
+                      </div> 
+                      {% comment %}
         				      For the special instructions to be submitted with order,
         				      they need to use a name attribute set to 'note'. That's case-sensitive.
         				      {% endcomment %}
@@ -186,7 +197,7 @@
 
 	<!-- Navigation --> 
 	{% if settings.main_nav != '' %}
-    {% include 'mmenu' %}
+    {% include 'mmenu-wholesale' %}
 	  {% if settings.show_sticky_menu %}
       <div id="navigation"> 
         <script>
@@ -210,11 +221,78 @@
 	{% endif %} 
 
 	<!-- Sticky Top Bar -->
-	{% include 'sticky-topbar' %}
+	{% include 'sticky-topbar-wholesale' %}
 </header>
   
 <script>  
 jQuery(document).ready(function() {
+
+  /* init datepicker */
+  $(function() {
+    $("#wholesale-date").datepicker({
+      dateFormat: "D, dd/mm/yy",
+      firstDay: 1,
+      minDate: +1,
+      maxDate: '+2M',
+      // beforeShowDay: jQuery.datepicker.noWeekends
+      beforeShowDay: function(date) {
+        var day = date.getDay();
+        return [(day != 0), ''];
+      },
+      onSelect: function(dateText) {
+        Shopify.getCart(function(n) {
+          {% if settings.order_minimum_wholesale != blank %}
+            var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
+            if (dateText != "" && $("#wholesale-time").val() != null && n.total_price >= order_minimum) {
+              $("#dropdown-cart").find('.btn').removeAttr('disabled');
+              $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+            } else {
+              $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+              $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');        
+            }
+          {% endif %}
+        })
+      }
+    });
+  });
+  /* ------------------------------ */
+  
+  /* OnChange event handler for time slot */
+  $("#wholesale-time").change(function(){
+    Shopify.getCart(function(n) {
+      {% if settings.order_minimum_wholesale != blank %}
+        var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
+        if ($("#wholesale-date").val() != "" && $("#wholesale-time").val() != null && n.total_price >= order_minimum) {
+          $("#dropdown-cart").find('.btn').removeAttr('disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+        } else {
+          $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');        
+        }
+      {% endif %}
+    })
+  });
+  /* ------------------------------ */
+
+  // clear cart on logout
+  function delete_cookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
+  $('a[href^="/account/logout"]').on('click', function(event){
+    event.preventDefault();
+    var href = $(this).attr("href"),
+        target = '';
+
+    delete_cookie('cart');
+
+    // wait for data to push and then open link
+    setTimeout(function() { // now wait 150 milliseconds...
+        window.open(href,(!target?"_self":target)); // ...and open the link as usual
+    },150);
+
+  });
+  /* ------------------------------ */
 
   autosize(document.querySelectorAll('textarea'));
   document.getElementById("cart-note").rows = "1";
@@ -280,12 +358,12 @@ jQuery(document).ready(function() {
 			},
       checkSpentAmount: function(n) {
         // hide spend notification/disable checkout button
-        if ($('#timeDiv').css('display') === 'none') {
-            $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
-            $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
+        if ($('#wholesale-date').val() != "") {
+          $("#dropdown-cart").find('.btn').removeAttr('disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled'); 
         } else {
-            $("#dropdown-cart").find('.btn').removeAttr('disabled');
-            $("#mobile-cart").find('.btn-checkout-mobile').removeAttr('disabled');
+          $("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
+          $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
         }
 
         e(".spend-notification").hide();
@@ -299,10 +377,14 @@ jQuery(document).ready(function() {
           $("#sticky-cart").find('.mm-panels').removeClass("has-spend-notification");
         }
 
-        {% if settings.order_minimum != blank %}
+        if (n.total_price == 0) {
+          return;
+        }
+
+        {% if settings.order_minimum_wholesale != blank %}
           // show spend notification if total price less than order minimum
-          var order_minimum = {{ settings.order_minimum | times: 100 }};
-  				if (n.total_price > 0 && n.total_price < order_minimum) {
+          var order_minimum = {{ settings.order_minimum_wholesale | times: 100 }};
+  				if (n.total_price < order_minimum) {
   					$("#dropdown-cart").find('.btn').attr('disabled', 'disabled');
             $("#mobile-cart").find('.btn-checkout-mobile').attr('disabled', 'disabled');
 
@@ -327,7 +409,7 @@ jQuery(document).ready(function() {
          		}
     	    }
 
-          t.applySpendRules(n);
+          //t.applySpendRules(n);
 
         {% endif %}
 			},
@@ -337,12 +419,12 @@ jQuery(document).ready(function() {
         {% assign tier_2_linklist = linklists[settings.tier_2_linklist_handle] %} 
         {% assign tier_3_linklist = linklists[settings.tier_3_linklist_handle] %} 
 
-        {% if settings.enable_spend_rules == true and settings.order_minimum != blank %}
+        {% if settings.enable_spend_rules == true and settings.order_minimum_wholesale != blank %}
 
           // Tier 1
           {% if tier_1_linklist.links.size > 0  and settings.tier_1_target_amount != blank and settings.tier_1_text != blank %}
             
-            t.applyTier(1, {{ settings.order_minimum }}, {{ settings.tier_1_target_amount }}, '{{ settings.tier_1_text }}', n);
+            t.applyTier(1, {{ settings.order_minimum_wholesale }}, {{ settings.tier_1_target_amount }}, '{{ settings.tier_1_text }}', n);
 
           {% endif %}
 
@@ -543,24 +625,7 @@ jQuery(document).ready(function() {
               line_quantity[0].innerHTML = Shopify.formatMoney(0, window.formatMoney);
             }       
 
-            // Get the product ids of max-1 products in the cart
-            var max_1_product_ids = [];
-            {% for item in cart.items %}
-              {% if item.product.tags contains "Max-1" %}
-                max_1_product_ids.push({{ item.id }});
-              {% endif %}
-            {% endfor %}
-
-            if (max_1_product_ids.length == 0 || !$.inArray(prod_id, max_1_product_ids) != -1) {
-              // Re-enable in product page
-              var product_page_class = '.product-actions-' + prod_id;             
-              if ($(product_page_class).length > 0) {
-                $(product_page_class + ' #purchase #quantity').removeClass('disabled').removeAttr('disabled', 'disabled');
-                $(product_page_class + ' #purchase #add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled');
-              }
-            }
-
-					  /* Plus button in cart event handler */
+					    /* Plus button in cart event handler */
 						if (e(".btn-add-cart").length > 0) {
 							e(".btn-add-cart").click(function(n) {
 								n.preventDefault();
@@ -648,7 +713,7 @@ jQuery(document).ready(function() {
 
 					Shopify.removeItem(r, function(x) {
             t.updateDropdownCart();  
-
+            
 						var x = document.getElementsByClassName("product-actions-" + prod_id);
 					  if (x.length > 0) {
 					   		$(".product-actions-" + prod_id).find('#quantity').val(1);
@@ -665,24 +730,7 @@ jQuery(document).ready(function() {
             var line_quantity = e(".product-actions-" + prod_id).find("#line-price");                            
             if (line_quantity.length > 0) {
               line_quantity[0].innerHTML = Shopify.formatMoney(0, window.formatMoney);;
-            } 	
-
-            // Get the product ids of max-1 products in the cart
-            var max_1_product_ids = [];
-            {% for item in cart.items %}
-              {% if item.product.tags contains "Max-1" %}
-                max_1_product_ids.push({{ item.id }});
-              {% endif %}
-            {% endfor %}
-
-            if (max_1_product_ids.length == 0 || !$.inArray(prod_id, max_1_product_ids) != -1) {
-              // Re-enable in product page
-              var product_page_class = '.product-actions-' + prod_id;             
-              if ($(product_page_class).length > 0) {
-                $(product_page_class + ' #purchase #quantity').removeClass('disabled').removeAttr('disabled', 'disabled');
-                $(product_page_class + ' #purchase #add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled');
-              }
-            }				
+            } 					
 					})
 				})
 			},
@@ -704,17 +752,14 @@ jQuery(document).ready(function() {
 							if (!window.ajax_cart) {
 								e(this).closest("form").submit()
 							} else {
-
 								var r = e("#add-to-cart-form select[name=id]").val();
 								if (!r) {
 									r = e("#add-to-cart-form input[name=id]").val()
 								}
-
 								var i = e("#add-to-cart-form input[name=quantity]").val();
 								if (!i) {
 									i = 1
 								}
-
 								var s = e(".product-title h2").text();
 								var o = e("#product-featured-image").attr("src");
 								t.doAjaxAddToCart(r, i, s, o)
@@ -753,7 +798,7 @@ jQuery(document).ready(function() {
 								var a = e(r).find(".product-grid-image img").attr("src");
 								t.doAjaxAddToCart(s, o, u, a)
 
-                $(".product-actions-" + i).each(function(){
+								$(".product-actions-" + i).each(function(){
                   $(this).find('.single-add-to-cart-button').hide();
                   $(this).find('.cart-buttons').show();
                 });
@@ -808,9 +853,8 @@ jQuery(document).ready(function() {
                              
 								e(".product-actions-" + i).submit();
 							} else {
-								var s = e(".product-actions-" + i + " select[name=id]").val();
-  							if (!s) {
-                                 
+								var s = e(".product-actions-" + i + " select[name=id]").val();                           
+								if (!s) {                      
 									s = e(".product-actions-" + i + " input[name=id]").val()
 								}
 
@@ -844,8 +888,9 @@ jQuery(document).ready(function() {
               if (window.ajax_cart) {                            
                 e(".product-actions-" + i).submit();
               } else {
-                var s = e(".product-actions-" + i + " select[name=id]").val();                          
-                if (!s) {     
+                var s = e(".product-actions-" + i + " select[name=id]").val();                           
+                if (!s) {
+                                 
                   s = e(".product-actions-" + i + " input[name=id]").val()
                 }
 
@@ -875,8 +920,7 @@ jQuery(document).ready(function() {
 							var i = e(r).attr("data-id");
                           
 							i = i.match(/\d+/g);
-							if (window.ajax_cart) {
-                             
+							if (window.ajax_cart) {                           
 								e(".product-actions-" + i).submit();
 							} else {
 								var s = e(".product-actions-" + i + " select[name=id]").val();                            
@@ -896,13 +940,13 @@ jQuery(document).ready(function() {
 								t.doAjaxUpdateCart(s, quantity, u, a);
 								
 								if (quantity < 1) {
-			          	$(".product-actions-" + i).each(function(){
+                  $(".product-actions-" + i).each(function(){
                     $(this).find('.cart-buttons').hide();
                     $(this).find('.single-add-to-cart-button').show();
                   });
-				        } else {
-				        	$(".product-actions-" + i + " input[name=quantity]").val(quantity);
-				        }
+                } else {
+                  $(".product-actions-" + i + " input[name=quantity]").val(quantity);
+                }
 							}						
 						}
 						return false;
@@ -933,7 +977,7 @@ jQuery(document).ready(function() {
 								}
 
 								var quantity = parseFloat(o) - parseFloat(1);
-                                var u = e(r).find(".product-title").text();
+                 var u = e(r).find(".product-title").text();
 								var a = e(r).find(".product-grid-image img").attr("src");
 
 								t.doAjaxUpdateCart(s, quantity, u, a);
@@ -1020,7 +1064,8 @@ jQuery(document).ready(function() {
 						t.hideLoading();
 						e(".error-message-stock").html(e.parseJSON(n.responseText).description);
 						e('.error-message-stock').delay(300).slideDown(300);
-  	        e('.error-message-stock').delay(5000).slideUp(600);                
+  	                    e('.error-message-stock').delay(5000).slideUp(600);
+                    
 					}
 				})
 			},
@@ -1100,20 +1145,6 @@ jQuery(document).ready(function() {
                 $(el).find(".product-image").removeAttr('href');
                 $(el).find(".product-name a").removeAttr('href');
               });
-
-              {% if settings.enable_spend_rules == false  %}
-                $(".cart-container .mini-products-list").html().replace(s, '');
-                var params = {
-                  type: 'POST',
-                  url: '/cart/update.js',
-                  data: 'updates[' + n.items[i].id + ']=0',
-                  dataType: 'json',
-                  success: function(line_item) {
-                    t.updateDropdownCart();
-                  }
-                };
-                jQuery.ajax(params);
-              {% endif %}
             }
 
             // Remove links & buttons if line item is a max-1 product
@@ -1207,7 +1238,7 @@ jQuery(document).ready(function() {
                t.doAjaxUpdateCart(s, quantity, u, a)
 
                if (quantity < 1) {
-                   e(this).parent().hide();
+                       e(this).parent().hide();
                    e(this).closest('form').find('.single-add-to-cart-button').show();
                    } else {
                      e(".product-actions-" + i + " input[name=quantity]").val(quantity);
@@ -1236,3 +1267,8 @@ jQuery(document).ready(function() {
   }
   
 </script>
+<style type="text/css">
+.site-nav > li:first-child > a > span {
+    color: white !important;
+}
+</style>

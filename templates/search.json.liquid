@@ -4,6 +4,8 @@
     {% assign product = item %}
     { 
       "title"    : {{ product.title | json }},
+      "price"    : {{ product.price | json }},
+      "tags"     : {{ product.tags | json | downcase }},
       "url"      : {{ product.url | within: product.collections.last | json }},
       "thumbnail": {{ product.featured_image.src | product_img_url: 'thumb' | json }}
     }

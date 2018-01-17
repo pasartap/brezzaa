@@ -120,139 +120,155 @@
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div id="wrapper"> 
-    <!-- header --> 
-    {% include 'header' %}
+    {% assign customer_tags = customer.tags | downcase %}
+    <!-- header -->
+    {% if customer and customer_tags contains 'wholesale' %}
+      {% include 'header-wholesale' %}
+    {% else %}
+      {% include 'header' %}
+    {% endif %}  
     <div class="quick-view"></div>
 
+    <!-- main content -->
+    <!-- IF frontpage -->    
     {% if page == pages.frontpage %} 
-      <!-- slider --> 
-      {% include 'home-slider' %} 
-    {% endif %}
+      <!-- slider -->    
+      {% if customer and customer_tags contains 'wholesale' %}
+      {% else %}
+        {% include 'home-slider' %} 
+      {% endif %}
 
-    {% if page == pages.frontpage %}
-      <div id="main_content" class="col-main col-sm-12 col-sm-push-3-12"> 
-        {% if template == 'collection' %}
-          {% include 'collection.list' %}
-        {% else %}
-          {{ content_for_layout }}
-        {% endif %} 
+      <div id="main_content" class="col-main col-sm-12 col-sm-push-3-{{ content_width }}"> 
+      {% if template == 'collection' %}
+        {% include 'collection.list' %}
+      {% else %}
+        {{ content_for_layout }}
+      {% endif %} 
       </div>
     {% endif %} 
     
-    <!-- main content --> 
+    <!-- IF NOT frontpage -->         
     {% if template != 'index' %}
       {% if settings.enable_breadcrumbs %}
         <div class="breadcrumbs">{% include 'snippet-breadcrumbs' %}</div>
       {% endif %}
-    {% endif %}
-  
-    {% unless template == 'index' %}
-        <div id="main" class="container" role="main">
-          <div class="row"> 
-            {% case template %}
-              {% when 'index' %}
-                {% assign width_sidebars = false %} 
-              {% when 'page.homepage' %}
-                {% assign width_sidebars = false %} 
-              {% when 'page.noasides' %}
-                {% assign width_sidebars = false %}
-              {% when 'product' %}
-                {% assign width_sidebars = false %}
-              {% when 'customers/register' %}
-                {% assign width_sidebars = false %} 
-              {% when 'customers/login' %}
-                {% assign width_sidebars = false %}
-              {% when 'page.contact' %}
-                {% assign width_sidebars = false %}
-              {% when 'customers/account' %}
-                {% assign width_sidebars = false %}
-              {% when 'customers/addresses' %}
-                {% assign width_sidebars = false %}
-              {% when 'cart' %}
-                {% assign width_sidebars = false %}
-              {% when 'page' %}
-                {% assign width_sidebars = false %}
-              {% when 'page.wishlist' %}    
-                {% assign width_sidebars = false %} 
-              {% else %}
-                {% assign width_sidebars = true %}
-            {% endcase %} 
-          
-            <!-- left column -->       
-            {% if settings.enable_left_sidebar %}
-              {% if width_sidebars == true %}
-                <div id="aside-left" class=" col-sm-{{ settings.left_sidebar_width }} column"> 
-                  {% if blog %}
-                    {% include 'recent-post' %}
-                  {% endif %} 
-                  
-                  {% if blog %}
-                  {% else %} 
-                    {% include 'sidebar-nav' %}
-                    {% include 'collection-filter' %}
-                  {% endif %} 
-
-                  {% include 'widget-types' %}              
-                  {% include 'best-seller-single' %}
-                  {% include 'widget-banner' %}
-                  {% include 'widget-cms-block' %} 
-                </div>
-              {% endif %} 
-            {% endif %}
-          
-            {% comment %} 
-            {% if width_sidebars == true %}
-            {% assign content_width = settings.content_width %}
+      <div id="main" class="container" role="main">
+        <div class="row"> 
+          {% case template %}
+            {% when 'index' %}
+              {% assign width_sidebars = false %} 
+            {% when 'page.homepage' %}
+              {% assign width_sidebars = false %} 
+            {% when 'page.noasides' %}
+              {% assign width_sidebars = false %}
+            {% when 'product' %}
+              {% assign width_sidebars = false %}
+            {% when 'customers/register' %}
+              {% assign width_sidebars = false %} 
+            {% when 'customers/login' %}
+              {% assign width_sidebars = false %}
+            {% when 'page.contact' %}
+              {% assign width_sidebars = false %}
+            {% when 'customers/account' %}
+              {% assign width_sidebars = false %}
+            {% when 'customers/addresses' %}
+              {% assign width_sidebars = false %}
+            {% when 'cart' %}
+              {% assign width_sidebars = false %}
+            {% when 'page' %}
+              {% assign width_sidebars = false %}
+            {% when 'page.wishlist' %}
+              {% assign width_sidebars = false %} 
             {% else %}
-            {% assign content_width = 12 %}
+              {% assign width_sidebars = true %}
+          {% endcase %} 
+        
+          <!-- left column --> 
+          {% if settings.enable_left_sidebar %}
+            {% if width_sidebars == true %}
+              <div id="aside-left" class=" col-sm-{{ settings.left_sidebar_width }} column"> 
+                {% if blog %}
+                  {% include 'recent-post' %}
+                {% endif %} 
+                {% if blog %}
+                {% else %} 
+                  {% include 'sidebar-nav' %}
+                  {% include 'collection-filter' %}
+                {% endif %} 
+                
+                {% include 'widget-types' %}
+                {% include 'best-seller-single' %}
+                {% include 'widget-banner' %}
+                {% include 'widget-cms-block' %} 
+              </div>
             {% endif %} 
-            {% endcomment %}
-           
+          {% endif %}
+        
+          {% if width_sidebars == true %}
+            {% assign content_width = settings.content_width %}
+          {% else %}
             {% assign content_width = 12 %}
-
-            <!-- center column -->
-            <div id="main_content" class="col-main col-sm-{{ content_width }}"> 
-              <!-- collection-header --> 
-              {% if collection.handle == 'all' %}
-                {% include 'collection-header' %} 
-              {% endif %}
-
-              {% if template == 'index' %}         
-              {% elsif template == 'list-collections' %}         
-                {% include 'collection.list' %}        
+          {% endif %} 
+        
+          <!-- center column -->
+          <div id="main_content" class="col-main col-sm-{{ content_width }}"> 
+            <!-- collection-header --> 
+            {% if collection.handle == 'all' %}
+              {% include 'collection-header' %} 
+            {% endif %}
+            
+            {% if template == 'list-collections' %}
+              {% include 'collection.list' %}
+            {% else%}
+              {% if template == 'wholesale' %}
+                {% if customer and customer_tags contains 'wholesale' %}
+                  {{ content_for_layout }}
+                {% else %}
+                  {% include 'wholesale-note' %}
+                {% endif %}
               {% else%}
-                {{ content_for_layout }}       
-              {% endif %} 
-            </div>
-          
+                {% if customer and customer_tags contains 'wholesale' %}
+                  {% if template == 'collection' %}
+                    {% include 'regular-customer-note' %}           
+                  {% else %}
+                    {{ content_for_layout }}
+                  {% endif %}
+                {% else %}
+                    {{ content_for_layout }}
+                {% endif %}
+              {% endif %}
+            
+            {% endif %} </div>
+        
           <!-- right column --> 
           {% if settings.enable_right_sidebar %}
             {% if width_sidebars == true %}
-              <div id="aside-right" class="col-sm-{{ settings.right_sidebar_width }} column"> {% if blog %}
-                {% include 'recent-post' %}
+              <div id="aside-right" class="col-sm-{{ settings.right_sidebar_width }} column"> 
+                {% if blog %}
+                  {% include 'recent-post' %}
                 {% endif %} 
                 
                 {% if blog %}
                 {% else %} 
-                {% include 'sidebar-nav' %}
-                {% include 'collection-filter' %}
+                  {% include 'sidebar-nav' %}
+                  {% include 'collection-filter' %}
                 {% endif %} 
-                {% include 'widget-types' %}
                 
+                {% include 'widget-types' %}
                 {% include 'best-seller-single' %}
                 {% include 'widget-banner' %}
                 {% include 'widget-cms-block' %} 
               </div>
             {% endif %}
-          {% endif %} 
+          {% endif %}
         </div>
       </div>
-    {% endunless %}
+    {% endif %}
   
     {% comment %}Shopify does not support Internet Explorer 6.{% endcomment %} 
     <!--[if lt IE 7]>
-  <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-  <![endif]-->   
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->   
   </div>
   <!-- end of #wrapper --> 
 
@@ -261,7 +277,12 @@
   {% endif %}
 
   <!-- service block --> 
-  {% include 'footer' %}
+  {% if customer and customer_tags contains 'wholesale' %}
+    {% include 'footer' %}
+  {% else %}
+    {% include 'footer' %}
+  {% endif %}  
+  
   {% include 'newsletter-popup' %}
   {% include 'snippet-currencies' %} 
 
@@ -295,7 +316,7 @@
 
   
   {% include 'linked-options' %}
-  {% comment %}{% include 'search-autocomplete' %}{% endcomment %}
+  {% include 'search-autocomplete' %}
 </body>
 </html>
 

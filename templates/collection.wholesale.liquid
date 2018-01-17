@@ -22,7 +22,7 @@
     {% endif %}{% endcomment %}
     
     <header class="section-header">
-      <h1 class="section-header-title section-header-left">{{ collection.title }}</h1>
+      <h1 class="section-header-title section-header-left">{{ collection.title | downcase | replace: '(wholesale)', '' }} </h1>
       {% include 'collection-views' %}
       <div class="section-header-right">
         {% include 'collection-filtering' %}

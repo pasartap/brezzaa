@@ -9,28 +9,44 @@
                 <div id="brand-logo-slider" class="product-flexslider hidden-buttons">
                     <div class="slider-items slider-width-col6">
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo1_link }}" target="_blank"><img src="{{ "b-logo1.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo1_link != blank %}
+                            <div class="item"><a href="{{ settings.logo1_link }}" target="_blank"><img src="{{ "b-logo1.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo2_link }}" target="_blank"><img src="{{ "b-logo3.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo2_link != blank %}
+                            <div class="item"><a href="{{ settings.logo2_link }}" target="_blank"><img src="{{ "b-logo3.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo3_link }}" target="_blank"><img src="{{ "b-logo2.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo3_link != blank %}
+                            <div class="item"><a href="{{ settings.logo3_link }}" target="_blank"><img src="{{ "b-logo2.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo4_link }}" target="_blank"><img src="{{ "b-logo4.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo4_link != blank %}
+                            <div class="item"><a href="{{ settings.logo4_link }}" target="_blank"><img src="{{ "b-logo4.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %} 
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo5_link }}" target="_blank"><img src="{{ "b-logo5.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo5_link != blank %}
+                            <div class="item"><a href="{{ settings.logo5_link }}" target="_blank"><img src="{{ "b-logo5.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo6_link }}" target="_blank"><img src="{{ "b-logo6.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo6_link != blank %}
+                            <div class="item"><a href="{{ settings.logo6_link }}" target="_blank"><img src="{{ "b-logo6.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo7_link }}" target="_blank"><img src="{{ "b-logo7.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo7_link != blank %}
+                            <div class="item"><a href="{{ settings.logo7_link }}" target="_blank"><img src="{{ "b-logo7.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                         <!-- Item -->
-                        <div class="item"><a href="{{ settings.logo8_link }}" target="_blank"><img src="{{ "b-logo8.png" | asset_url }}" alt="" /></a></div>
+                        {% if settings.logo8_link != blank %}
+                            <div class="item"><a href="{{ settings.logo8_link }}" target="_blank"><img src="{{ "b-logo8.png" | asset_url }}" alt="" /></a></div>
+                        {% endif %}
                         <!-- End Item -->
                     </div>
                 </div>
