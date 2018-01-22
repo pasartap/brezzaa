@@ -17,11 +17,22 @@
 },
 
 {
-    "name": "popup test",
+    "name": "popup marketing test",
     "settings": [
         {
            "type": "header",
            "content": "Customize the popup?" 
+        },
+
+        {
+            "type": "select",
+            "id": "dropdown_popup",
+            "options": [
+                     { "value": "8", "label": "Christmas"},
+                     { "value": "12", "label": "New Year"},
+                     { "value": "16", "label": "Chinnes new year"}
+                       ],
+            "content": "Choose design",
         },
 
         {
@@ -72,7 +83,7 @@
     {
         "type": "text",
         "id": "popup-msg",
-        "label": "Description"
+        "label": "Message"
     }
 
     ]

@@ -895,6 +895,7 @@
         "popup-desc": "Happy chinees new year",
         "popup-desc-color": "#50a746",
         "popup-msg": "message",
+        "dropdown_popup": true,
     },
     "presets":
     {}
