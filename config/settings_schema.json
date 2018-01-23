@@ -21,30 +21,27 @@
     "settings": [
         {
            "type": "header",
-           "content": "Customize the popup?" 
+           "content": "popup style" 
         },
 
         {
             "type": "select",
             "id": "dropdown_popup",
             "options": [
-                     { "value": "8", "label": "Christmas"},
-                     { "value": "12", "label": "New Year"},
-                     { "value": "16", "label": "Chinnes new year"}
+                     { "value": "1", "label": "Christmas"},
+                     { "value": "2", "label": "New Year"},
+                     { "value": "3", "label": "Chinnes new year"}
                        ],
-            "content": "Choose design",
+            "label": "Choose design"
         },
 
         {
             "type": "checkbox",
-            "id": "custom_popup",
-            "label": "Custom settings"
+            "id": "custom-popup",
+            "label": "Enable custom popup?",
+            "default": false,
+            "info": "Note: Enabled when desire to customize the pop-up with options not available in the selection."
         },
-
-        {
-        "type": "paragraph",
-        "content": "test para"
-    },
 
     {
         "type": "header",
@@ -53,11 +50,6 @@
     {
         "type": "image",
         "id": "popup-bg.jpg"
-    },
-    {
-        "type": "color",
-        "id": "popup-bg-color",
-        "label": "Popup background color"
     },
     {
         "type": "text",

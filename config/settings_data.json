@@ -190,7 +190,7 @@
         "logo6_link": "https:\/\/www.nst.com.my\/lifestyle\/bots\/2017\/08\/270527\/groceries-tap-demand-service-brings-pasar-you",
         "logo7_link": "http:\/\/www.tonton.com.my\/tvShow?titleId=58903dfd04e13fee7b8b46cb",
         "logo8_link": "http:\/\/www.scmp.com\/week-asia\/business\/article\/2095877\/amazon-prime-now-singapore-awaits-delivery-its-e-commerce",
-        "display_newsletter": true,
+        "display_newsletter": false,
         "newsletter_bg": "#50a746",
         "newsletter_text": "#ffffff",
         "newsletter_button_bg": "#50a746",
@@ -838,7 +838,6 @@
         "sizechart-desc ": "",
         "content_for_index": [],
         "display_featured_collections": true,
-<<<<<<< HEAD
         "homepage_featured_collection_1": "deals",
         "homepage_featured_collection_2": "meat",
         "homepage_featured_collection_3": "poultry",
@@ -850,12 +849,10 @@
         "homepage_featured_collection_9": "noodles-beancurd-cooking-supplements",
         "homepage_featured_collection_10": "fruit-vegetables-juices",
         "header_msg": "Opening hours: Tuesday - Sunday, 9am - 7pm | Order before <strong>3pm<\/strong> for tomorrow!",
-=======
         "homepage_featured_collections": "meat,poultry,fish-seafood,vegetables-ulam,fruits,cooking-ingredients,spices,noodles-beancurd-cooking-supplements,fruit-vegetables-juices",
         "wholesale_homepage_featured_collections": "fish-seafood-wholesale,meat-poultry-wholesale,poultry-wholesale,vegetables-ulam-wholesale,fruits-wholesale,grocery-wholesale",
         "header_msg": "Opening hours: Monday - Saturday, 9am - 7pm | Order before <strong>2pm<\/strong> for same day delivery",
         "header_msg_wholesale": "Opening hours: Monday - Saturday, 9am - 7pm | Orders will be delivered on the next day",
->>>>>>> f7afba10394799f70eaf555a6fba04c115567588
         "cart_information": "Price excludes <strong>10%<\/strong> handling fee and <strong>RM3<\/strong> delivery fee, which is applied at checkout.",
         "cart_information_wholesale": "Price excludes <strong>10%<\/strong> handling fee and <strong>RM10<\/strong> delivery fee, which is applied at checkout.",
         "enable_spend_rules": false,
@@ -888,14 +885,14 @@
         "discount-box-bg-color": "#FF0000",
         "discount-box-text-color": "#ffffff",
         "discount-box-border-color": "#ffffff",
-        "custom_popup": false,
+        "custom-popup": false,
         "popup-bg-color": "#50a746",
-        "popup-title": "CNY",
+        "popup-title": "",
         "popup-title-text-color": "#50a746",
-        "popup-desc": "Happy chinees new year",
+        "popup-desc": "",
         "popup-desc-color": "#50a746",
-        "popup-msg": "message",
-        "dropdown_popup": true,
+        "popup-msg": "",
+        "dropdown-popup": "3"
     },
     "presets":
     {}
