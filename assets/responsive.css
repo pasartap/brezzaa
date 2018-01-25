@@ -219,12 +219,25 @@ header#header {
     top: 3px;
     z-index: 100;
 }
+#email-model .window-window .window-content .btn.close, .close-window, .close-modal {
+    right: 0;
+    top: 0;
+
+}
+
 #email-modal .window-window .window-content .btn.close, .close-window, .close-modal {
     right: 0;
     top: 0;
    
 }
+
 #email-modal .window-window .window-content .title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    margin-top: 25px;
+
+}
+#email-model .window-window .window-content .title {
     font-size: 24px;
     margin-bottom: 15px;
     margin-top: 25px;
@@ -234,7 +247,18 @@ header#header {
     width: 95%;
 }
   
+
+  #email-model .window-window .window-content {
+    width: 95%;
+}
+
 #email-modal .window-window .window-content {
+    left: 3%;
+    margin-top: 50px;
+    top: 5%;
+}
+
+#email-model .window-window .window-content {
     left: 3%;
     margin-top: 50px;
     top: 5%;
@@ -442,7 +466,13 @@ header#header {
 #email-modal .window-window .window-content .message {
 	display: none;
 }
+#email-model .window-window .window-content .message {
+	display: none;
+}
 #email-modal .window-window .window-content .sub-title {
+	margin-bottom: 10px;width: 100%;font-size: 13px;
+}
+#email-model .window-window .window-content .sub-title {
 	margin-bottom: 10px;width: 100%;font-size: 13px;
 }
 #email-modal .seprator_line {
@@ -451,7 +481,16 @@ header#header {
 #email-modal .window-window .window-content .left {
 	margin: 8px;
 }
+#email-model .window-window .window-content .left {
+	margin: 8px;
+}
 #email-modal .window-window .window-content .left {
+	float: left;
+	padding: 12px 10px;
+	text-align: left;
+	width: 95%;
+}
+#email-model .window-window .window-content .left {
 	float: left;
 	padding: 12px 10px;
 	text-align: left;
@@ -469,6 +508,9 @@ header#header {
 	margin-top: 6px;
 }
 #email-modal .window-window .window-content .right {
+	display: none;
+}
+#email-model .window-window .window-content .right {
 	display: none;
 }
 .cart_subtotal p .or {
@@ -1729,6 +1771,13 @@ body {
     top: 10%;
     width: 90%;
 }
+
+#email-model .window-window .window-content {
+    left: 5%;
+    margin-top: 50px;
+    top: 10%;
+    width: 90%;
+}
   
 .product_wrap .flexslider-thumb li img{width: 98%;}
   .product-list-item .product_image-wrap img{width: 70%;}
@@ -1944,16 +1993,34 @@ header#header {
 #email-modal .window-window .window-content .message {
 	display: none;
 }
+#email-model .window-window .window-content .message {
+	display: none;
+}
 #email-modal .window-window .window-content .sub-title {
+	margin-bottom: 10px;
+}
+#email-model .window-window .window-content .sub-title {
 	margin-bottom: 10px;
 }
 #email-modal .seprator_line {
 	display: none;
 }
+#email-model .seprator_line {
+	display: none;
+}
 #email-modal .window-window .window-content .left {
 	margin: 8px;
 }
+#email-model .window-window .window-content .left {
+	margin: 8px;
+}
 #email-modal .window-window .window-content .left {
+	float: left;
+    padding: 12px 10px;
+    text-align: left;
+    width: 100%;
+}
+#email-model .window-window .window-content .left {
 	float: left;
     padding: 12px 10px;
     text-align: left;
@@ -1975,6 +2042,9 @@ header#header {
 	margin-top: 6px;
 }
 #email-modal .window-window .window-content .right {
+	display: none;
+}
+#email-model .window-window .window-content .right {
 	display: none;
 }
 .cart_subtotal p .or {
@@ -3160,6 +3230,15 @@ ul.tabs {
     position: relative;
     top: 10%;
 }
+
+#email-model .window-window .window-content {
+    background: none repeat scroll 0 0 white;
+    float: left;
+    left: 10%;
+    margin-top: 100px;
+    position: relative;
+    top: 10%;
+}
   .tile_cart {
 	  padding: 0px 5px 14px;
 }
@@ -4001,6 +4080,15 @@ body {
 .top-cart-contain.sticky-topcart {right: 5.2%;}
 .site-nav > li > a > span {padding: 0 14px;} 
 #email-modal .window-window .window-content {
+    background: none repeat scroll 0 0 white;
+    float: left;
+    left: 20%;
+    margin-top: 120px;
+    position: relative;
+    top: 10%;
+}
+
+#email-model .window-window .window-content {
     background: none repeat scroll 0 0 white;
     float: left;
     left: 20%;
