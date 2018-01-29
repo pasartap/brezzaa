@@ -892,7 +892,8 @@
         "popup-desc": "",
         "popup-desc-color": "#50a746",
         "popup-msg": "",
-        "dropdown-popup": "3"
+        "dropdown-popup": "3",
+        "popup-bg": "popup-bg.jpg"
     },
     "presets":
     {}
