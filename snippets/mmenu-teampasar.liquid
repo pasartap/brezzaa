@@ -1,0 +1,144 @@
+<div id="sticky-mmenu" class="mm-fixed-top Fixed">
+    <div class="mh-head">
+        <span class="mh-btns-left">
+            <a href="#sticky-menu"><i class="fa fa-bars" style="color:white" aria-hidden="true"></i></a>
+        </span>
+        <!-- Main Logo --> 
+        {% if settings.use_custom_logo %} 
+            <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_white_custom.png' | asset_img_url: '2048x575' }}" /> </a>
+        {% else %} 
+            <a href="/"> <img style="width:142px;height:40px" src="{{ 'logo_white.png' | asset_img_url: '2048x575' }}" /> </a>
+        {% endif %} 
+        <!-- End Main Logo --> 
+    </div>
+
+    <div class="mh-head mobile-shadow">
+        <form class="mh-form search-form form-inline" action="/search" method="get">
+            <input placeholder="Search" type="text" name="q" />
+            <a href="#" class="fa fa-search" onclick="$(this).closest('form').submit()"></a>
+        </form>
+    </div>
+</div>
+
+<nav id="sticky-menu">
+    <ul>
+        <li><span>Account</span>
+            <ul>
+                {% if customer %}
+                    <div>
+                        <br />
+                        <h3 style="padding-left:20px">{{ customer.name }}</h3>
+                        <p style="padding-left:20px">{{ customer.email }}</p>
+                    </div>
+                    <li><a href="/account"><span>My account</span></a></li>
+                    <li>{{ '<span>Sign out out</span>' | customer_logout_link }}</li>
+                {% else %}
+                    <li>{{ "<span>Sign in</span>" | customer_login_link }}</li>
+                    <li>{{ "<span>Sign up</span>" | customer_register_link }}</li>
+                {% endif %}
+            </ul>
+        </li>
+        {% if settings.main_nav != blank %}
+            <li><span>Products</span>
+                <ul>
+                    {% for link in linklists[settings.main_nav].links %}
+                        <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a>                       
+                            {% if linklists[link.handle].links.size > 0 %}
+                                <ul>
+                                    {% for childlink in linklists[link.handle].links %}
+                                        <li><a href="{{ childlink.url }}"><span>{{ childlink.title }}</span></a>
+                                            {% if linklists[childlink.handle].links.size > 0 %}
+                                                <ul>
+                                                    {% for childlink2 in linklists.[childlink.handle].links %}
+                                                        <li>
+                                                            <a href="{{ childlink2.url }}" ><span>{{ childlink2.title }}</span></a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li> 
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
+        <li><span>Information</span>
+            <ul>
+                {% for link in linklists.information.links %}
+                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a></li> 
+                {% endfor %}
+            </ul>
+        </li>
+        <li><span>Customer Service</span>
+            <ul>
+                {% for link in linklists.customer-service.links %}
+                    <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a></li> 
+                {% endfor %}
+            </ul>
+        </li>
+     </ul>
+</nav>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $("#sticky-menu").mmenu({
+        extensions: [
+            "theme-white",
+            "multiline",
+            "pagedim-black",
+            "border-none"
+        ],
+        navbar: {
+            title: ""
+        },
+        navbars: [
+            {
+                height: 2,
+                position: "top",
+                content: [
+                  "{% if settings.use_custom_logo %} <a href='/'> <img style='width:142px;height:31px' src='{{ 'logo_green_custom.png' | asset_img_url: '4739x1032' }}' /> </a> {% else %} <a href='/'> <img style='width:142px;height:31px' src='{{ 'logo_green.png' | asset_img_url: '4739x1032' }}' /> </a> {% endif %}"
+               ]
+            },
+            {
+               position: "bottom",
+               content: [
+                  "{% if settings.show_twitter %} <a class='fa fa-twitter' target='_blank' href='{{ settings.header_social_1_twi }}'</a>{% endif %}",
+                  "{% if settings.show_facebook %} <a class='fa fa-facebook' target='_blank' href='{{ settings.header_social_3_fcb }}'</a>{% endif %}",
+                  "{% if settings.show_linkedin %} <a class='fa fa-linkedin' target='_blank' href='{{ settings.header_social_4_linkedin }}'</a>{% endif %}",
+                  "{% if settings.show_instagram1 %} <a class='fa fa-instagram' target='_blank' href='{{ settings.header_social_4_instagram }}'</a>{% endif %}"
+               ]
+            }
+        ],
+        offCanvas: {
+            position: "left"
+        }
+    });
+
+   
+        offCanvas: {
+            position: "right"
+        }
+    });
+
+    $(".mh-head.mm-sticky").mhead({
+        scroll: {
+            hide: 200
+        }
+    });
+    
+    $(".mh-head:not(.mm-sticky)").mhead({
+        scroll: false
+    });
+
+    // remove left border issue
+    $(".mm-next").addClass("mm-fullsubopen");
+
+
+    // remove quick view class
+    $('li').removeClass('sca-qv-image');
+});
+</script>
