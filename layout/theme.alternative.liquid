@@ -107,116 +107,6 @@
     <div class="quick-view"></div>
 
 
-     <!-- main content -->
-    <!-- IF frontpage -->    
-    {% if page == pages.frontpage %} 
-      <!-- slider -->    
-      {% if customer and customer_tags contains 'wholesale' %}
-      {% else %}
-        {% include 'home-slider' %} 
-      {% endif %}
-
-      <div id="main_content" class="col-main col-sm-12 col-sm-push-3-{{ content_width }}"> 
-      {% if template == 'collection' %}
-        {% include 'collection.list' %}
-      {% else %}
-        {{ content_for_layout }}
-      {% endif %} 
-      </div>
-    {% endif %} 
-
-    <!-- IF NOT frontpage -->         
-    {% if template != 'index' %}
-      {% if settings.enable_breadcrumbs %}
-        <div class="breadcrumbs">{% include 'snippet-breadcrumbs' %}</div>
-      {% endif %}
-      <div id="main" class="container" role="main">
-        <div class="row"> 
-          {% case template %}
-            {% when 'index' %}
-              {% assign width_sidebars = false %} 
-            {% when 'page.homepage' %}
-              {% assign width_sidebars = false %} 
-            {% when 'page.noasides' %}
-              {% assign width_sidebars = false %}
-            {% when 'page.teampasar' %}
-              {% assign width_sidebars = false %}
-            {% when 'product' %}
-              {% assign width_sidebars = false %}
-            {% when 'customers/register' %}
-              {% assign width_sidebars = false %} 
-            {% when 'customers/login' %}
-              {% assign width_sidebars = false %}
-            {% when 'page.contact' %}
-              {% assign width_sidebars = false %}
-            {% when 'customers/account' %}
-              {% assign width_sidebars = false %}
-            {% when 'customers/addresses' %}
-              {% assign width_sidebars = false %}
-            {% when 'cart' %}
-              {% assign width_sidebars = false %}
-            {% when 'page' %}
-              {% assign width_sidebars = false %}
-            {% when 'page.wishlist' %}
-              {% assign width_sidebars = false %} 
-            {% else %}
-              {% assign width_sidebars = true %}
-          {% endcase %} 
-
-
-           <!-- left column --> 
-          {% if settings.enable_left_sidebar %}
-            {% if width_sidebars == true %}
-              <div id="aside-left" class=" col-sm-{{ settings.left_sidebar_width }} column"> 
-                {% if blog %}
-                  {% include 'recent-post' %}
-                {% endif %} 
-                {% else %} 
-                  {% include 'sidebar-nav' %}
-                  {% include 'collection-filter' %}
-                {% endif %} 
-                
-                {% include 'widget-types' %}
-                {% include 'best-seller-single' %}
-                {% include 'widget-banner' %}
-                {% include 'widget-cms-block' %} 
-              </div>
-            {% endif %} 
-          {% endif %}
-
-
-          <!-- right column --> 
-          {% if settings.enable_right_sidebar %}
-            {% if width_sidebars == true %}
-              <div id="aside-right" class="col-sm-{{ settings.right_sidebar_width }} column"> 
-                {% if blog %}
-                  {% include 'recent-post' %}
-                {% endif %} 
-                
-                {% if blog %}
-                {% else %} 
-                  {% include 'sidebar-nav' %}
-                  {% include 'collection-filter' %}
-                {% endif %} 
-                
-                {% include 'widget-types' %}
-                {% include 'best-seller-single' %}
-                {% include 'widget-banner' %}
-                {% include 'widget-cms-block' %} 
-              </div>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-
-
- {% if width_sidebars == true %}
-            {% assign content_width = settings.content_width %}
-          {% else %}
-            {% assign content_width = 12 %}
-          {% endif %} 
-
-
    <!-- center column -->
           <div id="main_content" class="col-main col-sm-{{ content_width }}"> 
           {{ content_for_layout }}
@@ -233,6 +123,7 @@
   
   {% include 'newsletter-popup' %}
   {% include 'snippet-currencies' %} 
+  {% include 'popup' %}
 
   <script type="text/javascript">
   $(document).ready(function(){
