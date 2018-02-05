@@ -41,7 +41,7 @@
         {% if settings.main_nav != blank %}
             <li><span>Products</span>
                 <ul>
-                    {% for link in linklists[settings.main_nav].links %}
+                    {% for link in linklists[settings.main_nav_teampasar].links %}
                         <li><a href="{{ link.url }}"><span>{{ link.title }}</span></a>                       
                             {% if linklists[link.handle].links.size > 0 %}
                                 <ul>
@@ -65,6 +65,8 @@
                 </ul>
             </li>
         {% endif %}
+
+        <!-- Footer pages -->
         <li><span>Information</span>
             <ul>
                 {% for link in linklists.information.links %}

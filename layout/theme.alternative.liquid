@@ -102,13 +102,8 @@
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div id="wrapper"> 
-    {% assign customer_tags = customer.tags | downcase %}
     <!-- header -->
-    {% if customer and customer_tags contains 'wholesale' %}
-      {% include 'header-teampasar' %}
-    {% else %}
-      {% include 'header-teampasar' %}
-    {% endif %}  
+          {% include 'header-teampasar' %}
     <div class="quick-view"></div>
 
 
