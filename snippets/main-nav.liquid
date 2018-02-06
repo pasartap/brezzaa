@@ -20,11 +20,14 @@
       {% assign menu_handle = settings.main_nav_wholesale %}
     {% endif %}
 
-
-    {% if collections.handle == "team-pasar" %}
+  <!-- Teampasar menu -->
+    {% if collection.handle == "team-pasar" %}
     {% assign menu_handle = settings.main_nav_teampasar %}
     {% endif %}
 
+    {% if page.handle == "teampasar" %}
+    {% assign menu_handle = settings.main_nav_teampasar %}
+    {% endif %}
 
     {% for link in linklists[menu_handle].links %}
       {% if linklists[link.handle] != empty %}
