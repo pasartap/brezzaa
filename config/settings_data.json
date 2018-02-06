@@ -893,7 +893,13 @@
         "popup-desc-color": "#50a746",
         "popup-msg": "",
         "dropdown-popup": "3",
-        "popup-bg": "popup-bg.jpg"
+        "popup-bg": "popup-bg.jpg",
+        "main_nav_teampasar": "main-menu-teampasar",
+
+        "content_for_index": [
+
+    ]
+        
     },
     "presets":
     {}
