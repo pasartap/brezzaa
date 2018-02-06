@@ -20,6 +20,12 @@
       {% assign menu_handle = settings.main_nav_wholesale %}
     {% endif %}
 
+
+    {% if collections.handle == "team-pasar" %}
+    {% assign menu_handle = settings.main_nav_teampasar %}
+    {% endif %}
+
+
     {% for link in linklists[menu_handle].links %}
       {% if linklists[link.handle] != empty %}
       {% assign cat = link.title | downcase %}
