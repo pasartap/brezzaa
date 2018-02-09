@@ -77,24 +77,30 @@
             </div>
             {% comment %} For the checkout and update buttons to work, they need to use a name attribute set to 'checkout' and 'update', respectively. That's case-sensitive. {% endcomment %}
             <div class="cart_subtotal">
-                <h3>Subtotal <em><span class="money">{{ cart.total_price | money }}</span></em></h3>
+                <h3>Subtotal <em><span class="money"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></span></em></h3>
                 <p>
                     <a href="{{ collection_url }}" class="continue_shop">Continue shopping</a>
                     <span class="or">or</span>
                     <input type="submit" name="update" value="Update cart" class="update-btn" />
+                    {% comment %}   
                     <span class="or">or</span>
-                    <input type="submit" name="checkout" value="Check out" class="check-btn" /> {% comment %}Paypal and Google checkout buttons{% endcomment %} {% if additional_checkout_buttons %}
+                    <a href="javascript:void(0);" id="btnOpenCart" class="continue_shop">Open cart</a>
+                    
+                    <input type="submit" name="checkout" value="Check out" class="check-btn" />{% endcomment %} {% comment %}Paypal and Google checkout buttons{% endcomment %} {% if additional_checkout_buttons %}
                     <p class="additional-checkout-buttons">
                         {{ content_for_additional_checkout_buttons }}
                     </p>
+                    
                     {% endif %}
                 </p>
             </div>
+            {% comment %}
             {% include 'local-delivery-cart' %} {% comment %} For the special instructions to be submitted with order, they need to use a name attribute set to 'note'. That's case-sensitive. {% endcomment %}
             <div class="cart_instructions">
                 <h3>Add instructions</h3>
                 <textarea class="form-control" name="note">{{ cart.note }}</textarea>
             </div>
+            {% endcomment %}
         </form>
         {% else %}
         <div>
@@ -105,3 +111,10 @@
     </div>
     {% include 'widget-payment-methods' %}
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#btnOpenCart").click(function() {
+      $('#cartToggle').trigger('click');
+    });
+});
+</script>
