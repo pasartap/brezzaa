@@ -102,16 +102,61 @@
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div id="wrapper"> 
+    {% assign customer_tags = customer.tags | downcase %}
     <!-- header -->
+    {% if customer and customer_tags contains 'wholesale' %}
           {% include 'header-teampasar' %}
+          {% else %}
+          {% include 'header-teampasar' %}
+          {% endif %}
     <div class="quick-view"></div>
 
 
+<!-- page content in middle -->
+<div id="main" class="container" role="main">
+        <div class="row"> 
+<!-- left column --> 
+          {% if settings.enable_left_sidebar %}
+            {% if width_sidebars == true %}
+              <div id="aside-left" class=" col-sm-{{ settings.left_sidebar_width }} column"> 
+
+                {% include 'widget-cms-block' %} 
+              </div>
+            {% endif %} 
+          {% endif %}
+        
+          {% if width_sidebars == true %}
+            {% assign content_width = settings.content_width %}
+          {% else %}
+            {% assign content_width = 12 %}
+          {% endif %} 
+
    <!-- center column -->
           <div id="main_content" class="col-main col-sm-{{ content_width }}"> 
-          {{ content_for_layout }}
+          <!-- collection-header --> 
+            {% if collection.handle == 'all' %}
+              {% include 'collection-header' %} 
+            {% endif %}
+                         
+                    {{ content_for_layout }}
+                     </div>
+
+            <!-- right column --> 
+          {% if settings.enable_right_sidebar %}
+            {% if width_sidebars == true %}
+              <div id="aside-right" class="col-sm-{{ settings.right_sidebar_width }} column"> 
+                
+                
+                {% include 'widget-cms-block' %} 
+              </div>
+            {% endif %}
+          {% endif %}
 
   </div>
+  </div>
+</div>
+
+
 
 
 <!-- service block/footer --> 
