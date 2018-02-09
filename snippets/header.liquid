@@ -939,7 +939,55 @@ jQuery(document).ready(function() {
 						}
 						return false;
 					})
-				}  
+        }
+
+        /* Checkout button event handler */
+        if (e("#checkout").length > 0) {
+          e("#checkout").click(function(n) {
+
+            // Get the product ids of max-1 products in the cart
+            var max_1_product_ids = [];
+            {% for item in cart.items %}
+              {% if item.product.tags contains "Max-1" %}
+                max_1_product_ids.push({{ item.id }});
+              {% endif %}
+            {% endfor %}
+
+            // Ensure only 1 item in the cart for each max-1 product
+            if (max_1_product_ids.length > 0) {
+              for (var i = 0; i < max_1_product_ids.length; i++) {
+                  t.doAjaxUpdateCart(max_1_product_ids[i], 1, null, null);
+              }
+            }
+
+            $("#cart-form").submit();
+            return false;
+          })
+        }  
+
+        /* Mobile checkout button event handler */
+        if ($(".btn-checkout-mobile").length > 0) {
+          $(".btn-checkout-mobile").click(function(n) {
+
+            // Get the product ids of max-1 products in the cart
+            var max_1_product_ids = [];
+            {% for item in cart.items %}
+              {% if item.product.tags contains "Max-1" %}
+                max_1_product_ids.push({{ item.id }});
+              {% endif %}
+            {% endfor %}
+
+            // Ensure only 1 item in the cart for each max-1 product
+            if (max_1_product_ids.length > 0) {
+              for (var i = 0; i < max_1_product_ids.length; i++) {
+                  t.doAjaxUpdateCart(max_1_product_ids[i], 1, null, null);
+              }
+            }
+
+            $("#cart-form").submit();
+            return false;
+          })
+        }  
 			},
 			showLoading: function() {
 				e(".loading-modal").show()
