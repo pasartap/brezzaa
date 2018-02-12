@@ -912,7 +912,7 @@
         "tab-one-header": "collection 1 tab",
         "home-tab-one-category": "collection 1",
         "tab-two-header": "collection 2 tab",
-        "home-tab-two-category": "collection 2",
+        "home-tab-two-category": "collection",
 
 
         "content_for_index": [
@@ -1799,7 +1799,6 @@
     "cart_information": "Price excludes <strong>10%<\/strong> handling fee and <strong>RM3<\/strong> delivery fee, which is applied at checkout.",
     "cart_information_wholesale": "Price excludes <strong>10%<\/strong> handling fee and <strong>RM10<\/strong> delivery fee, which is applied at checkout.",
     "order_minimum": "30",
-    
     "content_for_index": [
 
     ]
