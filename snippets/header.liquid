@@ -154,7 +154,7 @@
         					      <textarea class="form-control" rows="1" id="cart-note" name="note">{{ cart.note }}</textarea>
         				      </div>
                       <div class="actions" style="padding:0 10px">
-                        <button class="btn" style="width:100%;margin-bottom:10px;" type="submit" id="checkout" disabled="disabled">Checkout</button>
+                        <button class="btn btn-checkout" style="width:100%;margin-bottom:10px;" type="submit" disabled="disabled">Checkout</button>
                         {% comment %}<p class="text-cart"><a href="/cart">View Cart</a></p>{% endcomment %}
                       </div>              		  
                     </div>
@@ -942,8 +942,8 @@ jQuery(document).ready(function() {
         }
 
         /* Checkout button event handler */
-        if (e("#checkout").length > 0) {
-          e("#checkout").click(function(n) {
+        if (e(".btn-checkout").length > 0) {
+          e(".btn-checkout").click(function(n) {
 
             // Get the product ids of max-1 products in the cart
             var max_1_product_ids = [];
@@ -960,29 +960,12 @@ jQuery(document).ready(function() {
               }
             }
 
-            $("#cart-form").submit();
-            return false;
-          })
-        }  
-
-        /* Mobile checkout button event handler */
-        if ($(".btn-checkout-mobile").length > 0) {
-          $(".btn-checkout-mobile").click(function(n) {
-
-            // Get the product ids of max-1 products in the cart
-            var max_1_product_ids = [];
-            {% for item in cart.items %}
-              {% if item.product.tags contains "Max-1" %}
-                max_1_product_ids.push({{ item.id }});
-              {% endif %}
-            {% endfor %}
-
-            // Ensure only 1 item in the cart for each max-1 product
-            if (max_1_product_ids.length > 0) {
-              for (var i = 0; i < max_1_product_ids.length; i++) {
-                  t.doAjaxUpdateCart(max_1_product_ids[i], 1, null, null);
-              }
-            }
+            // Fix issue of time slot not included in order form
+            var delivery_time = $('#local_delivery').val();          
+            Shopify.updateCartAttributes([{
+              key: 'delivery_time',
+              value: delivery_time
+            }], function(onError) {});
 
             $("#cart-form").submit();
             return false;
