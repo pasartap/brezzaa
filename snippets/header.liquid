@@ -549,6 +549,9 @@ jQuery(document).ready(function() {
                 $(product_page_class + ' #purchase #quantity').removeClass('disabled').removeAttr('disabled', 'disabled');
                 $(product_page_class + ' #purchase #add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled');
               }
+
+              // Reset max_1_check
+              $("#max_1_check").val(null);
             }
 
 					  /* Plus button in cart event handler */
@@ -673,6 +676,9 @@ jQuery(document).ready(function() {
                 $(product_page_class + ' #purchase #quantity').removeClass('disabled').removeAttr('disabled', 'disabled');
                 $(product_page_class + ' #purchase #add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled');
               }
+
+              // Reset max_1_check
+              $("#max_1_check").val(null);
             }				
 					})
 				})
@@ -945,41 +951,30 @@ jQuery(document).ready(function() {
         if (e(".btn-checkout").length > 0) {
           e(".btn-checkout").click(function(n) {
 
-            // Get the product ids of max-1 products in the cart
-            var max_1_product_ids = [];
-            var quantity = 1;
-            var title;
-
-            {% for item in cart.items %}
-              {% if item.product.tags contains "Max-1" %}
-                max_1_product_ids.push({{ item.id }});
-              {% endif %}
-
-              {% if item.quantity > 1 %}
-                quantity = {{ item.quantity }};
-                title = "{{ item.title }}";
-              {% endif %}
-
-            {% endfor %}
-
-            // Ensure only 1 item in the cart for each max-1 product
-            if (title &&  quantity > 1 && max_1_product_ids.length > 0) {
-              // for (var i = 0; i < max_1_product_ids.length; i++) {
-              //     t.doAjaxUpdateCart(max_1_product_ids[i], 1, null, null);
-              // }
-              alert('You added ' + quantity + ' items for the product ' + title + ' to your cart. You may only add 1 item of this promotional product.');
+            // Check for max-1 product
+            var max_1_check = $("#max_1_check").val();
+            if (max_1_check) {
+              alert('You added more than 1 item of ' +  max_1_check + ' to your cart. You may only add 1 item of the promotional product.');
               return false;
             }
 
             // Fix issue of time slot not included in order form
-            var delivery_time = $('#local_delivery').val();          
-            Shopify.updateCartAttributes([{
-              key: 'delivery_time',
-              value: delivery_time
-            }], function(onError) {});
-
-            $("#cart-form").submit();
-            return false;
+            {% if cart.attributes.local_delivery_request == "" or cart.attributes.local_delivery_request == nil %}
+              var delivery_time = $('#local_delivery').val();             
+              if (delivery_time) {
+                Shopify.updateCartAttributes([{
+                  key: 'local_delivery_request',
+                  value: delivery_time
+                }], function(onSuccess) {
+                    $("#cart-form").submit();
+                },
+                  function(onError) {
+                    return false;
+                });
+              }
+            {% else %}
+              $("#cart-form").submit();
+            {% endif %}        
           })
         }  
 			},
@@ -1168,6 +1163,15 @@ jQuery(document).ready(function() {
                 $(product_action_class + ' .cart-buttons .btn-add-to-cart').attr('disabled', 'disabled');
               }
             })
+
+            // Check if max-1 product quantity is more than 1
+            if (n.items[i].quantity > 1) {
+              Shopify.getProduct(n.items[i].handle, function(product) {
+                if (product.tags.indexOf("Max-1") != -1) {
+                  $("#max_1_check").val(product.title);
+                } 
+              })
+            }
 					}
 				}
 
