@@ -21,11 +21,11 @@
     {% endif %}
 
   <!-- Teampasar menu -->
-    {% if collection.handle == "team-pasar" %}
+    {% if collection.handle == "team-pasar" and settings.main_nav_teampasar != blank %}
     {% assign menu_handle = settings.main_nav_teampasar %}
     {% endif %}
 
-    {% if page.handle == "teampasar" %}
+    {% if page.handle == "teampasar" and settings.main_nav_teampasar != blank %}
     {% assign menu_handle = settings.main_nav_teampasar %}
     {% endif %}
 
