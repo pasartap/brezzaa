@@ -997,7 +997,7 @@
     "top_link_hover_color": "#50a746",
     "display_account_link": true,
     "display_wishlist_link": false,
-    "display_checkout_link": true,
+    "display_checkout_link": false,
     "display_login_link": true,
     "display_search": true,
     "search_placeholder": "Search",
