@@ -23,7 +23,7 @@
       {% assign cat = link.title | downcase %}
       <li class="dropdown {% if settings.display_megamenu and items_list contains cat %} mega-menu {% endif %}">
         
-        <a href="{{ link.url }}" class="{% if link.active %} current{% endif %}"><span>{{ link.title | downcase | replace: '(wholesale)', '' }}</span></a> 	    
+        <a href="{{ link.url }}" class="{% if link.active %} current{% endif %}"><span>{{ link.title | replace: '(Wholesale)', '' }}</span></a> 	    
         {% comment %}
         Check if menu item is Mega menu
         {% endcomment %}
@@ -37,7 +37,7 @@
             {% for childlink in linklists[link.handle].links %}
               {% if linklists[childlink.handle] != empty %}
                 <li class="dropdown">
-                  <a href="{{ childlink.url }}" class="{% if childlink.active %} current{% endif %}"><span>{{ childlink.title }}</span></a>
+                  <a href="{{ childlink.url }}" class="{% if childlink.active %} current{% endif %}"><span>{{ childlink.title | replace: '(Wholesale)', '' }}</span></a>
                   <ul class="site-nav-dropdown">
                     
                     {% for childlink2 in linklists.[childlink.handle].links %}
@@ -59,7 +59,7 @@
                   </ul>
                 </li>
               {% else %}
-                <li><a href="{{ childlink.url }}" class="{% if link.active %} current{% endif %}">{{ childlink.title | escape }}</a></li>
+                <li><a href="{{ childlink.url }}" class="{% if link.active %} current{% endif %}">{{ childlink.title | replace: '(Wholesale)', '' }}</a></li>
               {% endif %}      
             {% endfor %}
         </ul>
