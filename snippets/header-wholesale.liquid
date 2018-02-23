@@ -78,7 +78,7 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block"> 
           <!-- Header Logo --> 
-          <a id="logo" href="/"> <img style="width:220px;height:47px;margin-left:-22px;" src="{{ 'logo_green_ptwholesale.png' | asset_img_url: '3508x763' }}" /> </a>
+          <a id="logo" href="/"> <img style="width:144px;height:144px;margin-top:-40px;" src="{{ 'logo_green_ptwholesale.png' | asset_img_url: '2667x2667' }}" /> </a>
           <!-- End Header Logo --> 
         </div>
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 search-block">
@@ -205,10 +205,12 @@
   				jQuery(window).scroll(function() {
   					if (jQuery(this).scrollTop() > 175) {
   						jQuery("#navigation").addClass("sticky-header");
+              jQuery("#navigation-2").addClass("margin-top-40px");
               jQuery(".site-nav-dropdown").addClass("margin-top-3px");
   						jQuery("#sticky-topbar").show();
   					} else {
   						jQuery("#navigation").removeClass("sticky-header");
+              jQuery("#navigation-2").removeClass("margin-top-40px");
               jQuery(".site-nav-dropdown").removeClass("margin-top-3px");
   						jQuery("#sticky-topbar").hide();
   					}
@@ -217,7 +219,7 @@
     {% else %}
       <div id="navigation">  
     {% endif %}
-    <div id="navigation"><nav> {% include 'main-nav' %} </nav></div>
+    <div id="navigation-2"><nav> {% include 'main-nav' %} </nav></div>
 	{% endif %} 
 
 	<!-- Sticky Top Bar -->
