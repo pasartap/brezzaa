@@ -54,7 +54,14 @@
         <span class="money">{{ product.price | money }}</span>
       {% endif %}  
       </div>
-      {% include 'snippet-add-to-cart' %}
+
+{% assign product_tags = product.tags %}
+{% if product.tags contains 'Max-1' %}
+{% include 'snippet-add-to-cart-max-1' %} 
+{% else %}
+{% include 'snippet-add-to-cart' %}   
+{% endif %}
+
       {% comment %}{% include 'wishlist-product' %}{% endcomment %}
     </div>
   </div>
