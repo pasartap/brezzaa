@@ -65,6 +65,11 @@
       {% endif %}
   	</div>
     
-    {% include 'snippet-add-to-cart' %}   
+{% assign product_tags = product.tags | downcase %}
+{% if product.tags contains 'max-1' %}
+{% include 'snippet-add-to-cart-max-1' %} 
+{% else %}
+{% include 'snippet-add-to-cart' %}   
+{% endif %} 
   </div>
 </div>
