@@ -15,7 +15,6 @@
                     <tr class="first last">
                         <th rowspan="1">&nbsp;</th>
                         <th rowspan="2"><span class="nobr">Product Name</span></th>
-                        <th class="a-center">Price</th>
                          <th class="a-center" colspan="1">Action</th>
                         <th rowspan="1" class="a-center">&nbsp;</th>
                     </tr>
@@ -57,10 +56,7 @@
              <td><h3><a href='{{ product.url }}'>{{ product.title }}</a></h3> </td>
     
     
-    
-                <td class="a-right hidden-table">
-                            <span class="money">{{ product.price | money }}</span>
-                    </td>
+
                         <td class="a-center movewishlist">
      <a href='#add-to-cart' onclick="addToCart('{{ product.variants.first.id }}')" class="btn btn-primary">Add to Cart</a>
     </td>

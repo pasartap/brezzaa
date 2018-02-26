@@ -26,12 +26,11 @@
         {% assign product_tags = product.tags | downcase %}
         
         {% if product_tags contains 'wholesale' %}
-          {% assign is_wholesale_product = true %}
-        {% endif %}
-
-        {% if is_wholesale_product == false %}
+          {% include 'product-list-item' %}
+          {% else %}
           {% include 'product-list-item' %}
         {% endif %}
+
         {% comment %}{% include 'product-list-item' %}{% endcomment %}
       {% else %}
         <div class="grid-item">
