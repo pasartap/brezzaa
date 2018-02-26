@@ -13,12 +13,10 @@
                     </colgroup>
    <thead>
                     <tr class="first last">
-                        <th rowspan="1">&nbsp;</th>
-                        <th rowspan="2"><span class="nobr">Product Name</span></th>
-                        <th rowspan="3"><span class="nobr">Weight</span></th>
-                        <th rowspan="4"><span class="nobr">Quantity</span></th>
+                        <th rowspan="1"><span class="nobr">Product Name</span></th>
+                        <th rowspan="2"><span class="nobr">Weight</span></th>
+                        <th rowspan="3"><span class="nobr">Quantity</span></th>
                          <th class="a-center" colspan="1">Action</th>
-                        <th rowspan="1" class="a-center">&nbsp;</th>
                     </tr>
                                     </thead>
          <tbody>
@@ -49,33 +47,28 @@
 							{% if display and the_test contains product_id %}
            
            <tr class="first last odd">
-    <td class="image hidden-table"> 
-      <div class="item_image"><a href="{{ product.url | within: collections.all }}">  
-              <img src="{{ product.featured_image.src | product_img_url: 'medium' }}" alt="{{ item.title | escape }}"  />
-            </a>
-      </div>
-        </td>
              <td><h3><a href='{{ product.url }}'>{{ product.title }}</a></h3> </td>
 
-             <td><h3>{{ item.weight }}</h3> </td>
+             <td>
+                <span style="font-size:12px;color:grey">
+                    {% for variant in product.variants %}
+                        {{ variant.weight | weight_with_unit }}
+                  {% endfor %}
+                </span>
+             </td>
 
-             <td><h3>{{ item.quantity }}</h3> </td>
+             <td class="a-center movewishlist">
+                                        <label for="updates[]">
+                                        <h3>{{ item.quantity }}</h3>
+                                            <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ variant.quantity }}" class="form-control input-small" min="1"  />
+                                        </label>
+                                    </td>
     
     
 
-                        <td class="a-center movewishlist">
+                        
                         <td class="a-center last item_remove"><a href='#remove' onclick="removeTag('x{{ tag_id }}')"></a>
                         </td>
-    </td>
-       
-            
-
-   
-
-
-
-
-
 </tr>       
            
            
@@ -104,10 +97,6 @@
 		function removeTag(tagID) {
 			document.getElementById('remove-value').value = tagID;
 			document.getElementById('remove').submit();
-		}
-		function addToCart(variantID) {
-			document.getElementById('product-select').value = variantID;
-			document.getElementById('add-variant').submit();
 		}
 	</script>
 	
