@@ -4330,3 +4330,23 @@ body {
     right: 11.2%;
 }
 }
+
+.qoutation-link {
+	display: inline-block;
+	margin-left: 0;
+	margin-top: 15px;
+	position: inherit;
+	background-color: #50a746;
+}
+.qoutation-btn {
+	display: inline-block;
+	margin-left: 0;
+	margin-top: 15px;
+	position: inherit;
+}
+
+  .product_wrap a.qoutation{margin: 10px 0px 0px 12px;}
+.product_wrap .add-quantity{display: inline-block;width: 100%;}
+#cloud-zoom-big {
+	display: none;
+}

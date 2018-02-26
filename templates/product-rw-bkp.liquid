@@ -94,13 +94,16 @@
               </div>
             </div><!-- /.options -->
           </form>
-                  {% if settings.display_wishlist %}
+      {% if settings.display_wishlist %}
         {% if settings.display_wishlist != blank %}
-        {% comment %}
-         {% include 'wishlist-product' %}
-         {% endcomment %}
-       {% endif %}
+         {% assign customer_tags = customer.tags | downcase %}
+           {% if customer_tags contains 'wholesale' %}
+                  {% include 'qoutation-product' %}
+           {% else %}
+                  {% include 'wishlist-product' %}
+           {% endif %}
         {% endif %}
+      {% endif %}
 
           {% else %}
           <div id="product-actions" class="sold-out">

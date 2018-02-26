@@ -96,9 +96,12 @@
   <div class="box-hover">
     <ul class="add-to-links">
       <li>
-    {% comment %}
-   {% include 'wishlist-product' %}
-    {% endcomment %} 
+           {% assign customer_tags = customer.tags | downcase %}
+           {% if customer_tags contains 'wholesale' %}
+                  {% include 'qoutation-product' %}
+           {% else %}
+                  {% include 'wishlist-product' %}
+           {% endif %} 
       </li>
   
     </ul>
