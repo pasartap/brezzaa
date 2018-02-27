@@ -18,18 +18,17 @@
 
 	{% if display %}
 		
-		
-			<a class="qoutation link-wishlist" href="/pages/qoutation" title="Already in your qoutation, Go to qoutation"><span>Qoutation</span></a>
-		
-	{% else %}
 		{% form 'customer' %}
 	<input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
 			<input type="hidden" name="contact[tags]" value="{{ value }}" />
-            <button name="wishlistform" class="qoutation"><a><span>Add to Quotation</span></a></button>
+            <button name="wishlistform" class="wishlist"><a><span>Add to Qoutation</span></a></button>
        {% endform %}
     {% endif %}
+	{% else %}
+		
+    <a class="qoutation link-wishlist" href="/pages/qoutation" title="Already in your qoutation, Go to qoutation"><span>Qoutation</span></a>
 
-{% else if customer %} 
+{% else if customer.tags = blank %} 
 	{% assign value = product.id %}
 	{% capture productID %}{{ product.id }}{% endcapture %}
 	{% for tag in customer.tags %}

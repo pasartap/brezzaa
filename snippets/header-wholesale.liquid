@@ -93,9 +93,28 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mgk-top-cart"> 
-          
-          <h1> Empty area! </h1>
-          
+          <div class="top-cart-contain center"> 
+              <script>
+                /*  sticky header  */
+                jQuery(window).scroll(function() {
+                  jQuery(this).scrollTop() > 175 ? jQuery(".top-cart-contain").addClass("sticky-topcart") : jQuery(".top-cart-contain").removeClass("sticky-topcart")
+                });
+              </script> 
+
+              <div class="col-lg-4 col-sm-4"> 
+              </div>
+
+              <div class="col-lg-4 col-sm-4"> 
+
+                <div class="qoutation-sign">
+                   <i class="fa fa-shopping-cart"></i> 
+                   <a href="/pages/qoutation"> Qoutation </a> 
+                </div>  
+              </div>
+
+              <div class="col-lg-4 col-sm-4"> 
+              </div>
+          </div>      
         </div>
         {% comment %}
         <!-- Account -->
