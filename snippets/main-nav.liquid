@@ -21,6 +21,11 @@
     {% endif %}
 
   <!-- Teampasar menu -->
+
+    {% if collection.handle == "teampasar-vendor" and settings.main_nav_teampasar != blank %}
+    {% assign menu_handle = settings.main_nav_teampasar %}
+    {% endif %}
+
     {% if collection.handle == "team-pasar" and settings.main_nav_teampasar != blank %}
     {% assign menu_handle = settings.main_nav_teampasar %}
     {% endif %}
@@ -28,6 +33,11 @@
     {% if page.handle == "teampasar" and settings.main_nav_teampasar != blank %}
     {% assign menu_handle = settings.main_nav_teampasar %}
     {% endif %}
+
+    {% if page.handle == "about-us-1" and settings.main_nav_teampasar != blank %}
+    {% assign menu_handle = settings.main_nav_teampasar %}
+    {% endif %}
+
 
     {% for link in linklists[menu_handle].links %}
       {% if linklists[link.handle] != empty %}

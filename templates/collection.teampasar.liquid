@@ -8,19 +8,12 @@
 
 <div class="grid grid-border">
   <div class="grid-item{% if has_sidebar %} large--four-fifths grid-border--left{% endif %}">
-    {% comment %}
-      Different markup if description is set
-    {% endcomment %}
     <div class="des-img">
       {% if collection.image %} 
         <img src="{{ collection.image.src | img_url: 'original' }}">
       {% endif %}
     </div>    
-    {% comment %}{% if collection.description.size > 0 %}
-      <div class="rte desc-section">
-        {{ collection.description }}
-      </div>
-    {% endif %}{% endcomment %}
+
     
     <header class="section-header">
       <h1 class="section-header-title section-header-left">{{ collection.title | downcase | replace: '(teampasar)', '' }} </h1>
