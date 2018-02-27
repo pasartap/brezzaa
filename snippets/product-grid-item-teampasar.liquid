@@ -16,7 +16,7 @@
 <div data-id="{{ product.id }}" class="product-{{ product.id }} product product__product-grid-item product-item col-sm-{{ item_width }} {% case listing_cols %}{% when '1' %}{% cycle : '', 'alpha' %}{% when '2' %}{% cycle : '', '', 'alpha' %}{% when '3' %}{% cycle : '', '', '', 'alpha' %}{% when '4' %}{% cycle : '', '', '', '', 'alpha' %}{% when '6' %}{% cycle : '', '', '', '', '', '', 'alpha' %}{% endcase %}{% cycle 'odd_even': 'item_odd', 'item_even' %} {% cycle 'step3': 'step3-1', 'step3-2', 'step3-3' %} {% cycle 'step4': 'step4-1', 'step4-2', 'step4-3', 'step4-4' %}">
   <div class="item-inner">
     <div class="product_image-wrap item-img">    
-      <a href="{{ product.url | within: collection }}" class="product-grid-image">
+      <a class="product-grid-image">
         <img src="{{ product.featured_image.src | product_img_url: 'large' }}" title="{{ product.title }}" alt="{{ product.featured_image.alt | escape }}">  
       </a>
     </div><!-- .prod-image-wrap -->

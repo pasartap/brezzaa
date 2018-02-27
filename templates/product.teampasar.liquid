@@ -73,69 +73,9 @@
           </div>
         </div>
       </div>
-    </div>
-
-
-                       
-    {% comment %}
-    <div class="pro-tabs">
-        <ul class="tabs product-tabs">
-            <li> {% if settings.display_pro_desc %} {% if settings.display_pro_desc != blank %}
-                <a href="#tab-1">{{ settings.pro-desc-title }}</a> {% endif %} {% endif %}
-            </li>
-            <li>
-                {% if settings.display_shipping %} {% if settings.display_shipping != blank %}
-                <a href="#tab-2">{{ settings.shipping-title }}</a> {% endif %} {% endif %}
-            </li>
-            <li>
-                {% if settings.display_sizechart %} {% if settings.display_sizechart != blank %}
-                <a href="#tab-3">{{ settings.sizechart-title }}</a> {% endif %} {% endif %}
-            </li>
-            <li>
-                {% if settings.display_review %} {% if settings.display_review != blank %}
-                <a href="#tab-4">{{ settings.review-title }}</a> {% endif %} {% endif %}
-            </li>
-        </ul>
-        <div id="productTabContent">
-            <div id="tab-1">
-                {% if settings.display_pro_desc %} {% if settings.display_pro_desc != blank %} {{ product.description }} {% endif %} {% endif %}
-            </div>
-            <div id="tab-2">
-                {% if settings.display_shipping %} {% if settings.display_shipping != blank %} {{ settings.shipping-desc }} {% endif %} {% endif %}
-            </div>
-            <div id="tab-4">
-                {% if settings.display_review %} {% if settings.display_review != blank %}
-                <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
-                {% endif %} {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endcomment %}
+    </div>   
   </div>
-
 </div>
-
-<script>
-  $(document).ready(function() {
-    $('ul.tabs').each(function(){
-      var active, content, links = $(this).find('a');
-      active = links.first().addClass('active');
-      content = $(active.attr('href'));
-      links.not(':first').each(function () {
-        $($(this).attr('href')).hide();
-      });
-      $(this).find('a').click(function(e){
-        active.removeClass('active');
-        content.hide();
-        active = $(this);
-        content = $($(this).attr('href'));
-        active.addClass('active');
-        content.show();
-        return false;
-      });
-    });
-  });
-</script>
 {%endif%}
 
 
