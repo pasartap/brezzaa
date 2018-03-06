@@ -1,7 +1,7 @@
-{% if settings.home-tab-2-category != blank %}
+{% if settings.home-tab-one-category != blank %}
   <ul class="pdt-list products-grid">
-    {% for product in collections[settings.home-tab-2-category].products limit:4 %}
-      {% if collections[settings.home-tab-2-category].all_products_count == 1 %}
+    {% for product in collections[settings.home-tab-one-category].products limit:4 %}
+      {% if collections[settings.home-tab-one-category].all_products_count == 1 %}
         <li class="item" style="width: 50% !important;">
       {% else %}
         <li class="item">
@@ -10,4 +10,4 @@
         </li>         
     {% endfor %}
   </ul>
-{% endif %}
+{% endif %}   

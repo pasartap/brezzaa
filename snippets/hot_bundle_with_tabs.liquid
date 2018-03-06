@@ -6,7 +6,7 @@
   <div class="row"> 
 
     <!-- Start Hot Bundle Widget -->
-    <div class="col-md-3 col-xs-12 hot-deal">
+    <div class="col-md-4 col-xs-12 hot-deal">
       <div class="widget widget__hot-product">  
         <div class="widget_header">
         </div>
@@ -14,15 +14,15 @@
           <div class="product-listing product-listing__hot-product">
           <!-- Item -->
           {% assign handle = settings.hot-bundle_cat %}
-          {% assign collection = all_collections[handle] %}
+          {% assign product = all_products[handle] %}
           {% assign date_now = 'now' | date:'%Y/%m/%d' %}      
             
             <div class="item">
               <div class="hot-label hot-top-left">Hot</div>
               {% include 'product-grid-item' with 'listing_cols' with 'image_size' %}     
-              {% if settings.start_date != blank and settings.end_date != blank  %}
+              {% if settings.start_sale_date != blank and settings.end_sale_date != blank  %}
                 <div class="box-timer">
-                  <div class="timer-grid countbox_1" data-time="{{ settings.end_date }}">
+                  <div class="timer-grid countbox_1" data-time="{{ settings.end_sale_date }}">
                   </div>
                 </div>
               {% endif %}
@@ -35,7 +35,7 @@
 
     <!-- Start Tab Section Widget -->
     <div id="home-tab-section">    
-      <div class="home-tab col-md-3 column col-xs-12">
+      <div class="home-tab col-md-8 column col-xs-12">
         <div class="category-product">
           <ul class="nav home-nav-tabs home-product-tabs">
             <li> <div class="new_title center"> <h2><strong>{{ settings.home-tab-title }}</h2> </strong></div> </li>  
@@ -47,30 +47,35 @@
 
             {% if settings.tab-two-header != blank %}
               <li class=""> <a href="#home-tab-2" data-toggle="tab" aria-expanded="false">{{ settings.tab-two-header }}</a> </li>
-            {% endif %}
-             
-            
+            {% endif %}  
+<!-- Bundle description --> 
+              <li>
+             <div class="bundle-description">
+             {{ settings.bundle-description }}
+             </div>
+             </li>
+<!-- End Bundle description -->
           </ul>
+
           <div id="productTabContent" class="tab-content">
+
             <div class="tab-pane fade active in" id="home-tab-1">
               <div class="best-seller-pro">
-                {% include 'widget-home-category1' %}
+                {% include 'bundle-tab-1' %}
               </div>
             </div>
+
             <div class="tab-pane fade" id="home-tab-2">
               <div class="new-arrivals-products-pro">
-                {% include 'widget-home-category2' %}   
+                {% include 'bundle-tab-2' %}   
               </div>
-            </div>       
+            </div>    
+
           </div>
         </div>
       </div>
 
-      <div class="home-tab col-md-3 column col-xs-12">
-       <div class="bundle-description">
-       {{ settings.bundle-description }}
-       </div>
-      </div>
+       
 
     </div>
     <!-- End Tab Section Widget -->

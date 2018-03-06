@@ -1,7 +1,7 @@
 {% assign listing_cols = '1' %}
 {% assign image_size = 'original' %}
 
-{% if settings.display_hot-bundle %}
+{% if settings.display_hot-product %}
   {% if settings.display_hot-bundle != blank %}
     <div class="col-md-3 col-xs-12 hot-deal">
       <div class="widget widget__hot-product">  
@@ -17,9 +17,9 @@
             <div class="item">
               <div class="hot-label hot-top-left">Hot</div>
               {% include 'product-grid-item' with 'listing_cols' with 'image_size' %}     
-              {% if settings.start_date != blank and settings.end_date != blank  %}
+              {% if settings.start_sale_date != blank and settings.start_sale_date != blank  %}
                 <div class="box-timer">
-                  <div class="timer-grid countbox_1" data-time="{{settings.end_date}}">
+                  <div class="timer-grid countbox_1" data-time="{{settings.start_sale_date}}">
                   </div>
                 </div>
               {% endif %}
