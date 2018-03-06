@@ -977,6 +977,8 @@
         "tab-two-header": "collection 2 tab",
         "home-tab-two-category": "fish-seafood",
         "bundle-description": "This bundle contain a list of products that can be purchased.",
+        "bundle-2-description": "bundle 2 description",
+        "bundle-number": "1",
     "start_date": "2018\/01\/05",
     "end_date": "2018\/01\/15",
     "display_discount_box": true,

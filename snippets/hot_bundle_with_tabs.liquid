@@ -42,11 +42,11 @@
 
 <!-- Display the tabs that are not empty -->
             {% if settings.tab-one-header != blank %}
-              <li class="active"><a href="#home-tab-1" data-toggle="tab" aria-expanded="false">{{ settings.tab-one-header }}</a></li> 
+              <li class="active"><a href="#home-tab-one" data-toggle="tab" aria-expanded="false">{{ settings.tab-one-header }}</a></li> 
             {% endif %}
 
             {% if settings.tab-two-header != blank %}
-              <li class=""> <a href="#home-tab-2" data-toggle="tab" aria-expanded="false">{{ settings.tab-two-header }}</a> </li>
+              <li class=""> <a href="#home-tab-two" data-toggle="tab" aria-expanded="false">{{ settings.tab-two-header }}</a> </li>
             {% endif %}  
 <!-- Bundle description --> 
               <li>
@@ -59,13 +59,13 @@
 
           <div id="productTabContent" class="tab-content">
 
-            <div class="tab-pane fade active in" id="home-tab-1">
+            <div class="tab-pane fade active in" id="home-tab-one">
               <div class="best-seller-pro">
                 {% include 'bundle-tab-1' %}
               </div>
             </div>
 
-            <div class="tab-pane fade" id="home-tab-2">
+            <div class="tab-pane fade" id="home-tab-two">
               <div class="new-arrivals-products-pro">
                 {% include 'bundle-tab-2' %}   
               </div>
@@ -86,7 +86,8 @@
 <script type="text/javascript">
  //countdown js filter
 jQuery('.timer-grid').each(function(){
-    var countTime=jQuery(this).attr('data-time');jQuery(this).countdown(countTime,function(event){jQuery(this).html('<div id="box-discount" class="day box-time-date"><span class="number">{{ settings.hot_bundle_discount }}%</span>OFF!</div><div class="day box-time-date"><span class="number">'+event.strftime('%D')+' </span>days</div> <div class="hour box-time-date"><span class="number">'+event.strftime('%H')+'</span>Hrs</div><div class="min box-time-date"><span class="number">'+event.strftime('%M')+'</span> MINS</div> <div class="sec box-time-date"><span class="number">'+event.strftime('%S')+' </span>SEC</div>');});
+    var countTime=jQuery(this).attr('data-time');
+    jQuery(this).countdown(countTime,function(event){jQuery(this).html('<div id="box-discount" class="day box-time-date"><span class="number">{{ settings.hot_bundle_discount }}%</span>OFF!</div><div class="day box-time-date"><span class="number">'+event.strftime('%D')+' </span>days</div><div class="hour box-time-date"><span class="number">'+event.strftime('%H')+'</span>Hrs</div><div class="min box-time-date"><span class="number">'+event.strftime('%M')+'</span> MINS</div><div class="sec box-time-date"><span class="number">'+event.strftime('%S')+' </span>SEC</div>');});
 });
 
 jQuery(document).ready(function() {
@@ -102,5 +103,6 @@ jQuery(document).ready(function() {
 		jQuery("#"+activeTab).fadeIn(); 
 	});
 });
+
 </script>
 
