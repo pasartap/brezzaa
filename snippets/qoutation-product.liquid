@@ -20,13 +20,15 @@
 		
 		{% form 'customer' %}
 	<input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+	        <input type="text" id="quantity" name="quantity" value="{{ item_quantity }}" class="add-to-cart-quantity-cart" readonly>
 			<input type="hidden" name="contact[tags]" value="{{ value }}" />
-            <button name="wishlistform" class="qoutation"><a><span>Add to Quotation</span></a></button>
+            <button type="button" class="btn button rfq-btn rfq-btn-null" onclick="GRFQApp.addProduct(this, 524041224256)">Add to Quotation</button>
+
        {% endform %}
 			
 		
 	{% else %}
-		<a class="qoutation link-wishlist" href="/pages/qoutation" title="Already in your qoutation, Go to qoutation"><span>Qoutation</span></a>
+		<button type="button" class="btn button rfq-btn rfq-btn-null" ><a href="/pages/quotes-history" title="Already in your qoutation, Go to qoutation">Qoutation</a> </buttton>
     {% endif %}
 
 {% else %}
