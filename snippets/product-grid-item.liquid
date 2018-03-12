@@ -32,13 +32,17 @@
       </a>
     </div><!-- .prod-image-wrap -->
    
-    <div class="box-hover">
+<div class="box-hover">
+   {% if customer and customer_tags contains 'wholesale' %}
+
+   {% else %}           
       <ul class="add-to-links">
         <li>      
         {% include 'wishlist-product' %}
         </li>  
       </ul>
-    </div>  
+    {% endif %}
+</div>  
     
     {% include 'color-switch' %}
     <div class="product_title-wrap">
@@ -67,9 +71,14 @@
     
 {% assign product_tags = product.tags | downcase %}
 {% if product.tags contains 'Max-1' %}
-{% include 'snippet-add-to-cart-max-1' %} 
+    {% include 'snippet-add-to-cart-max-1' %} 
 {% else %}
-{% include 'rfq_button' %}  
+    {% if customer and customer_tags contains 'wholesale' %}
+          {% include 'rfq_button' %}  
+    {% else %}
+    {% include 'snippet-add-to-cart' %}
+    {% endif %} 
+    
 {% endif %} 
   </div>
 </div>
