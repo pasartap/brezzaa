@@ -26,7 +26,7 @@
         {% assign product_tags = product.tags | downcase %}
         
         {% if product_tags contains 'wholesale' %}
-          {% include 'product-list-item' %}
+          {% include 'product-list-item-wholesale' %}
           {% else %}
           {% include 'product-list-item' %}
         {% endif %}
