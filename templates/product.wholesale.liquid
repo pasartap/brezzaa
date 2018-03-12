@@ -128,8 +128,7 @@
 
                   <div id="purchase">
                     <input type="number" min=1 id="quantity" name="quantity" value="1" style="">                   
-                    <button title="Add to Qoutation" type="submit" name="add" id="add-to-cart">Add to qoutation</button>
-                    {% include 'qoutation-product' %}
+                    {% include 'rfq_button' %}
                   </div>
                   
                   <div id="product_description"> {{ product.description | truncatewords: 65 }} </div>     
