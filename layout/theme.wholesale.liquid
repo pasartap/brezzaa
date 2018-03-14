@@ -117,6 +117,7 @@
   {{ 'pasartech.js' | asset_url | script_tag }}
 
   {% include 'sca-quick-view-init' %}
+  {% include 'rfq_script' %}
 </head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
