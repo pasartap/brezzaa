@@ -35,8 +35,14 @@
           <div id="product_description"> {{ product.description | truncatewords: 35 }} </div>
     </div>
 
-    <div class="col-sm-3">
-       <input type="number" min=1 id="quantity" name="quantity" value="1" style="">
-       {% include 'rfq_button' %}
+    <div class="col-sm-3 col-md-">
+      <div id="purchase">
+         <input type="number" min=1 id="quantity" name="quantity" value="1" style="">                 
+                  
+         {% include 'rfq_button' %}  
+      </div>
     </div>
+
+       
+
 </div>
