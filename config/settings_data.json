@@ -914,7 +914,7 @@
         "home-tab-one-category": "vegetables-ulam",
         "tab-two-header": "collection 2 tab",
         "home-tab-two-category": "fresh-food",
-        "bundle-description": "This bundle contain a list of products that can be purchased.",
+        "bundle-description": "This bundle contains: 1)item 1 2)item 2 3)item 3",
 
 
         "content_for_index": [
@@ -976,8 +976,11 @@
         "home-tab-one-category": "poultry",
         "tab-two-header": "collection 2 tab",
         "home-tab-two-category": "fish-seafood",
-        "bundle-description": "This bundle contain a list of products that can be purchased.",
-        "bundle-2-description": "bundle 2 description",
+        "bundle-description": "bundle description",
+        "bundle-txt": "This bundle contains:",
+        "bundle-item-1": "1)Item1",
+        "bundle-item-2": "2)Item 2",
+        "bundle-item-3": "3)Item 3",
         "bundle-number": "1",
     "start_date": "2018\/01\/05",
     "end_date": "2018\/01\/15",

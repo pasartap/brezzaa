@@ -35,11 +35,6 @@
     },
     {
         "type": "text",
-        "id": "bundle-description",
-        "label": "bundle description"
-    },
-    {
-        "type": "text",
         "id": "start_sale_date",
         "label": "Start date in Y\/M\/D format"
     },
@@ -87,6 +82,34 @@
         "id": "timer-box-background-color",
         "label": "Timer box bg color"
     },
+    {
+        "type": "header",
+        "content": "Bundle description"
+      },
+      {
+        "type": "paragraph",
+        "content": "The bundle description is disabled."
+    },
+      {
+        "type": "text",
+        "id": "bundle-description",
+        "label": "bundle description"
+      },
+      {
+        "type": "text",
+        "id": "bundle-item-1",
+        "label": "bundle item 1 name"
+      },      
+      {
+        "type": "text",
+        "id": "bundle-item-2",
+        "label": "bundle item 2 name"
+      },
+      {
+        "type": "text",
+        "id": "bundle-item-3",
+        "label": "bundle item 3 name"
+      },
     {
         "type": "header",
         "content": "Tab Section"

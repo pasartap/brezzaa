@@ -47,19 +47,33 @@
 
             {% if settings.tab-two-header != blank %}
               <li class=""> <a href="#home-tab-two" data-toggle="tab" aria-expanded="false">{{ settings.tab-two-header }}</a> </li>
-            {% endif %}  
+            {% endif %} 
+            {% comment %} 
 <!-- Bundle description --> 
               <li>
              <div class="bundle-description">
              {{ settings.bundle-description }}
+             {{ settings.bundle-txt }}
+             <br  />
+             <p>
+             {{ settings.bundle-item-1 }}
+             <br  />
+             {{ settings.bundle-item-2 }}
+             <br  />
+             {{ settings.bundle-item-3 }}
+             </p>
              </div>
              </li>
 <!-- End Bundle description -->
+{% endcomment %}
           </ul>
+
+          
 
           <div id="productTabContent" class="tab-content">
 
             <div class="tab-pane fade active in" id="home-tab-one">
+            <div class="new_title center" style="color: #50a746;"> <h3>{{ settings.bundle-txt }}</h3></div>
               <div class="best-seller-pro">
                 {% include 'bundle-tab-1' %}
               </div>
