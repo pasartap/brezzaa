@@ -79,9 +79,12 @@
                                         <span class="money">{{ item.price | money }}</span>
                                     </td>
                                     <td class="a-center movewishlist">
-                                        <label for="updates[]">
-                                            <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="form-control input-small" min="1"  />
-                                        </label>
+
+                       
+                       <label for="updates[]">
+                        <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="form-control input-small" min="1"  readonly/>
+                         </label>
+                                        
                                     </td>
                                     <td class="a-right movewishlist">
                                         <span class="money">{{ item.line_price | money }}</span>
@@ -101,10 +104,18 @@
                 {% endcomment %}
                 <div class="cart_subtotal">
                     <h3>Subtotal <em><span class="money"><span id="bk-cart-subtotal-price">{{ cart.total_price | money }}</span></span></em></h3>
+                    <br  />
+                    <div style="text-align= left">
+                        <h6> For Checkout please do use the cart in the top righ of the header. </h6>
+                    </div>
+                    <br  />
                     <p>
                         <a href="{{ collection_url }}" class="continue_shop">Continue shopping</a>
                         <span class="or">or</span>
+                        {% comment %}  
                         <input type="submit" name="update" value="Update cart" class="update-btn" />
+                        {% endcomment %}
+                        <input type="submit" name="checkout" value="Check out" class="check-btn" />
                         {% comment %}   
                         <span class="or">or</span>
                         <a href="javascript:void(0);" id="btnOpenCart" class="continue_shop">Open cart</a>
@@ -131,7 +142,7 @@
         {% else %}
             <div>
                 <h2>It appears that your cart is currently empty!</h2>
-                <h3>You can continue browsing <a href="/collections/all">here</a>.</h3>
+                <h3><a href="/collections/all">You can continue browsing here</a>.</h3>
             </div>
         {% endif %}
     </div>
