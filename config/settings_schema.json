@@ -378,6 +378,352 @@
         "id": "wholesale_time_slots",
         "label": "Time slots",
         "info": "Comma-separated time slots. Example: 11AM - 2PM,2PM - 5PM"
+    },
+    {
+        "type": "header",
+        "content": "Slide show"
+    },
+{
+        "type": "checkbox",
+        "id": "display_home_slide",
+        "label": "Display Slider?",
+        "default": true
+    },
+    {
+        "type": "header",
+        "content": "Slide 1"
+    },
+    {
+        "type": "checkbox",
+        "id": "display_home_slide1",
+        "label": "Enable slide:",
+        "default": true
+    },
+    {
+        "type": "image",
+        "id": "slide_one_image.jpg",
+        "label": "Image",
+        "max-width": 600,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "slide_one_caption_line2",
+        "label": "Caption small"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_small_caption_color",
+        "label": "Caption small text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_one_caption_line1",
+        "label": "Caption large"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_large_caption_color",
+        "label": "Caption large text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_one_caption_text",
+        "label": "Caption normal text"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_normal_text_color",
+        "label": "Caption normal text color"
+    },
+    {
+        "type": "checkbox",
+        "id": "slide_one_button_display",
+        "label": "Display buttons?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "slide_one_button1_text",
+        "label": "Button 1"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_button1_border",
+        "label": "Button 1 border color"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_button1_text_color",
+        "label": "Button 1 text color"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_button1_bgcolor",
+        "label": "Button 1 background color"
+    },
+    {
+        "type": "color",
+        "id": "slide_one_button1_bghover",
+        "label": "Button 1 background hover"
+    },
+    {
+        "type": "text",
+        "id": "slide_one_button1_link",
+        "label": "Button Link"
+    },
+    {
+        "type": "header",
+        "content": "Slide 2"
+    },
+    {
+        "type": "checkbox",
+        "id": "display_home_slide2",
+        "label": "Enable slide:",
+        "default": true
+    },
+    {
+        "type": "image",
+        "id": "slide_two_image.jpg",
+        "label": "Image",
+        "max-width": 600,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "slide_two_caption_line2",
+        "label": "Caption small"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_small_caption_color",
+        "label": "Caption small text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_two_caption_line1",
+        "label": "Caption large"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_large_caption_color",
+        "label": "Caption large text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_two_caption_text",
+        "label": "Caption normal text"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_normal_text_color",
+        "label": "Caption normal text color"
+    },
+    {
+        "type": "checkbox",
+        "id": "slide_two_button_display",
+        "label": "Display buttons?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "slide_two_button2_text",
+        "label": "Button 2"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_button2_border",
+        "label": "Button 2 border color"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_button2_text_color",
+        "label": "Button 2 text color"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_button2_bgcolor",
+        "label": "Button 2 background color"
+    },
+    {
+        "type": "color",
+        "id": "slide_two_button2_bghover",
+        "label": "Button 2 background hover"
+    },
+    {
+        "type": "text",
+        "id": "slide-two_button2_link",
+        "label": "Button Link"
+    },
+    {
+        "type": "header",
+        "content": "Slide 3"
+    },
+    {
+        "type": "checkbox",
+        "id": "display_home_slide3",
+        "label": "Enable slide:",
+        "default": true
+    },
+    {
+        "type": "image",
+        "id": "slide_three_image.jpg",
+        "label": "Image",
+        "max-width": 600,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "slide_three_caption_line2",
+        "label": "Caption small"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_small_caption_color",
+        "label": "Caption small text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_three_caption_line1",
+        "label": "Caption large"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_large_caption_color",
+        "label": "Caption large text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_three_caption_text",
+        "label": "Caption normal text"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_normal_text_color",
+        "label": "Caption normal text color"
+    },
+    {
+        "type": "checkbox",
+        "id": "slide_three_button_display",
+        "label": "Display buttons?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "slide_three_button3_text",
+        "label": "Button 3"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_button3_border",
+        "label": "Button 3 border color"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_button3_text_color",
+        "label": "Button 3 text color"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_button3_bgcolor",
+        "label": "Button 3 background color"
+    },
+    {
+        "type": "color",
+        "id": "slide_three_button3_bghover",
+        "label": "Button 3 background hover"
+    },
+    {
+        "type": "text",
+        "id": "slide_three_button3_link",
+        "label": "Button Link"
+    },
+    {
+        "type": "header",
+        "content": "Slide 4"
+    },
+    {
+        "type": "checkbox",
+        "id": "display_home_slide4",
+        "label": "Enable slide:",
+        "default": true
+    },
+    {
+        "type": "image",
+        "id": "slide_four_image.jpg",
+        "label": "Image",
+        "max-width": 600,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "slide_four_caption_line2",
+        "label": "Caption small"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_small_caption_color",
+        "label": "Caption small text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_four_caption_line1",
+        "label": "Caption large"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_large_caption_color",
+        "label": "Caption large text color"
+    },
+    {
+        "type": "text",
+        "id": "slide_four_caption_text",
+        "label": "Caption normal text"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_normal_text_color",
+        "label": "Caption normal text color"
+    },
+    {
+        "type": "checkbox",
+        "id": "slide_four_button_display",
+        "label": "Display buttons?",
+        "default": true
+    },
+    {
+        "type": "text",
+        "id": "slide_four_button_text",
+        "label": "Button 4"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_button_border",
+        "label": "Button 4 border color"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_button_text_color",
+        "label": "Button 4 text color"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_button_bgcolor",
+        "label": "Button 4 background color"
+    },
+    {
+        "type": "color",
+        "id": "slide_four_button_bghover",
+        "label": "Button 4 background hover"
+    },
+    {
+        "type": "text",
+        "id": "slide-four_button_link",
+        "label": "Button Link"
     }]
 },
 {
