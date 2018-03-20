@@ -1890,6 +1890,20 @@
     "slide_four_button1_bgcolor": "",
     "slide_four_button1_bghover": "#50a746",
     "slide_four_button1_link": "\/collections\/all",
+    "display_ads_banner": true,
+        "ads_banner_title_txt": "ads banner 1",
+        "ads_banner_title_txt_color": "#ffffff",
+        "ads_banner_line_color": "#ffffff",
+        "ads_banner_normal_txt": "",
+        "ads_banner_normal_txt_color": "#ffffff",
+        "ads_banner1_link": "/pages/ptwholesale-new",
+
+        "ads_banner2_title_txt": "ads banner 2",
+        "ads_banner2_title_txt_color": "#ffffff",
+        "ads_banner2_line_color": "#ffffff",
+        "ads_banner2_normal_txt": "",
+        "ads_banner2_normal_txt_color": "#ffffff",
+        "ads_banner2_link": "/pages/ptwholesale-new",
     "content_for_index": [
 
     ]

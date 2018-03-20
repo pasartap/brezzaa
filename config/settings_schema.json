@@ -403,9 +403,7 @@
         "type": "image",
         "id": "slide_one_image.jpg",
         "label": "Image",
-        "max-width": 600,
-        "max-height": 500,
-        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+       "info": "Maximum slide image dimensions are 1080px wide by 539px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -487,9 +485,7 @@
         "type": "image",
         "id": "slide_two_image.jpg",
         "label": "Image",
-        "max-width": 600,
-        "max-height": 500,
-        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+       "info": "Maximum slide image dimensions are 1080px wide by 539px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -571,9 +567,7 @@
         "type": "image",
         "id": "slide_three_image.jpg",
         "label": "Image",
-        "max-width": 600,
-        "max-height": 500,
-        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+       "info": "Maximum slide image dimensions are 1080px wide by 539px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -655,9 +649,7 @@
         "type": "image",
         "id": "slide_four_image.jpg",
         "label": "Image",
-        "max-width": 600,
-        "max-height": 500,
-        "info": "Maximum slide image dimensions are 600px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+       "info": "Maximum slide image dimensions are 1080px wide by 539px high. Your uploaded file will be resized to fit within those constraints."
     },
     {
         "type": "text",
@@ -724,7 +716,96 @@
         "type": "text",
         "id": "slide-four_button_link",
         "label": "Button Link"
-    }]
+    },
+
+    {
+        "type": "header",
+        "content": "ads banner"
+    },
+     {
+        "type": "checkbox",
+        "id": "display_ads_banner",
+        "label": "Display ads Banner",
+        "default": true
+    },
+    {
+        "type": "image",
+        "id": "ads-banner1.jpg",
+        "label": "Image",
+        "max-width": 285,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 285px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "ads_banner_title_txt",
+        "label": "ads banner title text"
+    },
+    {
+        "type": "color",
+        "id": "ads_banner_title_txt_color",
+        "label": "ads banner title text color"
+    },
+    {
+        "type": "color",
+        "id": "ads_banner_line_color",
+        "label": "ads banner line color"
+    },
+    {
+        "type": "text",
+        "id": "ads_banner_normal_txt",
+        "label": "ads banner normal text"
+    },
+    {
+        "type": "color",
+        "id": "ads_banner_normal_txt_color",
+        "label": "ads banner normal text color"
+    },
+    {
+        "type": "text",
+        "id": "ads_banner1_link",
+        "label": "Home Right banner1 link"
+    },
+
+     {
+        "type": "image",
+        "id": "ads-banner2.jpg",
+        "label": "Image",
+        "max-width": 285,
+        "max-height": 500,
+        "info": "Maximum slide image dimensions are 285px wide by 500px high. Your uploaded file will be resized to fit within those constraints."
+    },
+    {
+        "type": "text",
+        "id": "ads_banner2_title_txt",
+        "label": "ads banner title text"
+    },
+    {
+        "type": "color",
+        "id": "ads_banner2_title_txt_color",
+        "label": "ads banner title text color"
+    },
+    {
+        "type": "color",
+        "id": "ads_banner2_line_color",
+        "label": "ads banner line color"
+    },
+    {
+        "type": "text",
+        "id": "ads_banner2_normal_txt",
+        "label": "ads banner normal text"
+    },
+    {
+        "type": "color",
+        "id": "ads_banner2_normal_txt_color",
+        "label": "ads banner normal text color"
+    },
+    {
+        "type": "text",
+        "id": "ads_banner2_link",
+        "label": "ads banner1 link"
+    }
+]
 },
 {
     "name": "Spend Rules",
